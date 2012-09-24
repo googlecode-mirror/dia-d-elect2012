@@ -49,6 +49,7 @@
 								<th>Nome</th>
 								<th>Zona</th>
 								<th>Seção</th>
+								<th>Local</th>
 								<th class="td-actions"></th>
 							</tr>
 						</thead>
@@ -59,10 +60,11 @@
 									print '<td>'.$item->oab.'</td>';
 									print '<td>'.$item->nome.'</td>';
 									print '<td>'.$item->zona.'</td>';	
-									print '<td>'.$item->secao.'</td>';										
+									print '<td>'.$item->secao.'</td>';
+									print '<td>'.$item->local.'</td>';									
 									print '<td class="td-actions" style="width:150px">';											
 									print '		<a rel="tooltip" title="editar" href="advogado-cadastro.php?codigo='.$item->cod_advogado.'" class="btn btn-warning "><i class="icon-white icon-pencil "></i></a>';
-									print '		<a rel="tooltip" title="deletar" class="btn btn-danger" onclick="'."document.getElementById('codigo').innerHTML='<p><b>OAB:</b> {$item->oab} <br/><b>Nome:</b> {$item->nome} <br/><b>Zona:</b> {$item->zona} <br/><b>Seção:</b> {$item->secao} </p>' ;document.getElementById('deletar_id').value = " . $item->cod_advogado .  "; $('#modalDeletar').modal('show');".'">';
+									print '		<a rel="tooltip" title="deletar" class="btn btn-danger" onclick="'."document.getElementById('codigo').innerHTML='<p><b>OAB:</b> {$item->oab} <br/><b>Nome:</b> {$item->nome} <br/><b>Zona:</b> {$item->zona} <br/><b>Seção:</b> {$item->secao}<br/><b>Local:</b> {$item->local} <br/> </p>' ;document.getElementById('deletar_id').value = " . $item->cod_advogado .  "; $('#modalDeletar').modal('show');".'">';
 									print '			<i class="icon-trash icon-white"></i>';
 									print '		</a>';																										
 									print '</td>';
