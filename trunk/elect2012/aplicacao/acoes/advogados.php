@@ -18,5 +18,6 @@ if (aplicacao::isRequestPost()){
 }
 
 
-$sql = "SELECT * FROM advogado ORDER BY nome";
+//$sql = "SELECT * FROM advogado ORDER BY nome";
+$sql = "SELECT ad.oab as oab, ad.nome as nome, ad.zona as zona, ad.secao as secao, se.local as local FROM advogado as ad, secao as se where ad.zona = se.zona and ad.secao = se.secao ORDER BY nome";
 $lista = banco::listar($sql);
