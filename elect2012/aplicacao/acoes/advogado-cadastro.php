@@ -18,13 +18,16 @@ if(aplicacao::isRequestPost()){
 	$objeto->celular1 = (float) utils::unMaskPhone(aplicacao::getParam('celular1'));
 	$objeto->celular2 = (float) utils::unMaskPhone(aplicacao::getParam('celular2'));
 	$objeto->tel_residencial = (float) utils::unMaskPhone(aplicacao::getParam('tel_residencial'));
-	$objeto->tel_comercial =(float) utils::unMaskPhone(aplicacao::getParam('tel_comercial'));	
+	$objeto->tel_comercial =(float) utils::unMaskPhone(aplicacao::getParam('tel_comercial'));
+	$objeto->email1 = trim(aplicacao::getParam('email1'));
+	$objeto->email2 = trim(aplicacao::getParam('email2'));	
 	$objeto->endereco = aplicacao::getParam('endereco');
 	$objeto->numero = (int) aplicacao::getParam('numero');
 	$objeto->complemento = trim(aplicacao::getParam('complemento'));
 	$objeto->bairro = aplicacao::getParam('bairro');
 	$objeto->cidade = aplicacao::getParam('cidade');
 	$objeto->uf = aplicacao::getParam('uf');
+	$objeto->eleicoesAnt = aplicacao::getParam('eleicoesAnt');
 	$objeto->cep = (int) utils::unMaskCEP(aplicacao::getParam('cep'));		
 	$objeto->indicacao1 = trim(aplicacao::getParam('indicacao1'));
 	$objeto->indicacao2 = trim(aplicacao::getParam('indicacao2'));		
@@ -51,6 +54,10 @@ if(aplicacao::isRequestPost()){
 		}
 		elseif (empty($objeto->endereco)) {
 			mensagem::erro('Campo "Endereço" não pode ser vazio.');
+			$erro = true;
+		}
+		elseif (empty($objeto->email1)) {
+			mensagem::erro('Campo "Email1" não pode ser vazio.');
 			$erro = true;
 		}
 		elseif ($objeto->numero == 0) {
@@ -110,8 +117,8 @@ if(aplicacao::isRequestPost()){
 		}	
 		if (!$erro){
 			try{
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, endereco, numero, complemento, bairro, cidade, uf, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $uf, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo);
+				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo);
 					
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
@@ -135,8 +142,8 @@ if(aplicacao::isRequestPost()){
 		}
 		if (!$erro){
 			try{
-				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
-				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $uf, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo, $codigo);
+				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
+				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo, $codigo);
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('advogados.php');
