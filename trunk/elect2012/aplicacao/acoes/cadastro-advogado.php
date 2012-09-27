@@ -17,6 +17,8 @@ $cidade =  null;
 $uf =  null;
 $cep = null;
 $eleicoesAnt = null;
+$eleicoesAntAnos = null;
+$bairroPreferido1 = null;
 $indicacao1 =  null;
 $indicacao2 =  null;
 $zona =  null;
@@ -48,6 +50,10 @@ if(aplicacao::isRequestPost()){
 		$cidade = aplicacao::getParam('cidade');
 		$uf = aplicacao::getParam('uf');
 		$cep = (int) utils::unMaskCEP(aplicacao::getParam('cep'));
+		
+		$eleicoesAnt = aplicacao::getParam('eleicoesAnt');
+		$eleicoesAntAnos = aplicacao::getParam('eleicoesAntAnos');
+		$bairroPreferido1 = aplicacao::getParam('bairroPreferido1');
 			
 		$indicacao1 = trim(aplicacao::getParam('indicacao1'));
 		$indicacao2 = trim(aplicacao::getParam('indicacao2'));
@@ -59,10 +65,10 @@ if(aplicacao::isRequestPost()){
 		$captcha = trim(aplicacao::getParam('captcha'));
 		
 		
-		if ($captcha == $_SESSION["palavra"]){
-			mensagem::erro('Código de verificação inválido! Verifique e corrija o campo "Código de verificação".');
-			$erro = true;
-		}
+		// if ($captcha == $_SESSION["palavra"]){
+			// mensagem::erro('Código de verificação inválido! Verifique e corrija o campo "Código de verificação".');
+			// $erro = true;
+		// }
 		
 		if (!$erro){
 			if (empty($nome)) {
@@ -81,7 +87,7 @@ if(aplicacao::isRequestPost()){
 				mensagem::erro('Campo "Endereço" não pode ser vazio.');
 				$erro = true;
 			}
-			elseif (empty($objeto->email1)) {
+			elseif (empty($email1)) {
 				mensagem::erro('Campo "Email1" não pode ser vazio.');
 				$erro = true;
 			}
@@ -140,8 +146,12 @@ if(aplicacao::isRequestPost()){
 		
 		if (!$erro){
 			try{
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $cep, $eleicoesAnt, $indicacao1, $indicacao2, $zona, $secao, $titulo);
+				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);
+				// echo ("<pre>");
+				// var_dump($values);
+				// echo ("</pre>");
+				// die();
 					
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
