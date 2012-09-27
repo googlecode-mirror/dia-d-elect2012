@@ -53,8 +53,21 @@
 									<label class="control-label" >Telefone comercial</label>
 									<div class="controls">
 										<input type="text"  class="input-medium required mask-phone_with_ddd" name="tel_comercial" value="<?php print $tel_comercial; ?>">
+									</div>								
+								</div>
+								<div class="control-group">
+									<label class="control-label" >* Email 1</label>
+									<div class="controls">
+										<input type="text"  class="input-medium required email" name="email1" value="<?php print  ($objeto)? $objeto->email1:""; ?>">
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label" >Email 2</label>
+									<div class="controls">
+										<input type="text"  class="input-medium email" name="email2" value="<?php print  ($objeto)? $objeto->email2:""; ?>">
+									</div>
+								</div>
+								
 								<div class="control-group">
 									<label class="control-label" >Indicação 1</label>
 									<div class="controls">
@@ -90,6 +103,16 @@
 									<div class="controls">
 										<input type="text"  class="input-mini required" name="secao" value="<?php print $secao; ?>">
 									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="eleicoesAnt">Você já trabalhou como advogado em eleições anteriores?</label>
+									<div class="controls">
+										<label class="radio">
+											<input type="radio" name="eleicoesAnt" value="1" <?php print($objeto->eleicoesAnt == "1")? "checked":""; ?>>Sim<br>
+										</label>
+										<label class="radio">										
+											<input type="radio" name="eleicoesAnt" value="2" <?php print($objeto->eleicoesAnt == "2")? "checked":""; ?>>Não						        		</label>
+									</div>										      
 								</div>
 								
 								<hr/>
@@ -141,7 +164,8 @@
 												<div class="controls">
 													<input type="text" class="span1 required" id="uf" name="uf" readonly="true" value="<?php print $uf;  ?>">								        
 												</div>										      
-											</div>	
+											</div>
+											
 											<hr/>		    
 										    <div class="control-group">
 												<label class="control-label" for="codigo">* Código de verificação</label>

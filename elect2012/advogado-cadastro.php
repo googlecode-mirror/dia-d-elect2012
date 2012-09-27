@@ -80,6 +80,18 @@
 									</div>
 								</div>
 								<div class="control-group">
+									<label class="control-label" >* Email 1</label>
+									<div class="controls">
+										<input type="text"  class="input-medium required email" name="email1" value="<?php print  ($objeto)? $objeto->email1:""; ?>">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" >Email 2</label>
+									<div class="controls">
+										<input type="text"  class="input-medium email" name="email2" value="<?php print  ($objeto)? $objeto->email2:""; ?>">
+									</div>
+								</div>
+								<div class="control-group">
 									<label class="control-label" >Indicação 1</label>
 									<div class="controls">
 										<input type="text"  class="input-large required" name="indicacao1" value="<?php print  ($objeto)? $objeto->indicacao1:""; ?>">
@@ -115,7 +127,16 @@
 										<input type="text"  class="input-mini required" name="secao" value="<?php print  ($objeto)? $objeto->secao:""; ?>">
 									</div>
 								</div>
-								
+								<div class="control-group">
+									<label class="control-label" for="eleicoesAnt">Você já trabalhou como advogado em eleições anteriores?</label>
+									<div class="controls">
+										<label class="radio">
+											<input type="radio" name="eleicoesAnt" value="1" <?php print($objeto->eleicoesAnt == "1")? "checked":""; ?>>Sim<br>
+										</label>
+										<label class="radio">										
+											<input type="radio" name="eleicoesAnt" value="2" <?php print($objeto->eleicoesAnt == "2")? "checked":""; ?>>Não						        		</label>
+									</div>										      
+								</div>								
 								<hr/>
 								<div class="control-group">
 									<label class="control-label" for="cep">* CEP</label>
@@ -165,8 +186,7 @@
 									<div class="controls">
 										<input type="text" class="span1 required" id="uf" name="uf" readonly="true" value="<?php print  ($objeto)? $objeto->uf:"";  ?>">								        
 									</div>										      
-								</div>									
-								
+								</div>								
 							</fieldset>	 
 							<div class="form-actions">
 								<button type="submit" class="btn btn-success">Salvar</button>
