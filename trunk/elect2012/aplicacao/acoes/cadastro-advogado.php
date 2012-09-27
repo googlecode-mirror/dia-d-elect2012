@@ -7,6 +7,8 @@ $celular1 = null;
 $celular2 =  null;
 $tel_residencial =  null;
 $tel_comercial =  null;
+$email1 = null;
+$email2 = null;
 $endereco =  null;
 $numero = null;
 $complemento =  null;
@@ -14,6 +16,7 @@ $bairro =  null;
 $cidade =  null;
 $uf =  null;
 $cep = null;
+$eleicoesAnt = null;
 $indicacao1 =  null;
 $indicacao2 =  null;
 $zona =  null;
@@ -34,6 +37,9 @@ if(aplicacao::isRequestPost()){
 		$celular2 = (int) utils::unMaskPhone(aplicacao::getParam('celular2'));
 		$tel_residencial = (int) utils::unMaskPhone(aplicacao::getParam('tel_residencial'));
 		$tel_comercial =(int) utils::unMaskPhone(aplicacao::getParam('tel_comercial'));
+		
+		$email1 = trim(aplicacao::getParam('email1'));
+		$email2 = trim(aplicacao::getParam('email2'));
 
 		$endereco = aplicacao::getParam('endereco');
 		$numero = (int) aplicacao::getParam('numero');
@@ -73,6 +79,10 @@ if(aplicacao::isRequestPost()){
 			}
 			elseif (empty($endereco)) {
 				mensagem::erro('Campo "Endereço" não pode ser vazio.');
+				$erro = true;
+			}
+			elseif (empty($objeto->email1)) {
+				mensagem::erro('Campo "Email1" não pode ser vazio.');
 				$erro = true;
 			}
 			elseif ($numero == 0) {
@@ -130,8 +140,8 @@ if(aplicacao::isRequestPost()){
 		
 		if (!$erro){
 			try{
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, endereco, numero, complemento, bairro, cidade, uf, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $cep, $indicacao1, $indicacao2, $zona, $secao, $titulo);
+				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $cep, $eleicoesAnt, $indicacao1, $indicacao2, $zona, $secao, $titulo);
 					
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
