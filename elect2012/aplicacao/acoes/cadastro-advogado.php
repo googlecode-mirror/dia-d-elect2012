@@ -30,7 +30,7 @@ if(aplicacao::isRequestPost()){
 	if ($acao == 'novo-adv'){
 		//Flag erros de validação
 		$erro = false;
-		
+		$cod_advogado = (int) aplicacao::getParam("cod_advogado");
 		$nome = trim(aplicacao::getParam('nome'));
 		$oab = str_replace(" ", "", trim(aplicacao::getParam('oab')));
 		$cpf =  utils::unMaskCPF(aplicacao::getParam('cpf'));
@@ -54,11 +54,14 @@ if(aplicacao::isRequestPost()){
 		$eleicoesAnt = aplicacao::getParam('eleicoesAnt');
 		$eleicoesAntAnos = "";
 		$eleicoesAntAnosPOST = aplicacao::getParam('eleicoesAntAnos');
-		foreach ($eleicoesAntAnosPOST as $item){
-			$eleicoesAntAnos .= $item.",";
-		}
-		$eleicoesAntAnos = substr($eleicoesAntAnos, 0,count($eleicoesAntAnos)-2);
-		
+		if (is_null($eleicoesAntAnosPOST)){
+			$eleicoesAntAnos = null;
+		}else{
+			foreach ($eleicoesAntAnosPOST as $item){
+				$eleicoesAntAnos .= $item.",";
+			}
+			$eleicoesAntAnos = substr($eleicoesAntAnos, 0,count($eleicoesAntAnos)-2);
+		}		
 		
 		$bairroPreferido1 = aplicacao::getParam('bairroPreferido1');
 			
@@ -131,7 +134,7 @@ if(aplicacao::isRequestPost()){
 			}
 		}
 		
-		if (!$erro){
+		if (!$erro and $cod_advogado == 0){
 			//Validação advogado
 			$sql = 'SELECT * from advogado WHERE cpf =? OR oab = ?';
 			$result = banco::listar($sql,array($cpf,$oab));
@@ -152,14 +155,15 @@ if(aplicacao::isRequestPost()){
 		}
 		
 		if (!$erro){
-			try{
-				//falta incluir eleicoesAntAnos
+			try{					
+				if($cod_advogado > 0){
+					$sql="DELETE FROM advogado WHERE cod_advogado = ?";
+					banco::executar($sql,array($cod_advogado));
+				}
+					
 				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);
-				// echo ("<pre>");
-				// var_dump($values);
-				// echo ("</pre>");
-				// die();					
+									
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('cadastro-advogado.php');
@@ -170,6 +174,41 @@ if(aplicacao::isRequestPost()){
 			
 		}
 		
+	}
+}
+
+$objAdvogadoAtual = null;
+$oabAtulizarCadastro = aplicacao::getParam('oab');
+if ($oabAtulizarCadastro){
+	$sql="SELECT * FROM advogado WHERE oab = ?";
+	$resultAtualizar = banco::listar($sql,array($oabAtulizarCadastro));
+	if(count($resultAtualizar)>0){
+		$objAdvogadoAtual = $resultAtualizar[0];
+		
+		$nome = $objAdvogadoAtual->nome;
+		$oab =  $objAdvogadoAtual->oab;
+		$cpf =   $objAdvogadoAtual->cpf;
+		$celular1 = $objAdvogadoAtual->celular1;
+		$celular2 =  $objAdvogadoAtual->celular2;
+		$tel_residencial = $objAdvogadoAtual->tel_residencial;
+		$tel_comercial = $objAdvogadoAtual->tel_comercial;
+		$email1 = $objAdvogadoAtual->email1;
+		$email2 = $objAdvogadoAtual->email2;
+		$endereco =  $objAdvogadoAtual->endereco;
+		$numero = $objAdvogadoAtual->numero;
+		$complemento =  $objAdvogadoAtual->complemento;
+		$bairro =  $objAdvogadoAtual->bairro;
+		$cidade =  $objAdvogadoAtual->cidade;
+		$uf =  $objAdvogadoAtual->uf;
+		$cep = $objAdvogadoAtual->cep;
+		$eleicoesAnt = $objAdvogadoAtual->eleicoesAnt;
+		$eleicoesAntAnos = array();
+		$bairroPreferido1 = $objAdvogadoAtual->bairroPreferido1;
+		$indicacao1 =  $objAdvogadoAtual->indicacao1;
+		$indicacao2 =  $objAdvogadoAtual->indicacao2;
+		$zona =  $objAdvogadoAtual->zona;
+		$secao =  $objAdvogadoAtual->secao;
+		$titulo =  $objAdvogadoAtual->titulo;
 	}
 }
 
