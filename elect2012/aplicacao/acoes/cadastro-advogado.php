@@ -17,7 +17,7 @@ $cidade =  null;
 $uf =  null;
 $cep = null;
 $eleicoesAnt = null;
-$eleicoesAntAnos = null;
+$eleicoesAntAnos = array();
 $bairroPreferido1 = null;
 $indicacao1 =  null;
 $indicacao2 =  null;
@@ -146,13 +146,13 @@ if(aplicacao::isRequestPost()){
 		
 		if (!$erro){
 			try{
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				//falta incluir eleicoesAntAnos
+				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);
-				// echo ("<pre>");
-				// var_dump($values);
-				// echo ("</pre>");
-				// die();
-					
+				echo ("<pre>");
+				var_dump($values);
+				echo ("</pre>");
+				die();					
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('cadastro-advogado.php');
