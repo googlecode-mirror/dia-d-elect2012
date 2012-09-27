@@ -28,6 +28,8 @@ if(aplicacao::isRequestPost()){
 	$objeto->cidade = aplicacao::getParam('cidade');
 	$objeto->uf = aplicacao::getParam('uf');
 	$objeto->eleicoesAnt = aplicacao::getParam('eleicoesAnt');
+	$objeto->eleicoesAntAnos = aplicacao::getParam('eleicoesAntAnos');
+	$objeto->bairroPreferido1 = aplicacao::getParam('bairroPreferido1');
 	$objeto->cep = (int) utils::unMaskCEP(aplicacao::getParam('cep'));		
 	$objeto->indicacao1 = trim(aplicacao::getParam('indicacao1'));
 	$objeto->indicacao2 = trim(aplicacao::getParam('indicacao2'));		
@@ -117,8 +119,8 @@ if(aplicacao::isRequestPost()){
 		}	
 		if (!$erro){
 			try{
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo);
+				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->eleicoesAntAnos, $objeto->bairroPreferido1, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo);
 					
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
@@ -142,8 +144,8 @@ if(aplicacao::isRequestPost()){
 		}
 		if (!$erro){
 			try{
-				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
-				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo, $codigo);
+				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
+				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->eleicoesAntAnos, $objeto->bairroPreferido1, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo, $codigo);
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('advogados.php');
