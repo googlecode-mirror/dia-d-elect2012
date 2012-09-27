@@ -16,7 +16,7 @@
 				<div class="span10">
 					<h1>Dia D - Eleições 2012</h1>
 					<p><em>Gerenciamento das ocorrências, pesquisa de urna e advogados em locais de votação.</em></p>
-					<p><a class="btn btn-primary btn-large" href="cadastro-advogado.php"> <i class="icon-white icon-briefcase"></i> Cadastrar advogado »</a></p>
+					<p><a class="btn btn-primary btn-large" href="pre-cadastro.php"> <i class="icon-white icon-briefcase"></i> Cadastrar advogado »</a></p>
 				</div>        		
 			</div>
 			<div class="row">
