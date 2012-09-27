@@ -58,13 +58,13 @@
 								<div class="control-group">
 									<label class="control-label" >* Email 1</label>
 									<div class="controls">
-										<input type="text"  class="input-medium required email" name="email1" value="<?php print  ($objeto)? $objeto->email1:""; ?>">
+										<input type="text"  class="input-medium required email" name="email1" value="<?php print $email1; ?>">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label" >Email 2</label>
 									<div class="controls">
-										<input type="text"  class="input-medium email" name="email2" value="<?php print  ($objeto)? $objeto->email2:""; ?>">
+										<input type="text"  class="input-medium email" name="email2" value="<?php print $email2; ?>">
 									</div>
 								</div>
 								
@@ -108,11 +108,38 @@
 									<label class="control-label" for="eleicoesAnt">Você já trabalhou como advogado em eleições anteriores?</label>
 									<div class="controls">
 										<label class="radio">
-											<input type="radio" name="eleicoesAnt" value="1" <?php print($objeto->eleicoesAnt == "1")? "checked":""; ?>>Sim<br>
+											<input type="radio" name="eleicoesAnt" value="1" <?php print($eleicoesAnt == "1")? "checked":""; ?>>Sim<br>
 										</label>
 										<label class="radio">										
-											<input type="radio" name="eleicoesAnt" value="2" <?php print($objeto->eleicoesAnt == "2")? "checked":""; ?>>Não						        		</label>
+											<input type="radio" name="eleicoesAnt" value="2" <?php print($eleicoesAnt == "2")? "checked":""; ?>>Não
+										</label>
 									</div>										      
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="eleicoesAntAnos">Em caso afirmativo, quais eleições?</label>
+									<div class="controls">
+										<label class="checkbox">
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2002" <?php print($eleicoesAntAnos == "2002")? "checked":""; ?>>2002
+										</label>
+										<label class="checkbox">										
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2004" <?php print($eleicoesAnt == "2004")? "checked":""; ?>>2004
+										</label>
+										<label class="checkbox">										
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2006" <?php print($eleicoesAnt == "2006")? "checked":""; ?>>2006
+										</label>
+										<label class="checkbox">										
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2008" <?php print($eleicoesAnt == "2008")? "checked":""; ?>>2008
+										</label>
+										<label class="checkbox">										
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2010" <?php print($eleicoesAnt == "2010")? "checked":""; ?>>2010
+										</label>
+									</div>										      
+								</div>
+								<div class="control-group">
+									<label class="control-label" >Bairro preferencial para atuação</label>
+									<div class="controls">
+										<input type="text"  class="input-medium required" name="bairroPreferido1" value="<?php print $bairroPreferido1; ?>">
+									</div>
 								</div>
 								
 								<hr/>
