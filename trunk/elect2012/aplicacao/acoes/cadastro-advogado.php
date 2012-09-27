@@ -52,7 +52,14 @@ if(aplicacao::isRequestPost()){
 		$cep = (int) utils::unMaskCEP(aplicacao::getParam('cep'));
 		
 		$eleicoesAnt = aplicacao::getParam('eleicoesAnt');
-		$eleicoesAntAnos = aplicacao::getParam('eleicoesAntAnos');
+		$eleicoesAntAnos = "";
+		$eleicoesAntAnosPOST = aplicacao::getParam('eleicoesAntAnos');
+		foreach ($eleicoesAntAnosPOST as $item){
+			$eleicoesAntAnos .= $item.",";
+		}
+		$eleicoesAntAnos = substr($eleicoesAntAnos, 0,count($eleicoesAntAnos)-2);
+		
+		
 		$bairroPreferido1 = aplicacao::getParam('bairroPreferido1');
 			
 		$indicacao1 = trim(aplicacao::getParam('indicacao1'));
