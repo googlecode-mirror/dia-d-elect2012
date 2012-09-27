@@ -12,13 +12,14 @@
 		<?php include "aplicacao/componentes/menu.php" ; ?>
 		
 		<div class="container" id="container-principal">
-			<div class="row">
+			<div class="row" >
 				<div class="span12">
 					<?php print mensagem::exibir(); ?>
 					<div class="well">	
 						<form id="avalidateForm" class="form-horizontal" method="POST">
+						<input type="hidden" name="cod_advogado" value="<?php print (is_null($objAdvogadoAtual))? "0" : $objAdvogadoAtual->cod_advogado;?>" >
 							<fieldset>
-								<legend>Advogado</legend>
+								<legend>Novo Advogado</legend>
 								<div class="control-group">
 									<label class="control-label" >Nome</label>
 									<div class="controls">
