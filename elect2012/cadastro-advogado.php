@@ -122,16 +122,16 @@
 											<input type="checkbox" name="eleicoesAntAnos[]" value="2002" <?php print($eleicoesAntAnos == "2002")? "checked":""; ?>>2002
 										</label>
 										<label class="checkbox">										
-											<input type="checkbox" name="eleicoesAntAnos[]" value="2004" <?php print($eleicoesAnt == "2004")? "checked":""; ?>>2004
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2004" <?php print($eleicoesAntAnos == "2004")? "checked":""; ?>>2004
 										</label>
 										<label class="checkbox">										
-											<input type="checkbox" name="eleicoesAntAnos[]" value="2006" <?php print($eleicoesAnt == "2006")? "checked":""; ?>>2006
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2006" <?php print($eleicoesAntAnos == "2006")? "checked":""; ?>>2006
 										</label>
 										<label class="checkbox">										
-											<input type="checkbox" name="eleicoesAntAnos[]" value="2008" <?php print($eleicoesAnt == "2008")? "checked":""; ?>>2008
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2008" <?php print($eleicoesAntAnos == "2008")? "checked":""; ?>>2008
 										</label>
 										<label class="checkbox">										
-											<input type="checkbox" name="eleicoesAntAnos[]" value="2010" <?php print($eleicoesAnt == "2010")? "checked":""; ?>>2010
+											<input type="checkbox" name="eleicoesAntAnos[]" value="2010" <?php print($eleicoesAntAnos == "2010")? "checked":""; ?>>2010
 										</label>
 									</div>										      
 								</div>
