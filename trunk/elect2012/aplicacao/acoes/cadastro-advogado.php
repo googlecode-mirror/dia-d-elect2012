@@ -72,7 +72,7 @@ if(aplicacao::isRequestPost()){
 		$secao = (int) aplicacao::getParam('secao');
 		$titulo = str_replace(" ", "", trim(aplicacao::getParam('titulo')));
 		
-		//$captcha = trim(aplicacao::getParam('captcha'));
+		// $captcha = trim(aplicacao::getParam('captcha'));
 		
 		
 		// if ($captcha == $_SESSION["palavra"]){
@@ -155,7 +155,8 @@ if(aplicacao::isRequestPost()){
 		}
 		
 		if (!$erro){
-			try{					
+			try{
+				/*
 				if($cod_advogado > 0){
 					$sql="DELETE FROM advogado WHERE cod_advogado = ?";
 					banco::executar($sql,array($cod_advogado));
@@ -163,7 +164,9 @@ if(aplicacao::isRequestPost()){
 					
 				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);
-									
+				*/
+				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
+				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep, $indicacao1, $indicacao2, $zona, $secao, $titulo, $codigo);				
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('cadastro-advogado.php');
