@@ -23,7 +23,7 @@ $indicacao1 =  null;
 $indicacao2 =  null;
 $zona =  null;
 $secao =  null;
-$titulo =  null;
+//$titulo =  null;
 
 if(aplicacao::isRequestPost()){	
 	$acao = aplicacao::getParam('acao');
@@ -70,7 +70,7 @@ if(aplicacao::isRequestPost()){
 			
 		$zona = (int) aplicacao::getParam('zona');
 		$secao = (int) aplicacao::getParam('secao');
-		$titulo = str_replace(" ", "", trim(aplicacao::getParam('titulo')));
+		// $titulo = str_replace(" ", "", trim(aplicacao::getParam('titulo')));
 		
 		// $captcha = trim(aplicacao::getParam('captcha'));
 		
@@ -157,11 +157,11 @@ if(aplicacao::isRequestPost()){
 		if (!$erro){
 			try{				
 				if($cod_advogado > 0){
-					$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
-					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep, $indicacao1, $indicacao2, $zona, $secao, $titulo, $cod_advogado);
+					$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ? WHERE cod_advogado = ?';
+					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep, $indicacao1, $indicacao2, $zona, $secao,  $cod_advogado);
 				}else{
-					$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);					
+					$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao);					
 				}								
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
@@ -207,7 +207,7 @@ if ($oabAtulizarCadastro){
 		$indicacao2 =  $objAdvogadoAtual->indicacao2;
 		$zona =  $objAdvogadoAtual->zona;
 		$secao =  $objAdvogadoAtual->secao;
-		$titulo =  $objAdvogadoAtual->titulo;
+		//$titulo =  $objAdvogadoAtual->titulo;
 	}
 }
 
