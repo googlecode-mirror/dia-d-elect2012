@@ -86,13 +86,13 @@
 									<div class="controls">
 										<input type="text"  class="input-medium required mask-cpf required" name="cpf" value="<?php print $cpf; ?>">
 									</div>
-								</div>
+								</div><!--
 								<div class="control-group">
 									<label class="control-label" >Título</label>
 									<div class="controls">
 										<input type="text"  class="input-medium required" name="titulo" value="<?php print $titulo; ?>">
 									</div>
-								</div>
+								</div>-->
 								<div class="control-group">
 									<label class="control-label" >Zona</label>
 									<div class="controls">
@@ -137,9 +137,9 @@
 									</div>										      
 								</div>
 								<div class="control-group">
-									<label class="control-label" >Bairro preferencial para atuação</label>
+									<label class="control-label" >Bairros preferenciais para atuação</label>
 									<div class="controls">
-										<input type="text"  class="input-medium required" name="bairroPreferido1" value="<?php print $bairroPreferido1; ?>">
+										<input type="text"  class="input-medium required" name="bairroPreferido1" value="<?php print $bairroPreferido1; ?>"><span class="help-block">*para fins referenciais, não há qualquer garantia de alocação</span>
 									</div>
 								</div>
 								
