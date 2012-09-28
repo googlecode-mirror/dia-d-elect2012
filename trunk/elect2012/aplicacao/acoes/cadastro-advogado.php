@@ -155,18 +155,14 @@ if(aplicacao::isRequestPost()){
 		}
 		
 		if (!$erro){
-			try{
-				/*
+			try{				
 				if($cod_advogado > 0){
-					$sql="DELETE FROM advogado WHERE cod_advogado = ?";
-					banco::executar($sql,array($cod_advogado));
-				}
-					
-				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);
-				*/
-				$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
-				$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep, $indicacao1, $indicacao2, $zona, $secao, $titulo, $codigo);				
+					$sql = 'UPDATE advogado SET nome = ?, oab = ?, cpf = ?, celular1 = ?, celular2 = ?, tel_residencial = ?, tel_comercial = ?, email1 = ?, email2 = ?, endereco = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, uf = ?, eleicoesAnt = ?, eleicoesAntAnos = ?, bairroPreferido1 = ?, cep = ?, indicacao1 = ?, indicacao2 = ?, zona = ?, secao = ?, titulo = ? WHERE cod_advogado = ?';
+					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep, $indicacao1, $indicacao2, $zona, $secao, $titulo, $cod_advogado);
+				}else{
+					$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+					$values = array($nome, $oab, $cpf, $celular1, $celular2, $tel_residencial, $tel_comercial, $email1, $email2, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $eleicoesAnt, $eleicoesAntAnos, $bairroPreferido1, $cep,  $indicacao1, $indicacao2, $zona, $secao, $titulo);					
+				}								
 				banco::executar($sql,$values);
 				mensagem::sucesso('Dados cadastrados com sucesso!');
 				aplicacao::redirect('cadastro-advogado.php');
