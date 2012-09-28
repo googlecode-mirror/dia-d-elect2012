@@ -72,7 +72,7 @@ if(aplicacao::isRequestPost()){
 		$secao = (int) aplicacao::getParam('secao');
 		$titulo = str_replace(" ", "", trim(aplicacao::getParam('titulo')));
 		
-		$captcha = trim(aplicacao::getParam('captcha'));
+		//$captcha = trim(aplicacao::getParam('captcha'));
 		
 		
 		// if ($captcha == $_SESSION["palavra"]){
