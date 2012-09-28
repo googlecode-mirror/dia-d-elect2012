@@ -194,7 +194,7 @@
 												</div>										      
 											</div>
 											
-											<hr/>		    
+											<hr/><!--		    
 										    <div class="control-group">
 												<label class="control-label" for="codigo">* Código de verificação</label>
 												<div class="controls">													
@@ -207,7 +207,7 @@
 													</div>						        
 												</div>
 											</div>									
-								
+											-->
 							</fieldset>
 							<div class="form-actions">
 								<input type="hidden" name="acao" value="novo-adv"/>
