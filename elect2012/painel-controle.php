@@ -54,7 +54,7 @@
 				<div class="span12">
 					<div id="local-detalhes" class="well">
 						  	<fieldset >
-						  		<legend style="font-size:16px;color:darkred;">Local:  Colégio 7 de Setembro</legend>
+						  		<legend style="font-size:16px;color:darkred;font-weight:bold;">Local:  Colégio 7 de Setembro</legend>
 						  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
 						  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/> 524, 525.</div>
 							  	<div style="float:left; width:20%;"><strong>Seções Agregadas:</strong><br/> 512 </div>
