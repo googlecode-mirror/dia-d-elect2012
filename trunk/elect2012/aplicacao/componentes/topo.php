@@ -20,3 +20,16 @@
     
     <!-- Jquery -->
 	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+	<script type="text/javascript" src="./js/gmap3.js"></script>
+	
+	<style>
+     .gmap3{
+        margin: 20px auto;
+        border: 1px dashed #C0C0C0;
+        width: 700px;
+        height: 500px;
+      }
+    </style>
+	
+	
