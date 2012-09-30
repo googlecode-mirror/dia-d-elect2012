@@ -33,6 +33,7 @@ if(aplicacao::isRequestPost()){
 		$cod_advogado = (int) aplicacao::getParam("cod_advogado");
 		$nome = trim(aplicacao::getParam('nome'));
 		$oab = str_replace(" ", "", trim(aplicacao::getParam('oab')));
+		$oab = str_replace(".", "", $oab);
 		$cpf =  utils::unMaskCPF(aplicacao::getParam('cpf'));
 		
 		$celular1 = (int) utils::unMaskPhone(aplicacao::getParam('celular1'));
@@ -43,12 +44,12 @@ if(aplicacao::isRequestPost()){
 		$email1 = trim(aplicacao::getParam('email1'));
 		$email2 = trim(aplicacao::getParam('email2'));
 
-		$endereco = aplicacao::getParam('endereco');
+		$endereco = trim(aplicacao::getParam('endereco'));
 		$numero = (int) aplicacao::getParam('numero');
 		$complemento = trim(aplicacao::getParam('complemento'));
-		$bairro = aplicacao::getParam('bairro');
-		$cidade = aplicacao::getParam('cidade');
-		$uf = aplicacao::getParam('uf');
+		$bairro = trim(aplicacao::getParam('bairro'));
+		$cidade = trim(aplicacao::getParam('cidade'));
+		$uf = trim(aplicacao::getParam('uf'));
 		$cep = (int) utils::unMaskCEP(aplicacao::getParam('cep'));
 		
 		$eleicoesAnt = aplicacao::getParam('eleicoesAnt');
@@ -63,7 +64,7 @@ if(aplicacao::isRequestPost()){
 			$eleicoesAntAnos = substr($eleicoesAntAnos, 0,count($eleicoesAntAnos)-2);
 		}		
 		
-		$bairroPreferido1 = aplicacao::getParam('bairroPreferido1');
+		$bairroPreferido1 = trim(aplicacao::getParam('bairroPreferido1'));
 			
 		$indicacao1 = trim(aplicacao::getParam('indicacao1'));
 		$indicacao2 = trim(aplicacao::getParam('indicacao2'));
@@ -117,6 +118,10 @@ if(aplicacao::isRequestPost()){
 				mensagem::erro('Campo "Indicação 1" não pode ser vazio.');
 				$erro = true;
 			}
+			elseif (empty($bairroPreferido1)) {
+				mensagem::erro('Campo "Bairro Preferido" não pode ser vazio.');
+				$erro = true;
+			}
 			elseif ($zona  == 0) {
 				mensagem::erro('Campo "Zona" não pode ser vazio.');
 				$erro = true;
@@ -168,7 +173,7 @@ if(aplicacao::isRequestPost()){
 				aplicacao::redirect('cadastro-advogado.php');
 			}catch (Exception $e){
 				mensagem::erro('Erro no banco de dados. Tente novamente!');
-				aplicacao::redirect('cadastro-advogado.php');
+				//aplicacao::redirect('cadastro-advogado.php');
 			}
 			
 		}
