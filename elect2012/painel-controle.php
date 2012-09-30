@@ -125,7 +125,23 @@
 					 
 					<div class="tab-content">
 					  <div class="tab-pane active" id="tabOcorrencias">
-					  				  
+					  	<div class="form-inline well">
+							<label class="control-label" for="filtroOcorrenciasLocais">Locais:</label>
+							<select name="filtroOcorrenciasLocais" id="filtroOcorrenciasLocais" class="span4">
+							</select>
+							&nbsp;&nbsp;&nbsp;
+							<label class="control-label" for="filtroOcorrenciasSecao">Seção:</label>
+							<select name="filtroOcorrenciasSecao" id="filtroOcorrenciasSecao" class="span1">
+							</select>
+							&nbsp;&nbsp;&nbsp;
+							<label class="control-label" for="filtroOcorrenciasStatus">Seção:</label>
+							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2">
+							</select>
+							&nbsp;&nbsp;&nbsp;
+							<a class="btn"><i class="icon icon-filter"></i>Filtrar</a>
+							&nbsp;&nbsp;&nbsp;
+							<a class="btn"><i class="icon icon-download"></i>Todos as ocorrências</a>						   
+						</div>			  
 					  	<table id="datatable" class="table table-striped table-bordered" style="width:100%;">
 							<thead>
 								<tr style="background-color:#D44413;color:#fff">
@@ -172,7 +188,52 @@
 							</tbody>
 						</table>
 					  </div>
-					  <div class="tab-pane" id="tabAdvogados">.a..</div>
+					  <div class="tab-pane" id="tabAdvogados">
+					  
+					  	<div style="float:left;width:35%">
+					  		<label for="associar_advogado" style="font-weight: bold;">Advogados:</label>
+					  		<select name="associar_advogado" multiple="multiple" style="height:200px;width:95%;">
+							 <?php 
+							 	foreach ($lista_advogados as $item){
+									print "<option value='$item->cod_advogado'>".$item->nome."</option>";
+							 	}
+							 ?>
+							</select>
+					  		
+					  	</div>
+				  		<div style="float:left;width:5%;margin-top:100px;">
+				  			<span style="margin-top:50px"><a class="btn"><i class="icon icon-chevron-right"></i></a></span>
+				  		</div>
+					  	<div style="float:left;width:35%">
+					  		<label for="associar_local" style="font-weight: bold;">Locais de votação:</label>
+					  		<select name="associar_local" multiple="multiple" style="height:200px;width:95%;">
+							 <?php 
+							 	foreach ($lista_locais as $item){
+									print "<option value='$item->cod_local'>".$item->local."</option>";
+							 	}
+							 ?>
+							</select>
+					  	</div>
+					  	<div style="float:left;width:5%; margin-top:100px;">
+				  			<span><a class="btn"><i class="icon icon-chevron-right"></i></a></span>
+				  		</div>
+					  	<div style="float:left;width:20%">
+					  		<label style="font-weight: bold;">Seções:</label>
+					  		
+					  		<label class="checkbox">
+					  			<input type="checkbox" name="associar_secoes_grupo[]" value="0" /> Marcar todos
+					  		</label>
+					  		<label class="checkbox">
+					  			<input type="checkbox" name="associar_secoes_grupo[]" value="1" /> 524
+					  		</label>
+					  		<label class="checkbox">
+					  			<input type="checkbox" name="associar_secoes_grupo[]" value="2" /> 523
+					  		</label>
+					  	</div>
+					  	<div style="float:left;width:100%;padding: 20px 0px;">
+					  		<a class="btn btn-large btn-success">Salvar</a>					  	
+					  	</div>						  					  
+					  </div>
 					</div>
 				</div>
 			</div>
