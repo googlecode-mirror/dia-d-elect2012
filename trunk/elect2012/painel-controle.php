@@ -72,9 +72,11 @@
 							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
 							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
 							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span>
+							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
+							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
 							  	</div>
-							  	<div style="float:left; width:25%;">
+							  	
+							  		<div style="float:left; width:25%;">
 							  		<strong>Cristiano de Souza Therrien </strong><br/>
 							  		<strong>OAB:</strong> 13869.<br/>
 							  		<strong>Seções:</strong> 524, 525, 512.<br/>
@@ -82,9 +84,11 @@
 							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
 							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
 							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span>
+							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
+							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
 							  	</div>
-							  	<div style="float:left; width:25%;">
+							  	
+							  		<div style="float:left; width:25%;">
 							  		<strong>Cristiano de Souza Therrien </strong><br/>
 							  		<strong>OAB:</strong> 13869.<br/>
 							  		<strong>Seções:</strong> 524, 525, 512.<br/>
@@ -92,9 +96,11 @@
 							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
 							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
 							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span>
+							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
+							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
 							  	</div>
-							  	<div style="float:left; width:25%;">
+							  	
+							  		<div style="float:left; width:25%;">
 							  		<strong>Cristiano de Souza Therrien </strong><br/>
 							  		<strong>OAB:</strong> 13869.<br/>
 							  		<strong>Seções:</strong> 524, 525, 512.<br/>
@@ -102,8 +108,10 @@
 							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
 							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
 							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span>
-							  	</div>		  		
+							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
+							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
+							  	</div>
+							  	
 						  	</fieldset>					  	
 					  	</div>	
 				</div>
