@@ -26,8 +26,8 @@
 								</div>
 								
 								<div class="form-actions">
-									<input class="btn btn-primary" type="submit" VALUE="Novo Cadastro"/>
-									<input class="btn" style="margin-left:20px;" type="button" onclick="location.href='index.php'" VALUE="Voltar"/>
+									<a class="btn btn-primary"  href="cadastro-advogado.php">Novo Cadastro</a>
+									<a class="btn" style="margin-left:20px;" href="index.php">Voltar</a>
 								</div>
 								
 							</div>

@@ -50,73 +50,77 @@
 					</form>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="panel-local-detalhes">
 				<div class="span12">
-					<div id="local-detalhes" class="well">
-						  	<fieldset >
-						  		<legend style="font-size:16px;color:darkred;font-weight:bold;">Local:  Colégio 7 de Setembro</legend>
-						  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
-						  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/> 524, 525.</div>
-							  	<div style="float:left; width:20%;"><strong>Seções Agregadas:</strong><br/> 512 </div>
-							  	<div style="float:left; width:20%;"><strong>Total de eleitores:</strong><br/> 1.204	</div>
-							  	<div style="float:left; width:20%;"><a class="btn btn-success"><i class="icon icon-white icon-plus"></i> Advogado</a><br/></div>
-							  	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;">
-							  		<strong>Advogados</strong>
-							  	</div>
-							  	
-							  	<div style="float:left; width:25%;">
-							  		<strong>Cristiano de Souza Therrien </strong><br/>
-							  		<strong>OAB:</strong> 13869.<br/>
-							  		<strong>Seções:</strong> 524, 525, 512.<br/>
-							  		<strong>Telefone(s):</strong><br/>
-							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
-							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
-							  	</div>
-							  	
-							  		<div style="float:left; width:25%;">
-							  		<strong>Cristiano de Souza Therrien </strong><br/>
-							  		<strong>OAB:</strong> 13869.<br/>
-							  		<strong>Seções:</strong> 524, 525, 512.<br/>
-							  		<strong>Telefone(s):</strong><br/>
-							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
-							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
-							  	</div>
-							  	
-							  		<div style="float:left; width:25%;">
-							  		<strong>Cristiano de Souza Therrien </strong><br/>
-							  		<strong>OAB:</strong> 13869.<br/>
-							  		<strong>Seções:</strong> 524, 525, 512.<br/>
-							  		<strong>Telefone(s):</strong><br/>
-							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
-							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
-							  	</div>
-							  	
-							  		<div style="float:left; width:25%;">
-							  		<strong>Cristiano de Souza Therrien </strong><br/>
-							  		<strong>OAB:</strong> 13869.<br/>
-							  		<strong>Seções:</strong> 524, 525, 512.<br/>
-							  		<strong>Telefone(s):</strong><br/>
-							  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-							  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-							  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-							  		<span style="margin-left:10px;">(85) 30330374</span><br/>
-							  		<span style="margin-top:20px;"><a class="btn btn-small"><i class="icon icon-trash"></i> Remover</a></span>
-							  	</div>
-							  	
+					<div  class="well">
+							
+							<fieldset >
+						  		<div style="float:left;width:80%; font-size:16px;color:darkred;font-weight:bold;height:26px;">
+						  			Local:  Colégio 7 de Setembro. Av Imperador, nº 1295, Centro. 
+						  		</div>
+						  		<div style="float:left;width:20%; text-align: right;height:26px;">
+						  			<a rel="tooltip" title="ver no mapa" class="btn btn-small"><i class="icon icon-map-marker"></i></a>
+						  			<a rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
+						  			<a rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
+						  		</div>
+						  		<div id="local-detalhes">
+							  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
+							  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/> 524, 525.</div>
+								  	<div style="float:left; width:20%;"><strong>Seções Agregadas:</strong><br/> 512 </div>
+								  	<div style="float:left; width:20%;"><strong>Total de eleitores:</strong><br/> 1.204	</div>
+								   	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;font-size:16px;">
+								  		<strong>Advogados</strong>
+								  	</div>
+								  	
+								  	<div style="float:left; width:25%;">
+								  		<strong>Cristiano de Souza Therrien </strong><br/>
+								  		<strong>OAB:</strong> 13869.<br/>
+								  		<strong>Seções:</strong> 524, 525, 512.<br/>
+								  		<strong>Telefone(s):</strong><br/>
+								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
+								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
+								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
+								  		<span style="margin-left:10px;">(85) 30330374</span>
+								  	</div>
+								  	
+								  		<div style="float:left; width:25%;">
+								  		<strong>Cristiano de Souza Therrien </strong><br/>
+								  		<strong>OAB:</strong> 13869.<br/>
+								  		<strong>Seções:</strong> 524, 525, 512.<br/>
+								  		<strong>Telefone(s):</strong><br/>
+								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
+								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
+								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
+								  		<span style="margin-left:10px;">(85) 30330374</span>
+								  	</div>
+								  	
+								  		<div style="float:left; width:25%;">
+								  		<strong>Cristiano de Souza Therrien </strong><br/>
+								  		<strong>OAB:</strong> 13869.<br/>
+								  		<strong>Seções:</strong> 524, 525, 512.<br/>
+								  		<strong>Telefone(s):</strong><br/>
+								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
+								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
+								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
+								  		<span style="margin-left:10px;">(85) 30330374</span>
+								  	</div>
+								  	
+								  		<div style="float:left; width:25%;">
+								  		<strong>Cristiano de Souza Therrien </strong><br/>
+								  		<strong>OAB:</strong> 13869.<br/>
+								  		<strong>Seções:</strong> 524, 525, 512.<br/>
+								  		<strong>Telefone(s):</strong><br/>
+								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
+								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
+								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
+								  		<span style="margin-left:10px;">(85) 30330374</span>							  		
+								  	</div>
+								  </div>							  	
 						  	</fieldset>					  	
 					  	</div>	
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" id="panel-ocorrencias-advogados">
 				<div class="span12">
 					<ul class="nav nav-tabs" id="tabPanelBottomOcorrencias">
 					  <li class="active"><a href="#tabOcorrencias">Ocorrências</a></li>
@@ -134,13 +138,13 @@
 							<select name="filtroOcorrenciasSecao" id="filtroOcorrenciasSecao" class="span1">
 							</select>
 							&nbsp;&nbsp;&nbsp;
-							<label class="control-label" for="filtroOcorrenciasStatus">Seção:</label>
+							<label class="control-label" for="filtroOcorrenciasStatus">Status:</label>
 							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2">
 							</select>
 							&nbsp;&nbsp;&nbsp;
 							<a class="btn"><i class="icon icon-filter"></i>Filtrar</a>
 							&nbsp;&nbsp;&nbsp;
-							<a class="btn"><i class="icon icon-download"></i>Todos as ocorrências</a>						   
+							<a class="btn"><i class="icon icon-download"></i>Todas as ocorrências</a>						   
 						</div>			  
 					  	<table id="datatable" class="table table-striped table-bordered" style="width:100%;">
 							<thead>
@@ -151,7 +155,7 @@
 									<th>Local</th>
 									<th>Seção</th>
 									<th>Ocorrência</th>
-									<th class="td-actions">Ações</th>
+									<th width="150px" >Ações</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -163,11 +167,10 @@
 									<td>524</td>
 									<td>Problemas com a sinalização</td>
 									<td>
-										<a rel="tooltip" title="deletar" class="btn"><i class="icon  icon-trash"></i></a>
-										<a rel="tooltip" title="editar" class="btn"><i class="icon  icon-pencil"></i></a>
-										<a rel="tooltip" title="enviar mensagem" class="btn"><i class="icon  icon-envelope"></i></a>
-										<a rel="tooltip" title="ver no mapa" class="btn"><i class="icon   icon-map-marker"></i></a>
-										<a rel="tooltip" title="abrir" class="btn"><i class="icon   icon-folder-open"></i></a>
+										<a rel="tooltip" title="deletar" class="btn btn-small"><i class="icon  icon-trash"></i></a>
+										<a rel="tooltip" title="editar" class="btn btn-small"><i class="icon  icon-pencil"></i></a>
+										<a rel="tooltip" title="enviar mensagem" class="btn btn-small"><i class="icon  icon-envelope"></i></a>
+										<a rel="tooltip" title="abrir" class="btn btn-small"><i class="icon   icon-folder-open"></i></a>
 									</td>
 								</tr>
 								<tr>
@@ -178,11 +181,10 @@
 									<td>524</td>
 									<td>Problemas com a sinalização</td>
 									<td>
-										<a rel="tooltip" title="deletar" class="btn"><i class="icon  icon-trash"></i></a>
-										<a rel="tooltip" title="editar" class="btn"><i class="icon  icon-pencil"></i></a>
-										<a rel="tooltip" title="enviar mensagem" class="btn"><i class="icon  icon-envelope"></i></a>
-										<a rel="tooltip" title="ver no mapa" class="btn"><i class="icon   icon-map-marker"></i></a>
-										<a rel="tooltip" title="resolvido" class="btn"><i class="icon   icon-ok-sign"></i></a>
+										<a rel="tooltip" title="deletar" class="btn btn-small"><i class="icon  icon-trash"></i></a>
+										<a rel="tooltip" title="editar" class="btn btn-small"><i class="icon  icon-pencil"></i></a>
+										<a rel="tooltip" title="enviar mensagem" class="btn btn-small"><i class="icon  icon-envelope"></i></a>
+										<a rel="tooltip" title="resolvido" class="btn btn-small"><i class="icon   icon-ok-sign"></i></a>
 									</td>
 								</tr>
 							</tbody>
@@ -221,7 +223,7 @@
 					  		<label style="font-weight: bold;">Seções:</label>
 					  		
 					  		<label class="checkbox">
-					  			<input type="checkbox" name="associar_secoes_grupo[]" value="0" /> Marcar todos
+					  			<input type="checkbox" id="chkMarcarTodasSecoes" name="associar_secoes_grupo[]" value="0" /> Marcar todos
 					  		</label>
 					  		<label class="checkbox">
 					  			<input type="checkbox" name="associar_secoes_grupo[]" value="1" /> 524
