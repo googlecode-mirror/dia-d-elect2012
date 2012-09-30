@@ -27,8 +27,11 @@
      .gmap3{
         margin: 20px auto;
         border: 1px dashed #C0C0C0;
-        width: 700px;
+        width: 100%;
         height: 500px;
+      }
+      .gmap3 img{
+      	max-width: none;
       }
     </style>
 	
