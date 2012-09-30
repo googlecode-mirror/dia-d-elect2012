@@ -5,9 +5,18 @@
 <script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="./js/dt_bootstrap.js"></script>
 
+
 <script type="text/javascript">
 
 $(function() {
+
+	$("#painel-controle-gmap3").gmap3();
+	
+	$('#tabPanelBottomOcorrencias a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+	})
+	
 	$('.mask-date').mask('11/11/1111');
 	$('.mask-time').mask('00:00:00');
 	$('.mask-date_time').mask('99/99/9999 00:00:00');
@@ -16,7 +25,7 @@ $(function() {
 	$('.mask-phone_with_ddd').mask('(99) 9999-9999');
 	$('.mask-cpf').mask('999.999.999-99', {reverse: true});
 
-	
+	$('a[rel=tooltip]').tooltip({placement:'top'});
 
 	$('#refresh_captcha').click(function() {
 		$('#captcha').attr('src', $('#captcha').attr('src')+'?var='+Math.random());
@@ -46,16 +55,23 @@ $(function() {
 			
 	});
 
-	$("#validateForm").validate();							 
+	$("#validateForm").validate();	
+
+	//TODO: Carregar Secoes
+	$("#cmbLocalOcorrencias").change(function () {
+      
+    });					 
 
 });
 </script>
 
 <script>
 
+/* Problemas com o GMAP 
 $(window).load(function(){
   $('#container-principal').fadeIn(2000);
   $('#dvLoading').fadeOut(2000);
 });
+*/
 
 </script>

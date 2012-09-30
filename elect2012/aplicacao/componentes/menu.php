@@ -1,4 +1,4 @@
-<div id="dvLoading"><img src="img/loading.gif"> carregando...</div>
+<!-- <div id="dvLoading"><img src="img/loading.gif"> carregando...</div> -->
 <?php if (aplicacao::isUsuarioLogado()): ?>
 	<div class="navbar  navbar-fixed-top">
 		<div class="navbar-inner">
@@ -17,15 +17,16 @@
 							<li><a href="advogados.php"><i class="icon-white icon-briefcase"></i> Advogados</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-white icon-wrench"></i> Administração <b class="caret"></b></a>
-								<ul class="dropdown-menu">                
-									<li><a href="secoes.php">Seções</a></li>              
-									<li><a href="candidatos.php">Candidatos</a></li>   
+								<ul class="dropdown-menu">           
+									<li><a href="candidatos.php">Candidatos</a></li>
+									<li><a href="locais.php">Localidades</a></li>           
+									<li><a href="secoes.php">Seções</a></li> 							
 									<li><a href="usuarios.php">Usuários</a></li>  
 								</ul>
 							</li>         
 						</ul>	
 						<ul class="nav pull-right">					
-							<li><a>Bem vindo,&nbsp;&nbsp;<strong><?php print aplicacao::getUsuarioLogado()->nome; ?></strong></a></li>
+							<li><a><strong><?php print aplicacao::getUsuarioLogado()->nome; ?></strong></a></li>
 							<li><a href="sair.php"><i class="icon icon-white icon-off"></i> Sair</a></li>
 						</ul>	
 				</div><!--/.nav-collapse -->
