@@ -24,17 +24,18 @@ if(aplicacao::isRequestPost()){
 	$obs = trim(aplicacao::getParam('obs'));
 	$lat = 1;
 	$long= 1;
-	var_dump($_POST);
+	//var_dump($_POST);
 	if ($acao == 'novo'){
-		try{			
-			
-			$sql = "INSERT INTO localidades ( nome, cep, endereco, numero, complemento, bairro, cidade, uf, lat, long, obs) ";
-			$sql .= "VALUES ('nome', 'cep','endereco', 1, 'comple', 'bai', 'cidade', 'uf', 1, 1, 'sdasd')";
-			//$values = array($nome,$cep,$endereco,$numero,$complemento,$bairro,$cidade,$uf,$lat,$long,$obs);
-			var_dump($sql);
-			banco::executar($sql);
+		try{
+			$sql = "INSERT INTO localidades ( nome, cep, endereco, numero, complemento, bairro, cidade, uf, lat, long, obs) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";			
+			$values = array($nome, $cep, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $lat, $long, $obs);
+			echo("<pre>");
+			var_dump( $values );
+			var_dump( $sql );
+			echo("</pre>");
+			banco::executar($sql, $values);			
 			mensagem::sucesso('Operação realizada com sucesso!');
-			//aplicacao::redirect('localidades.php');
+			aplicacao::redirect('localidades.php');
 		}catch(Exception $e){
 			var_dump(banco::errorInfo());
 			mensagem::erro('Não foi possivel cadastrar localidade. Erro no banco de dados.');
