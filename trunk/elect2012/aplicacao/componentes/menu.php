@@ -20,7 +20,8 @@
 								<ul class="dropdown-menu">           
 									<li><a href="candidatos.php">Candidatos</a></li>
 									<li><a href="locais.php">Localidades</a></li>           
-									<li><a href="secoes.php">Seções</a></li> 							
+									<li><a href="secoes.php">Seções</a></li> 
+									<li><a href="locais-votacao.php">Locais de Votação</a></li> 									
 									<li><a href="usuarios.php">Usuários</a></li>  
 								</ul>
 							</li>         
