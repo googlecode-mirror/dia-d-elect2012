@@ -33,7 +33,13 @@ $lista_advogados = banco::listar($sql);
 $lista_locais = array();
 
 if ($advogado){
-	$sql = "SELECT md5(local) as cod_local, local, endereco, bairro, a.cod_advogado
+	$sql = "SELECT md5(local) as cod_local, local, endereco, bairro, a.cod_advogado, 
+			(SELECT count(*) 
+					FROM secao s2 
+					INNER JOIN advogado_secao a2 ON a2.secao = s2.secao AND a2.zona = s2.zona
+					WHERE md5(s2.local) = md5(s.local)
+					GROUP BY local, endereco,bairro	
+			 ) as total
 			FROM secao s
 			LEFT JOIN advogado_secao a ON a.secao = s.secao AND a.zona = s.zona
 			GROUP BY local, endereco,bairro			
