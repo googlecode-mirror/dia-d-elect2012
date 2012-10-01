@@ -47,6 +47,7 @@
 							<tr>
 								<th>Locais de Votação</th>
 								<th>Endereço</th>
+								<th>Bairro</th>
 								<th>Total de urnas</th>
 								<th>Total de votantes</th>								
 							</tr>
@@ -57,6 +58,7 @@
 									print '<tr>';
 									print '<td>'.$item->local.'</td>';
 									print '<td>'.$item->endereco.'</td>';
+									print '<td>'.$item->bairro.'</td>';
 									print '<td>'.$item->urnas.'</td>';
 									print '<td>'.$item->totalLocal.'</td>';
 									print '</tr>';
