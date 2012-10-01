@@ -16,8 +16,9 @@
 	               			$(this).attr('selected','selected');
 	               		});
 	               		$('#acao').val('atualizar');
-	               		$('#frm-associar').submit();
+	               		
 	             	});
+			   		$('#frm-associar').submit();
 		   		}
 		   		function delOption(){
 			   		$("#cod_local option:selected").each(function () {
@@ -28,8 +29,9 @@
 	               			$(this).attr('selected','selected');
 	               		});
 	               		$('#acao').val('atualizar');
-	               		$('#frm-associar').submit();
+	               		
 			   		});
+			   		$('#frm-associar').submit();
 		   		}
 		   </script>
 	</head>
