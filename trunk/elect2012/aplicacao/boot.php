@@ -8,3 +8,5 @@ include "bibliotecas/mensagem.php";
 include "bibliotecas/gmaps.php";
 
 banco::conectar();
+
+aplicacao::verificaUsuarioLogado();
