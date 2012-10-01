@@ -18,18 +18,19 @@
 						<form action="cadastro-advogado.php" method="get" >
 							<fieldset>
 								<legend>Atualizar Dados</legend>
+								<p>Os novos cadastros foram suspensos. Você poderá editar seu cadastro para alterar informações informando o número da OAB</p>
 								<div class="control-group">
 								<label class="control-label" >OAB</label>
 								<div class="controls">
 									<input type="text"  class="input-small" name="oab" value="">
 									<input style="margin-left:20px;margin-top:-8px" class="btn btn-success" type="submit" VALUE="Ok"/>
 								</div>
-								
+								<!--
 								<div class="form-actions">
 									<a class="btn btn-primary"  href="cadastro-advogado.php">Novo Cadastro</a>
 									<a class="btn" style="margin-left:20px;" href="index.php">Voltar</a>
 								</div>
-								
+								-->
 							</div>
 							</fieldset>
 							
