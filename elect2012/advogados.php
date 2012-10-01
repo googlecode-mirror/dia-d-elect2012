@@ -33,6 +33,7 @@
 			<div class="row">
 				<div class="span12">
 					<a class="btn btn-success" href="advogado-cadastro.php"> <i class="icon icon-white icon-plus"></i> Novo Advogado</a>
+					<a class="btn btn-success" style="margin-left:10px;" href="associar-advogados.php"> <i class="icon icon-white icon-user"></i> Associar Advogados</a>
 				</div>
 			</div>
 			<div class="row" style="margin-top:15px">

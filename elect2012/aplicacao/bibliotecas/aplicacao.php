@@ -120,8 +120,8 @@
 		if ( strpos($_SERVER['PHP_SELF'], "pre-cadastro.php") > -1 ) return true;
 				
 		if (!self::isUsuarioLogado()){
-			//self::redirect('index.php');
-			print strpos($_SERVER['PHP_SELF'], "pre-cadastro.php");	
+			self::redirect('index.php');
+			//print strpos($_SERVER['PHP_SELF'], "pre-cadastro.php");	
 		}
 		
 		return true;		
