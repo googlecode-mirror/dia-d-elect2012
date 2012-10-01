@@ -213,7 +213,13 @@ if ($oabAtulizarCadastro){
 		$zona =  $objAdvogadoAtual->zona;
 		$secao =  $objAdvogadoAtual->secao;
 		//$titulo =  $objAdvogadoAtual->titulo;
+	}else{
+		mensagem::erro('Numero OAB não encontrado no banco de dados. Tente novamente!');
+		aplicacao::redirect('pre-cadastro.php');
 	}
+}else{
+	mensagem::erro('Numero OAB não encontrado no banco de dados. Tente novamente!');
+	aplicacao::redirect('pre-cadastro.php');
 }
 
 if ($numero == 0 ) $numero = null;

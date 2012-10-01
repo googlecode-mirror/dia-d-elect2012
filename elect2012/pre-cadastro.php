@@ -1,6 +1,5 @@
 <?php 
 	include "aplicacao/boot.php"; 
-	include "aplicacao/acoes/cadastro-advogado.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -14,6 +13,7 @@
 		<div class="container" id="container-principal">
 			<div class="row">
 				<div class="span12">
+				<?php print mensagem::exibir(); ?>
 					<div class="well"  style="margin-top:20px;">
 						<form action="cadastro-advogado.php" method="get" >
 							<fieldset>
