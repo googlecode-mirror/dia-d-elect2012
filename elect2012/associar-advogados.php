@@ -91,7 +91,10 @@
 									 <?php 
 									 	foreach ($lista_locais as $item){
 											if ($advogado <> $item->cod_advogado){
-												print "<option value='$item->cod_local'>".$item->local."</option>";
+												print "<option value='$item->cod_local'>";
+												if ($item->total >0) print "* ";						
+												print $item->local;
+												print "</option>";
 											}
 									 	}
 									 ?>
