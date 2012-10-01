@@ -60,8 +60,8 @@
 						  		</div>
 						  		<div style="float:left;width:20%; text-align: right;height:26px;">
 						  			<a rel="tooltip" title="ver no mapa" class="btn btn-small"><i class="icon icon-map-marker"></i></a>
-						  			<a rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
-						  			<a rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
+						  			<a id="minimize" rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
+						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
 						  		<div id="local-detalhes">
 							  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
