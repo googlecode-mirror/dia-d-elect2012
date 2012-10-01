@@ -8,9 +8,29 @@
 
 <script type="text/javascript">
 
-$(function() {
+function carregarMapa(){
+	
+	
+}
 
-	$("#painel-controle-gmap3").gmap3();
+
+$(function() {
+	$("#painel-controle-gmap3").gmap3(
+		{
+			action:'init',
+			options:{
+				center:[-3.7183943,-38.5433948],
+				zoom: 12
+			}
+		}
+	);
+	$('#minimize').click(function (e) {
+		$('#local-detalhes').hide();
+	})
+	
+	$('#maximize').click(function (e) {
+		$('#local-detalhes').show();
+	})
 	
 	$('#tabPanelBottomOcorrencias a').click(function (e) {
 		  e.preventDefault();
