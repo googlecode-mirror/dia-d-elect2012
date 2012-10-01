@@ -20,5 +20,5 @@ if (aplicacao::isRequestPost()){
 
 
 //$sql = "SELECT * FROM secao ORDER BY zona,secao,local";
-$sql = "SELECT  local, endereco, sum(aptos_total) as totalLocal, count(secao) as urnas FROM `secao` group by local order by totalLocal DESC";
+$sql = "SELECT  local, endereco, bairro, sum(aptos_total) as totalLocal, count(secao) as urnas FROM `secao` group by local order by totalLocal DESC";
 $lista = banco::listar($sql);
