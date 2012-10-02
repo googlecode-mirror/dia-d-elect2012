@@ -8,26 +8,7 @@
 
 <script type="text/javascript">
 
-function refreshMapa(){
-	var map = $('#painel-controle-gmap3').gmap3('get'),
-    sw = map.getBounds().getSouthWest(),
-    ne = map.getBounds().getNorthEast(),
-    i;
-	for (i = 0; i < 10; i++) {
-	  setTimeout(function() {
-	    var lat = Math.random() * (ne.lat() - sw.lat()) + sw.lat(),
-	        lng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
-	    $('#painel-controle-gmap3').gmap3({ 
-	      action: 'addMarker',
-	      latLng:[lat, lng],
-	      options:{
-	        draggable: true,
-	        animation: google.maps.Animation.DROP
-	      }
-	    });
-	  }, i * 200);
-	}
-}
+var dadosPontosMapa;
 
 $(function() {
 	$("#painel-controle-gmap3").gmap3(
@@ -43,6 +24,10 @@ $(function() {
 		
 		}
 	);
+
+	
+
+	
 	$('#minimize').click(function (e) {
 		$('#local-detalhes').hide();
 	})
@@ -102,6 +87,28 @@ $(function() {
     });					 
 
 });
+
+function refreshMapa(){		
+	$.get("mapa.php?acao=carregar-mapa",
+		function(data){
+			dadosPontosMapa = data;
+			$('#painel-controle-gmap3').gmap3({action:'clear'});
+			for (i = 0; i < dadosPontosMapa.length; i++) {		
+				lat = dadosPontosMapa[i].latitude;
+				lng = dadosPontosMapa[i].longitude;	
+				cor = 	dadosPontosMapa[i].cor;	
+				$('#painel-controle-gmap3').gmap3({ 
+				    action: 'addMarker',
+				    latLng:[lat, lng],
+				    options:{
+				      draggable: false,
+				      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/gmap_pin"+cor+".png")
+				    }				   
+				});					
+			}
+	}, "json");		
+}
+
 </script>
 
 <script>
