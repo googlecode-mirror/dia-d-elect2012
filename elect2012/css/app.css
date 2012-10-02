@@ -8,6 +8,15 @@ body{
 	color:red;
 }
 
+.gmap3{
+        margin: 20px auto;
+        border: 1px dashed #C0C0C0;
+        width: 100%;
+        height: 410px;
+      }
+.gmap3 img{
+	max-width: none;
+}
 
 
 /* Problemas com o GMAP
