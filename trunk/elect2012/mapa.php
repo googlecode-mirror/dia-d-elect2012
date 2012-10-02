@@ -20,7 +20,7 @@ if ($acao == "carregar-mapa"){
 			
 			UNION
 			
-			SELECT nome as local, latitude, longitude, tipo, 0 as total_adv FROM localidades";	
+			SELECT nome as local, latitude, longitude, 2 as tipo, 0 as total_adv FROM localidades";	
 	$value = banco::listar($sql);
 	$json = json_encode($value);
 }
