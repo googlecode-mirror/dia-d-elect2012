@@ -20,7 +20,7 @@ $(function() {
 			action:'init',
 			options:{
 				center:[-3.7183943,-38.5433948],
-				zoom: 12
+				zoom: 13
 			}
 		}
 	);

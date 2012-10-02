@@ -10,15 +10,16 @@ if($acao == 'atualizar'){
 	try{
 		$sql = 'DELETE FROM advogado_secao WHERE cod_advogado = ?';
 		banco::executar($sql,array($advogado));
-		
-		foreach($cod_local as $item){
-			$sql = 'SELECT * FROM secao WHERE md5(local) = ?';
-			$secoes_local = banco::listar($sql,array($item));
-			foreach($secoes_local as $subitem){
-				$sql = 'INSERT INTO advogado_secao (zona,secao,cod_advogado) VALUES (?,?,?)';
-				banco::executar($sql,array($subitem->zona, $subitem->secao, $advogado));
+		if (!empty($cod_local)){
+			foreach($cod_local as $item){
+				$sql = 'SELECT * FROM secao WHERE md5(local) = ?';
+				$secoes_local = banco::listar($sql,array($item));
+				foreach($secoes_local as $subitem){
+					$sql = 'INSERT INTO advogado_secao (zona,secao,cod_advogado) VALUES (?,?,?)';
+					banco::executar($sql,array($subitem->zona, $subitem->secao, $advogado));
+				}
 			}
-		}
+		}		
 		
 		banco::fecharTransacao();
 	}catch (Exception $e){
@@ -33,13 +34,7 @@ $lista_advogados = banco::listar($sql);
 $lista_locais = array();
 
 if ($advogado){
-	$sql = "SELECT md5(local) as cod_local, local, endereco, bairro, a.cod_advogado, 
-			(SELECT count(*) 
-					FROM secao s2 
-					INNER JOIN advogado_secao a2 ON a2.secao = s2.secao AND a2.zona = s2.zona
-					WHERE md5(s2.local) = md5(s.local)
-					GROUP BY local, endereco,bairro	
-			 ) as total
+	$sql = "SELECT md5(local) as cod_local, local, endereco, bairro, a.cod_advogado			
 			FROM secao s
 			LEFT JOIN advogado_secao a ON a.secao = s.secao AND a.zona = s.zona
 			GROUP BY local, endereco,bairro			
