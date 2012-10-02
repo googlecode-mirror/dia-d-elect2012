@@ -93,17 +93,33 @@ function refreshMapa(){
 		function(data){
 			dadosPontosMapa = data;
 			$('#painel-controle-gmap3').gmap3({action:'clear'});
-			for (i = 0; i < dadosPontosMapa.length; i++) {		
+			total = dadosPontosMapa.length;
+			for (i = 0; i < 10 ; i++) {		
 				lat = dadosPontosMapa[i].latitude;
 				lng = dadosPontosMapa[i].longitude;	
 				cor = 	dadosPontosMapa[i].cor;	
+				local = dadosPontosMapa[i].local;
 				$('#painel-controle-gmap3').gmap3({ 
 				    action: 'addMarker',
 				    latLng:[lat, lng],
 				    options:{
 				      draggable: false,
 				      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/gmap_pin"+cor+".png")
-				    }				   
+				    },
+				    data:[local,i],
+				    events:{
+				    	click: function(marker, event, data){
+				    		var map = $('#painel-controle-gmap3').gmap3('get');
+				    		var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
+				    		if (infowindow){
+					    		infowindow.open(map, marker);
+				    			infowindow.setContent(data[0]);
+				    		} else {
+				    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: data[0]}});
+				    		}
+				    	}
+			    	}
+				    			   
 				});					
 			}
 	}, "json");		
