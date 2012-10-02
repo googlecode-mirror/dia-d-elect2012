@@ -93,11 +93,16 @@ function refreshMapa(){
 		function(data){
 			dadosPontosMapa = data;
 			$('#painel-controle-gmap3').gmap3({action:'clear'});
-			total = dadosPontosMapa.length;
-			for (i = 0; i < 10 ; i++) {		
+			total_pontos = dadosPontosMapa.length;
+			for (i = 0; i < total_pontos ; i++) {		
 				lat = dadosPontosMapa[i].latitude;
 				lng = dadosPontosMapa[i].longitude;	
-				cor = 	dadosPontosMapa[i].cor;	
+				total_adv = dadosPontosMapa[i].total_adv;
+				if (total_adv > 0){
+					cor = 3;	
+				}else{
+					cor = 4;
+				}					
 				local = dadosPontosMapa[i].local;
 				$('#painel-controle-gmap3').gmap3({ 
 				    action: 'addMarker',
