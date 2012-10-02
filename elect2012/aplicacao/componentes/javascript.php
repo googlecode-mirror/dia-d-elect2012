@@ -7,9 +7,6 @@
 
 
 <script type="text/javascript">
-
-var dadosPontosMapa;
-
 $(function() {
 	$("#painel-controle-gmap3").gmap3(
 		{
@@ -91,6 +88,8 @@ $(function() {
 function refreshMapa(){		
 	$.get("mapa.php?acao=carregar-mapa",
 		function(data){
+			var dadosPontosMapa,lat,lng,local,total_pontos,total_adv;
+			
 			dadosPontosMapa = data;
 			$('#painel-controle-gmap3').gmap3({action:'clear'});
 			total_pontos = dadosPontosMapa.length;
