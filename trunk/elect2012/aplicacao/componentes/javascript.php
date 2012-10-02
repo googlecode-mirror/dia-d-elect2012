@@ -8,11 +8,26 @@
 
 <script type="text/javascript">
 
-function carregarMapa(){
-	
-	
+function refreshMapa(){
+	var map = $('#painel-controle-gmap3').gmap3('get'),
+    sw = map.getBounds().getSouthWest(),
+    ne = map.getBounds().getNorthEast(),
+    i;
+	for (i = 0; i < 10; i++) {
+	  setTimeout(function() {
+	    var lat = Math.random() * (ne.lat() - sw.lat()) + sw.lat(),
+	        lng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
+	    $('#painel-controle-gmap3').gmap3({ 
+	      action: 'addMarker',
+	      latLng:[lat, lng],
+	      options:{
+	        draggable: true,
+	        animation: google.maps.Animation.DROP
+	      }
+	    });
+	  }, i * 200);
+	}
 }
-
 
 $(function() {
 	$("#painel-controle-gmap3").gmap3(
@@ -21,7 +36,11 @@ $(function() {
 			options:{
 				center:[-3.7183943,-38.5433948],
 				zoom: 13
-			}
+			},
+			callback: function(){
+	            $('#refresh-map').click(refreshMapa);
+	          }
+		
 		}
 	);
 	$('#minimize').click(function (e) {

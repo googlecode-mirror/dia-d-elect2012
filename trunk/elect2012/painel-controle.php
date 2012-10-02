@@ -21,6 +21,9 @@
 			<div class="row">
 				<div class="span8">
 					<div id="painel-controle-gmap3" class="gmap3"></div>
+					<div class="well">
+						<a class="btn" id="refresh-map" style="margin-left:10px;" ><i class="icon icon-refresh"></i> Reload Mapa</a>
+					</div>
 				</div>
 				<div class="span4">
 					<form class="well" style="padding:10px; height:480px; margin-top:20px;font-size:12px;">
