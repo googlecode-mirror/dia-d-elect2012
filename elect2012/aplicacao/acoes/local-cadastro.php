@@ -22,12 +22,17 @@ if(aplicacao::isRequestPost()){
 	$cidade = trim(aplicacao::getParam('cidade'));
 	$uf = trim(aplicacao::getParam('uf'));
 	$obs = trim(aplicacao::getParam('obs'));
-	$lat = 1;
-	$long= 1;
-	//var_dump($_POST);
+	
+	
+	$result = gmaps::getLatLong($endereco . ' ' . $numero . ' ' . $bairro. ' '.$cidade);
+	if ($result){
+		$lat = $result[0];
+		$long = $result[1];		
+	}
+
 	if ($acao == 'novo'){
 		try{
-			$sql = "INSERT INTO localidades ( nome, cep, endereco, numero, complemento, bairro, cidade, uf, lat, long, obs) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";			
+			$sql = "INSERT INTO localidades ( nome, cep, endereco, numero, complemento, bairro, cidade, uf, latitude, longitude, obs) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";			
 			$values = array($nome, $cep, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $lat, $long, $obs);
 			echo("<pre>");
 			var_dump( $values );
@@ -35,24 +40,24 @@ if(aplicacao::isRequestPost()){
 			echo("</pre>");
 			banco::executar($sql, $values);			
 			mensagem::sucesso('Operação realizada com sucesso!');
-			aplicacao::redirect('localidades.php');
+			aplicacao::redirect('locais.php');
 		}catch(Exception $e){
 			var_dump(banco::errorInfo());
 			mensagem::erro('Não foi possivel cadastrar localidade. Erro no banco de dados.');
-			//aplicacao::redirect('local-cadastro.php');
+			aplicacao::redirect('local-cadastro.php');
 		}
 		
 	}
 	
 	if ($acao == 'editar'){
 		try{
-			$sql = 'UPDATE localidades SET nome=? , obs=? , cep=? , endereco=? , complemento=? ,numero=? , bairro=? , cidade=? , uf=? , lat=? , long=?  WHERE cod_localidade = ?';
-			banco::executar($sql,array($nome,$obs,$cep,$endereco,$numero,$bairro,$cidade,$uf,$lat,$long,$cod_localidade));
+			$sql = 'UPDATE localidades SET nome=? , obs=? , cep=? , endereco=? , numero=?, complemento=?, bairro=?, cidade=?, uf=?, latitude=? , longitude=?  WHERE cod_localidade = ?';
+			banco::executar($sql,array($nome, $obs, $cep, $endereco, $numero, $complemento, $bairro, $cidade, $uf, $lat, $long, $cod_localidade));
 			mensagem::sucesso('Operação realizada com sucesso!');
-			aplicacao::redirect('localidades.php');
+			aplicacao::redirect('locais.php');
 		}catch(Exception $e){
 			mensagem::erro('Não foi possivel alterar usuário. Erro no banco de dados.');
-			aplicacao::redirect('local-cadastro.php?codigo='.$codigo);
+			aplicacao::redirect('local-cadastro.php?codigo='.$cod_localidade);
 		}
 		
 	}
