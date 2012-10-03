@@ -41,3 +41,11 @@ if ($advogado){
 			ORDER BY local ASC";
 	$lista_locais = banco::listar($sql);	
 }
+
+$sql2 = "SELECT DISTINCT ad.oab AS oab, ad.nome AS nome, ad.email1 AS email, ad.celular1 AS celular1, se.local AS
+		local FROM advogado AS ad, secao AS se, advogado_secao AS adse
+		WHERE ad.cod_advogado = adse.cod_advogado
+		AND se.zona = adse.zona
+		AND se.secao = adse.secao
+		ORDER BY nome";
+$listaAssociados = banco::listar($sql2);
