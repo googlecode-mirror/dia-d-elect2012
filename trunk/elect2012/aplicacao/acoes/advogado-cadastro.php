@@ -53,15 +53,15 @@ if(aplicacao::isRequestPost()){
 		elseif ($objeto->celular1 == 0) {
 			mensagem::erro('Campo "Celular 1" não pode ser vazio.');
 			$erro = true;
-		}
+		}/*
 		elseif (empty($objeto->endereco)) {
 			mensagem::erro('Campo "Endereço" não pode ser vazio.');
 			$erro = true;
-		}
+		}*/
 		elseif (empty($objeto->email1)) {
 			mensagem::erro('Campo "Email1" não pode ser vazio.');
 			$erro = true;
-		}
+		}/*
 		elseif ($objeto->numero == 0) {
 			mensagem::erro('Campo "Número" não pode ser vazio.');
 			$erro = true;
@@ -77,7 +77,7 @@ if(aplicacao::isRequestPost()){
 		elseif (empty($objeto->indicacao1)) {
 			mensagem::erro('Campo "Indicação 1" não pode ser vazio.');
 			$erro = true;
-		}
+		}*/
 		elseif ($objeto->zona  == 0) {
 			mensagem::erro('Campo "Zona" não pode ser vazio.');
 			$erro = true;
@@ -87,14 +87,17 @@ if(aplicacao::isRequestPost()){
 			$erro = true;
 		}
 	}
-	
+	/*
 	if (!$erro){
 		//Validação cpf
+		
 		if(!utils::validarCPF($objeto->cpf)){
 			mensagem::erro('CPF inválido! Verifique e corrija o campo CPF.');
 			$erro = true;
 		}
+		
 	}
+	*/
 	
 	if (!$erro){
 		//Validação secao zona
@@ -121,9 +124,9 @@ if(aplicacao::isRequestPost()){
 			try{
 				$sql = 'INSERT INTO advogado (nome, oab, cpf, celular1, celular2, tel_residencial, tel_comercial, email1, email2, endereco, numero, complemento, bairro, cidade, uf, eleicoesAnt, eleicoesAntAnos, bairroPreferido1, cep, indicacao1, indicacao2, zona, secao, titulo) VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 				$values = array($objeto->nome, $objeto->oab, $objeto->cpf, $objeto->celular1, $objeto->celular2, $objeto->tel_residencial, $objeto->tel_comercial, $objeto->email1, $objeto->email2, $objeto->endereco, $objeto->numero, $objeto->complemento, $objeto->bairro, $objeto->cidade, $objeto->uf, $objeto->eleicoesAnt, $objeto->eleicoesAntAnos, $objeto->bairroPreferido1, $objeto->cep, $objeto->indicacao1, $objeto->indicacao2, $objeto->zona, $objeto->secao, $objeto->titulo);
-					
+				//var_dump ($values);				
 				banco::executar($sql,$values);
-				mensagem::sucesso('Dados cadastrados com sucesso!');
+				mensagem::sucesso('Dados cadastrados  --- com sucesso!');
 				aplicacao::redirect('advogados.php');
 			}catch (Exception $e){
 				mensagem::erro('Erro no banco de dados. Tente novamente!');
