@@ -87,6 +87,10 @@ function carregarDadosLocal(local){
 	//TODO - lista dos advogados que ainda nao estao no local
 	$.get("mapa.php?acao=lista-advogados-nao-local&local=" + urlencode(local),
 		function(data){
+			$("#associar_advogado_origem option").each(function () {
+	   			$(this).removeAttr('selected');
+	       		$(this).remove();	               		             		
+	     	});
 			var list = document.getElementById("associar_advogado_origem");
 			for(i=0;i<data.length;i++) {
 				list.add(new Option(data[i].nome, data[i].cod_advogado));
@@ -96,6 +100,10 @@ function carregarDadosLocal(local){
 	//TODO - lista dos advogdaos que estao no local
 	$.get("mapa.php?acao=lista-advogados-local&local=" + urlencode(local),
 		function(data){
+			$("#associar_advogado_destino option").each(function () {
+	   			$(this).removeAttr('selected');
+	       		$(this).remove();	               		             		
+	     	});
 			var list = document.getElementById("associar_advogado_destino");
 			for(i=0;i<data.length;i++) {
 				list.add(new Option(data[i].nome, data[i].cod_advogado));
