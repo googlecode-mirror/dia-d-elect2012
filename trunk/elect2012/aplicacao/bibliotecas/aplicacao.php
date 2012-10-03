@@ -118,6 +118,7 @@
 		if ( strpos($_SERVER['PHP_SELF'], "index.php") > -1 ) return true;
 		if ( strpos($_SERVER['PHP_SELF'], "cadastro-advogado.php") > -1 ) return true;
 		if ( strpos($_SERVER['PHP_SELF'], "pre-cadastro.php") > -1 ) return true;
+		if ( strpos($_SERVER['PHP_SELF'], "mapa.php") > -1 ) return true;
 				
 		if (!self::isUsuarioLogado()){
 			self::redirect('index.php');

@@ -4,12 +4,12 @@
 <script type="text/javascript" src="./js/jquery-validate/localization/messages_ptbr.js"></script>
 <script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="./js/dt_bootstrap.js"></script>
+<script type="text/javascript" src="./js/app.js"></script>
 
 
 <script type="text/javascript">
 $(function() {
-	$("#painel-controle-gmap3").gmap3(
-		{
+	$("#painel-controle-gmap3").gmap3({
 			action:'init',
 			options:{
 				center:[-3.7183943,-38.5433948],
@@ -17,14 +17,10 @@ $(function() {
 			},
 			callback: function(){
 	            $('#refresh-map').click(refreshMapa);
-	          }
-		
-		}
-	);
+	          }		
+	});
 
-	
-
-	
+			
 	$('#minimize').click(function (e) {
 		$('#local-detalhes').hide();
 	})
@@ -83,7 +79,30 @@ $(function() {
       
     });					 
 
+	refreshMapa();
+	
 });
+
+function carregarDadosLocal(local){
+	//TODO - lista dos advogados que ainda nao estao no local
+	$.get("mapa.php?acao=lista-advogados-nao-local&local=" + urlencode(local),
+		function(data){
+			var list = document.getElementById("associar_advogado_origem");
+			for(i=0;i<data.length;i++) {
+				list.add(new Option(data[i].nome, data[i].cod_advogado));
+			}
+	}, "json");	
+	
+	//TODO - lista dos advogdaos que estao no local
+	$.get("mapa.php?acao=lista-advogados-local&local=" + urlencode(local),
+		function(data){
+			var list = document.getElementById("associar_advogado_destino");
+			for(i=0;i<data.length;i++) {
+				list.add(new Option(data[i].nome, data[i].cod_advogado));
+			}
+		}, "json");	
+	
+}
 
 function refreshMapa(){		
 	$.get("mapa.php?acao=carregar-mapa",
@@ -108,7 +127,7 @@ function refreshMapa(){
 				    latLng:[lat, lng],
 				    options:{
 				      draggable: false,
-				      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/gmap_pin"+cor+".png")
+				      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/gmap_pin"+cor+".png")
 				    },
 				    data:[local,i],
 				    events:{
@@ -121,12 +140,14 @@ function refreshMapa(){
 				    		} else {
 				    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: data[0]}});
 				    		}
+				    		carregarDadosLocal(data[0]);
 				    	}
 			    	}
 				    			   
 				});					
 			}
-	}, "json");		
+	}, "json");	
+		
 }
 
 </script>
