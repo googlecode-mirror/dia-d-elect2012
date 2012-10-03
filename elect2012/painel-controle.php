@@ -161,8 +161,8 @@
 			<div class="row" id="panel-ocorrencias-advogados">
 				<div class="span12">
 					<ul class="nav nav-tabs" id="tabPanelBottomOcorrencias">
-					  <li class="active"><a href="#tabOcorrencias">Ocorrências</a></li>
-					  <li><a href="#tabAdvogados">Gerênciar Advogados</a></li>
+					  <li><a href="#tabOcorrencias">Ocorrências</a></li>
+					  <li class="active"><a href="#tabAdvogados">Gerênciar Advogados</a></li>
 					</ul>
 					 
 					<div class="tab-content">
