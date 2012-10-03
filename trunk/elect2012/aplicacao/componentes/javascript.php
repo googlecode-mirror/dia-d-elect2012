@@ -126,9 +126,9 @@ function refreshMapa(){
 				lng = dadosPontosMapa[i].longitude;	
 				total_adv = dadosPontosMapa[i].total_adv;
 				if (total_adv > 0){
-					cor = 3;	
+					cor = "verde";	
 				}else{
-					cor = 4;
+					cor = "preto";
 				}					
 				local = dadosPontosMapa[i].local;
 				$('#painel-controle-gmap3').gmap3({ 
@@ -136,7 +136,7 @@ function refreshMapa(){
 				    latLng:[lat, lng],
 				    options:{
 				      draggable: false,
-				      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/gmap_pin"+cor+".png")
+				      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/"+cor+".png")
 				    },
 				    data:[local,i],
 				    events:{
