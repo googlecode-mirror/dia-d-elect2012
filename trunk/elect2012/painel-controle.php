@@ -32,7 +32,8 @@
 		   			
 		   			$.post("mapa.php", { "acao": "associar-advogados", "listaCodAdvg":listaAdv,"local":localSelecionado },
 		   				 function(data){
-		   					if(data.sucesso){
+		   					if(data.sucesso == 1){
+		   						refreshMapa();
 			   				   alert("Operação realizada com sucesso!");
 		   				   }else{
 		   					 alert("Erro! Tente novamente!");

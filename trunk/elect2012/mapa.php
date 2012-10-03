@@ -57,24 +57,32 @@ if($acao == "associar-advogados"){
 	$resultado = array("sucesso"=>0);
 	$listaAdvg = aplicacao::getParam('listaCodAdvg');
 	$localSelecionado = urldecode(aplicacao::getParam('local'));
-	if ($listaAdvg){
-		$lista = explode(",", $listaAdvg);
-		banco::abrirTransacao();
-		//TODO: DELETAR TODOS OS REGISTRO DE  advogado_secao PARA UM LOCAL
-		//$sql="";
-		//banco::executar($sql,$vaues);
-		try{
-			foreach ($lista as $item) {
-				//TODO:INSERIR advogado_secao
-				//$sql="";
-				//banco::executar($sql,$vaues);
+	if ($listaAdvg){		
+		$secaoResult = banco::listar("SELECT * FROM secao WHERE local = ? ",array($localSelecionado));		
+		if (count($secaoResult)>0){			
+			banco::abrirTransacao();
+			try{			
+				//DELETAR OS REGISTROS DE Advogados associados ao LOCAL
+				foreach ($secaoResult as $secao){					
+					$sql="DELETE FROM advogado_secao WHERE secao = ? and zona = ?";
+					banco::executar($sql,array($secao->secao,$secao->zona));
+				}							
+				$lista = explode(",", $listaAdvg);
+				//Associar para cada advogado todas as secoes do local
+				foreach ($lista as $cod_adv) {
+					foreach ($secaoResult as $secao){
+						//DELETAR OS REGISTROS DE Advogados associados ao LOCAL
+						$sql="INSERT INTO advogado_secao (cod_advogado,secao,zona) VALUES (?,?,?)";
+						banco::executar($sql,array($cod_adv, $secao->secao,$secao->zona));
+					}
+				}
+				$resultado = array("sucesso"=>1);
+			}catch(excption $e){
+				$resultado = array("sucesso"=>0);
+				banco::cancelarTransacao();
 			}
-			$resultado = array("sucesso"=>1);
-		}catch(excption $e){			
-			$resultado = array("sucesso"=>0);
-			banco::cancelarTransacao();
-		}
-		banco::fecharTransacao();		
+			banco::fecharTransacao();
+		}		
 	}
 	$json = json_encode($resultado);
 }
