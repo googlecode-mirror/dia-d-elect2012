@@ -121,6 +121,34 @@
 					</form>
 				</div>
 			</div>
+			<div class="row">
+				<div  class="span12">
+					<table id="datatable" class="table table-striped table-bordered" style="width:100%;">
+						<thead>		
+							<tr>
+								<th>OAB</th>
+								<th>Nome</th>
+								<th>Email</th>
+								<th>Celular</th>
+								<th>Local</th>								
+							</tr>
+						</thead>
+						<tbody>
+							<?php 												
+								foreach($listaAssociados as $item){																																
+									print '<tr>';
+									print '<td>'.$item->oab.'</td>';
+									print '<td>'.$item->nome.'</td>';
+									print '<td>'.$item->email.'</td>';	
+									print '<td>'.$item->celular1.'</td>';
+									print '<td>'.$item->local.'</td>';																		
+									print '</tr>';
+								}
+							?>							
+						</tbody>
+					</table>				
+				</div>
+			</div>
 		
 			<?php include "aplicacao/componentes/rodape.php" ; ?>
     	</div> <!-- /container -->
