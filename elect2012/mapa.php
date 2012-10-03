@@ -52,6 +52,8 @@ if ($acao == "lista-advogados-nao-local"){
 }
 
 if($acao == "associar-advogados"){
+	$vaues="";
+	$sql="";
 	$resultado = array("sucesso"=>0);
 	$listaAdvg = aplicacao::getParam('listaCodAdvg');
 	$localSelecionado = urldecode(aplicacao::getParam('local'));
@@ -59,18 +61,20 @@ if($acao == "associar-advogados"){
 		$lista = explode(",", $listaAdvg);
 		banco::abrirTransacao();
 		//TODO: DELETAR TODOS OS REGISTRO DE  advogado_secao PARA UM LOCAL
+		//$sql="";
+		//banco::executar($sql,$vaues);
 		try{
 			foreach ($lista as $item) {
 				//TODO:INSERIR advogado_secao
+				//$sql="";
+				//banco::executar($sql,$vaues);
 			}
 			$resultado = array("sucesso"=>1);
 		}catch(excption $e){			
 			$resultado = array("sucesso"=>0);
 			banco::cancelarTransacao();
 		}
-		banco::fecharTransacao();
-		
-		
+		banco::fecharTransacao();		
 	}
 	$json = json_encode($resultado);
 }
