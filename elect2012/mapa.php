@@ -25,4 +25,29 @@ if ($acao == "carregar-mapa"){
 	$json = json_encode($value);
 }
 
+if ($acao == "lista-advogados-local"){
+	$local = aplicacao::getParam("local"); 
+	$sql =" SELECT cod_advogado,nome FROM advogado a
+			WHERE a.cod_advogado IN (
+									 SELECT advgs.cod_advogado FROM advogado_secao advgs 
+									 INNER JOIN secao s ON s.secao = advgs.secao AND s.zona = advgs.zona
+									 WHERE s.local like '$local'
+									 )";
+	$value = banco::listar($sql);
+	$json = json_encode($value);
+}
+
+if ($acao == "lista-advogados-nao-local"){
+	$local = aplicacao::getParam("local"); 
+	$sql =" SELECT cod_advogado,nome FROM advogado a
+			WHERE a.cod_advogado NOT  IN (
+									 SELECT advgs.cod_advogado FROM advogado_secao advgs 
+									 INNER JOIN secao s ON s.secao = advgs.secao AND s.zona = advgs.zona
+									 WHERE s.local  like '$local'
+									 )";
+	$value = banco::listar($sql);
+	$json = json_encode($value);
+}
+
+
 print $json;

@@ -6,6 +6,28 @@
 <html lang="pt-BR">
 	<head>
 		   <?php include "aplicacao/componentes/topo.php" ; ?>
+		   
+		    <script>
+		    	var listaAdv="";
+		    
+		   		function addOption(){
+			   		$("#associar_advogado_origem option:selected").each(function () {
+			   			$(this).removeAttr('selected');
+	               		$(this).remove().appendTo('#associar_advogado_destino');	               		             		
+	             	});
+		   		}
+		   		function delOption(){
+			   		$("#associar_advogado_destino option:selected").each(function () {
+			   			$(this).removeAttr('selected');
+	               		$(this).remove().appendTo('#associar_advogado_origem');	               			               		
+			   		});
+		   		}
+		   		function salvarAdvogados(){
+			   		
+		   			$("#cod_local option").each(lista);
+               		alert(listaAdv);
+		   		}
+		   </script>
 	</head>
 
 	<body>
@@ -66,7 +88,7 @@
 						  			<a id="minimize" rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
-						  		<div id="local-detalhes">
+						  		<div id="local-detalhes" style="display:none;">
 							  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
 							  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/> 524, 525.</div>
 								  	<div style="float:left; width:20%;"><strong>Seções Agregadas:</strong><br/> 512 </div>
@@ -194,50 +216,28 @@
 						</table>
 					  </div>
 					  <div class="tab-pane" id="tabAdvogados">
-					  
-					  	<div style="float:left;width:35%">
-					  		<label for="associar_advogado" style="font-weight: bold;">Advogados:</label>
-					  		<select name="associar_advogado" multiple="multiple" style="height:200px;width:95%;">
-							 <?php 
-							 	foreach ($lista_advogados as $item){
-									print "<option value='$item->cod_advogado'>".$item->nome."</option>";
-							 	}
-							 ?>
+						
+						<div style="float:left;width:40%">
+					  		<label for="associar_advogado_origem" style="font-weight: bold;">Todos os Advogados:</label>
+					  		<select id="associar_advogado_origem" name="associar_advogado_origem" multiple="multiple" style="height:200px;width:95%;">
 							</select>
 					  		
 					  	</div>
-				  		<div style="float:left;width:5%;margin-top:100px;">
-				  			<span style="margin-top:50px"><a class="btn"><i class="icon icon-chevron-right"></i></a></span>
+				  		<div style="float:left;width:10%;margin-top:80px;text-align: center;">				  			
+			  				<a class="btn" onclick="addOption();"><i class="icon icon-chevron-right"></i></a>
+			  				<br/><br/><br/>
+			  				<a class="btn" onclick="delOption();"><i class="icon icon-chevron-left"></i></a>				  			
 				  		</div>
-					  	<div style="float:left;width:35%">
-					  		<label for="associar_local" style="font-weight: bold;">Locais de votação:</label>
-					  		<select name="associar_local" multiple="multiple" style="height:200px;width:95%;">
-							 <?php 
-							 	foreach ($lista_locais as $item){
-									print "<option value='$item->cod_local'>".$item->local."</option>";
-							 	}
-							 ?>
+					  	<div style="float:left;width:40%">
+					  		<label for="associar_advogado_destino" style="font-weight: bold;">Advogados selecionados:</label>
+					  		<select id="associar_advogado_destino" name="associar_advogado_destino" multiple="multiple" style="height:200px;width:95%;">
 							</select>
 					  	</div>
-					  	<div style="float:left;width:5%; margin-top:100px;">
-				  			<span><a class="btn"><i class="icon icon-chevron-right"></i></a></span>
-				  		</div>
-					  	<div style="float:left;width:20%">
-					  		<label style="font-weight: bold;">Seções:</label>
-					  		
-					  		<label class="checkbox">
-					  			<input type="checkbox" id="chkMarcarTodasSecoes" name="associar_secoes_grupo[]" value="0" /> Marcar todos
-					  		</label>
-					  		<label class="checkbox">
-					  			<input type="checkbox" name="associar_secoes_grupo[]" value="1" /> 524
-					  		</label>
-					  		<label class="checkbox">
-					  			<input type="checkbox" name="associar_secoes_grupo[]" value="2" /> 523
-					  		</label>
-					  	</div>
+					  	
 					  	<div style="float:left;width:100%;padding: 20px 0px;">
-					  		<a class="btn btn-large btn-success">Salvar</a>					  	
-					  	</div>						  					  
+					  		<a class="btn btn-large btn-success" onClick="salvarAdvogados();">Salvar</a>					  	
+					  	</div>
+											  					  
 					  </div>
 					</div>
 				</div>
