@@ -8,7 +8,7 @@
 		   <?php include "aplicacao/componentes/topo.php" ; ?>
 		   
 		    <script>
-		    	var listaAdv="";
+		    	var listaAdv;
 		    
 		   		function addOption(){
 		   			$("#associar_advogado_origem option:selected").each(function () {
@@ -22,10 +22,22 @@
 	               		$(this).remove().appendTo('#associar_advogado_origem');	               			               		
 			   		});
 		   		}
-		   		function salvarAdvogados(){
-			   		
-		   			$("#cod_local option").each(lista);
-               		alert(listaAdv);
+		   		function salvarAdvogados(){		
+			   		localSelecionado = $('#local-selecionado').val();
+		   			listaAdv = "";	   		
+		   			$("#associar_advogado_destino option").each(function () {
+		   				listaAdv = listaAdv +', ' + $(this).val();
+		   			});
+		   			listaAdv=listaAdv.substr(1,listaAdv.length -1 );
+		   			
+		   			$.post("mapa.php", { "acao": "associar-advogados", "listaCodAdvg":listaAdv,"local":localSelecionado },
+		   				 function(data){
+		   					if(data.sucesso){
+			   				   alert("Operação realizada com sucesso!");
+		   				   }else{
+		   					 alert("Erro! Tente novamente!");
+		   				   }
+		   				 }, "json");
 		   		}
 		   </script>
 	</head>
@@ -39,7 +51,7 @@
 				<?php print mensagem::exibir(); ?>
 				</div>
 			</div>
-			
+			<input type="hidden" name="local-selecionado" id="local-selecionado" />
 			<div class="row">
 				<div class="span8">
 					<div id="painel-controle-gmap3" class="gmap3"></div>

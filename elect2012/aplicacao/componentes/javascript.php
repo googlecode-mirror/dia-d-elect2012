@@ -85,6 +85,7 @@ $(function() {
 
 function carregarDadosLocal(local){
 	//TODO - lista dos advogados que ainda nao estao no local
+	$('#local-selecionado').val(urlencode(local));
 	$.get("mapa.php?acao=lista-advogados-nao-local&local=" + urlencode(local),
 		function(data){
 			$("#associar_advogado_origem option").each(function () {
