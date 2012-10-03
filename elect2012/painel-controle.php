@@ -5,42 +5,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		   <?php include "aplicacao/componentes/topo.php" ; ?>
-		   
-		    <script>
-		    	var listaAdv;
-		    
-		   		function addOption(){
-		   			$("#associar_advogado_origem option:selected").each(function () {
-			   			$(this).removeAttr('selected');
-	               		$(this).remove().appendTo('#associar_advogado_destino');	               		             		
-	             	});
-		   		}
-		   		function delOption(){
-			   		$("#associar_advogado_destino option:selected").each(function () {
-			   			$(this).removeAttr('selected');
-	               		$(this).remove().appendTo('#associar_advogado_origem');	               			               		
-			   		});
-		   		}
-		   		function salvarAdvogados(){		
-			   		localSelecionado = $('#local-selecionado').val();
-		   			listaAdv = "";	   		
-		   			$("#associar_advogado_destino option").each(function () {
-		   				listaAdv = listaAdv +', ' + $(this).val();
-		   			});
-		   			listaAdv=listaAdv.substr(1,listaAdv.length -1 );
-		   			
-		   			$.post("mapa.php", { "acao": "associar-advogados", "listaCodAdvg":listaAdv,"local":localSelecionado },
-		   				 function(data){
-		   					if(data.sucesso == 1){
-		   						refreshMapa();
-			   				   alert("Operação realizada com sucesso!");
-		   				   }else{
-		   					 alert("Erro! Tente novamente!");
-		   				   }
-		   				 }, "json");
-		   		}
-		   </script>
+		   <?php include "aplicacao/componentes/topo.php" ; ?>		   
 	</head>
 
 	<body>
@@ -228,29 +193,31 @@
 							</tbody>
 						</table>
 					  </div>
-					  <div class="tab-pane" id="tabAdvogados">
-						
-						<div style="float:left;width:40%">
-					  		<label for="associar_advogado_origem" style="font-weight: bold;">Todos os Advogados:</label>
-					  		<select id="associar_advogado_origem" name="associar_advogado_origem" multiple="multiple" style="height:200px;width:95%;">
-							</select>
-					  		
-					  	</div>
-				  		<div style="float:left;width:10%;margin-top:80px;text-align: center;">				  			
-			  				<a class="btn" onclick="addOption();"><i class="icon icon-chevron-right"></i></a>
-			  				<br/><br/><br/>
-			  				<a class="btn" onclick="delOption();"><i class="icon icon-chevron-left"></i></a>				  			
-				  		</div>
-					  	<div style="float:left;width:40%">
-					  		<label for="associar_advogado_destino" style="font-weight: bold;">Advogados selecionados:</label>
-					  		<select id="associar_advogado_destino" name="associar_advogado_destino" multiple="multiple" style="height:200px;width:95%;">
-							</select>
-					  	</div>
-					  	
-					  	<div style="float:left;width:100%;padding: 20px 0px;">
-					  		<a class="btn btn-large btn-success" onClick="salvarAdvogados();">Salvar</a>					  	
-					  	</div>
-											  					  
+					  <div class="tab-pane" id="tabAdvogados">	
+					  	<div id="form-associar-advogados">					
+							<div style="float:left;width:40%">
+						  		<label for="associar_advogado_origem" style="font-weight: bold;">Todos os Advogados:</label>
+						  		<select id="associar_advogado_origem" name="associar_advogado_origem" multiple="multiple" style="height:200px;width:95%;">
+								</select>
+						  		
+						  	</div>
+					  		<div style="float:left;width:10%;margin-top:80px;text-align: center;">				  			
+				  				<a class="btn" onclick="addAdvogado();"><i class="icon icon-chevron-right"></i></a>
+				  				<br/><br/><br/>
+				  				<a class="btn" onclick="delAdvogado();"><i class="icon icon-chevron-left"></i></a>				  			
+					  		</div>
+						  	<div style="float:left;width:40%">
+						  		<label for="associar_advogado_destino" style="font-weight: bold;">Advogados selecionados:</label>
+						  		<select id="associar_advogado_destino" name="associar_advogado_destino" multiple="multiple" style="height:200px;width:95%;">
+								</select>
+						  	</div>					  	
+						  	<div style="float:left;width:100%;padding: 20px 0px;">
+						  		<a class="btn btn-large btn-success" onClick="saveAdvogado();">Salvar</a>					  	
+						  	</div>	
+						  </div>
+						  <div id="msg-associar-advogados">
+						  	 Selecione um Local de votação para associar advogados.
+						  </div>										  					  
 					  </div>
 					</div>
 				</div>
@@ -259,5 +226,162 @@
 		</div> <!-- /container -->
 		
 		<?php include "aplicacao/componentes/javascript.php" ; ?>
+		<?php var_dump($_SERVER); ?>
+		<script type="text/javascript">
+			//Lista de codigos dos advogados alocados
+			var listaAdv;		
+			
+			$(function() {
+				//Carrega o Mapa
+				$("#painel-controle-gmap3").gmap3({
+						action:'init',
+						options:{
+							center:[-3.7183943,-38.5433948],
+							zoom: 13
+						},
+						callback: function(){
+				            $('#refresh-map').click(loadMap());
+						}		
+				});
+
+				//Acao minimizar os dados do local		
+				$('#minimize').click(function (e) {
+					$('#local-detalhes').hide();
+				});
+				
+				//Acao maximizar os dados do local
+				$('#maximize').click(function (e) {
+					$('#local-detalhes').show();
+				});
+
+				//Abas de Ocorrencias e Gerenciar Advogados
+				$('#tabPanelBottomOcorrencias a').click(function (e) {
+					  e.preventDefault();
+					  $(this).tab('show');
+				});
+
+				$('#form-associar-advogados').hide();
+				$('#msg-associar-advogados').show();
+				
+				//Carrega os pontos do mapa
+				loadMap();
+			});
+
+			
+		    //Adiciona um advogado
+	   		function addAdvogado(){
+	   			$("#associar_advogado_origem option:selected").each(function () {
+		   			$(this).removeAttr('selected');
+               		$(this).remove().appendTo('#associar_advogado_destino');	               		             		
+             	});
+	   		}
+	   		//Deleta um advogado
+	   		function delAdvogado(){
+		   		$("#associar_advogado_destino option:selected").each(function () {
+		   			$(this).removeAttr('selected');
+               		$(this).remove().appendTo('#associar_advogado_origem');	               			               		
+		   		});
+	   		}
+	   		//Salva os advogados selecionados
+	   		function saveAdvogado(){		
+		   		localSelecionado = $('#local-selecionado').val();
+	   			listaAdv = "";	   		
+	   			$("#associar_advogado_destino option").each(function () {
+	   				listaAdv = listaAdv +', ' + $(this).val();
+	   			});
+	   			if( listaAdv.length > 0 ) listaAdv=listaAdv.substr(1,listaAdv.length -1 );
+	   			
+	   			$.post("mapa.php", { "acao": "associar-advogados", "listaCodAdvg":listaAdv,"local":localSelecionado },
+	   				 function(data){
+	   					if(data.sucesso == 1){
+	   						refreshMapa();
+		   				   alert("Operação realizada com sucesso!");
+	   				   }else{
+	   					 alert("Erro! Tente novamente!");
+	   				   }
+	   				 }, "json");
+	   		}
+
+	   		function loadLocalVotacao(md5Local){
+				//Mostra o formulario de associar advogados
+	   			$('#form-associar-advogados').show();
+	   			//Esconde a mensagem padrao
+				$('#msg-associar-advogados').hide();
+				//Mostra a Aba de Associar Advogados
+				$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
+				
+	   			//Lista dos advogados que ainda nao estao no local
+	   			$('#local-selecionado').val(md5Local);
+	   			$.get("mapa.php?acao=lista-advogados&local=" + md5Local,
+	   				function(data){
+	   					$("#associar_advogado_origem option").each(function () {
+	   			   			$(this).removeAttr('selected');
+	   			       		$(this).remove();	               		             		
+	   			     	});
+	   					$("#associar_advogado_destino option").each(function () {
+	   			   			$(this).removeAttr('selected');
+	   			       		$(this).remove();	               		             		
+	   			     	});
+	   					var listOrigem = document.getElementById("associar_advogado_origem");
+	   					var listDestino = document.getElementById("associar_advogado_destino");
+	   					
+	   					for(i=0;i<data.length;i++) {
+		   					if (data[i].total == 0 ){
+	   							listOrigem.add(new Option(data[i].nome, data[i].cod_advogado));
+		   					}else{
+		   						listDestino.add(new Option(data[i].nome, data[i].cod_advogado));
+		   					}		   					
+	   					}
+	   			}, "json");		   			
+	   			
+	   		}
+
+	   		function loadMap(){		
+	   			$.get("mapa.php?acao=carregar-mapa",
+	   				function(data){
+	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local;
+	   					
+	   					dadosPontosMapa = data;
+	   					$('#painel-controle-gmap3').gmap3({action:'clear'});
+	   					total_pontos = dadosPontosMapa.length;
+	   					for (i = 0; i < total_pontos ; i++) {		
+	   						lat = dadosPontosMapa[i].latitude;
+	   						lng = dadosPontosMapa[i].longitude;	
+	   						total_adv = dadosPontosMapa[i].total_adv;
+	   						if (total_adv > 0){
+	   							cor = "verde";	
+	   						}else{
+	   							cor = "preto";
+	   						}					
+	   						local = dadosPontosMapa[i].local;
+	   						cod_local = dadosPontosMapa[i].cod_local;
+	   						$('#painel-controle-gmap3').gmap3({ 
+	   						    action: 'addMarker',
+	   						    latLng:[lat, lng],
+	   						    options:{
+	   						      draggable: false,
+	   						      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/"+cor+".png")
+	   						    },
+	   						    data:[local,i,cod_local],
+	   						    events:{
+	   						    	click: function(marker, event, data){
+	   						    		var map = $('#painel-controle-gmap3').gmap3('get');
+	   						    		var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
+	   						    		if (infowindow){
+	   							    		infowindow.open(map, marker);
+	   						    			infowindow.setContent(data[0]);
+	   						    		} else {
+	   						    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: data[0]}});
+	   						    		}
+	   						    		loadLocalVotacao(data[2]);
+	   						    	}
+	   					    	}
+	   						    			   
+	   						});					
+	   					}
+	   			}, "json");	
+	   				
+	   		}
+		</script>
 	</body>
 </html>
