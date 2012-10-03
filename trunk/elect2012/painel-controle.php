@@ -11,7 +11,7 @@
 		    	var listaAdv="";
 		    
 		   		function addOption(){
-			   		$("#associar_advogado_origem option:selected").each(function () {
+		   			$("#associar_advogado_origem option:selected").each(function () {
 			   			$(this).removeAttr('selected');
 	               		$(this).remove().appendTo('#associar_advogado_destino');	               		             		
 	             	});

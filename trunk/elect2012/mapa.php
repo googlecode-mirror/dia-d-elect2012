@@ -9,7 +9,7 @@ $acao= aplicacao::getParam("acao");
 $json = null;
 
 if ($acao == "carregar-mapa"){
-	$sql = "SELECT s1.local, s1.latitude, s1.longitude, 1 as tipo, 
+	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, 
 				COALESCE(( select count(*) 
 				  from secao s2
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
@@ -20,31 +20,33 @@ if ($acao == "carregar-mapa"){
 			
 			UNION
 			
-			SELECT nome as local, latitude, longitude, 2 as tipo, 0 as total_adv FROM localidades";	
+			SELECT UCASE(nome) as local, latitude, longitude, 2 as tipo, 0 as total_adv FROM localidades";	
 	$value = banco::listar($sql);
 	$json = json_encode($value);
 }
 
 if ($acao == "lista-advogados-local"){
 	$local = aplicacao::getParam("local"); 
-	$sql =" SELECT cod_advogado,nome FROM advogado a
+	$sql =" SELECT cod_advogado, UCASE(nome) as nome FROM advogado a
 			WHERE a.cod_advogado IN (
 									 SELECT advgs.cod_advogado FROM advogado_secao advgs 
 									 INNER JOIN secao s ON s.secao = advgs.secao AND s.zona = advgs.zona
 									 WHERE s.local like '$local'
-									 )";
+									 )
+			ORDER BY nome ASC";
 	$value = banco::listar($sql);
 	$json = json_encode($value);
 }
 
 if ($acao == "lista-advogados-nao-local"){
 	$local = aplicacao::getParam("local"); 
-	$sql =" SELECT cod_advogado,nome FROM advogado a
+	$sql =" SELECT cod_advogado, UCASE(nome) as nome FROM advogado a
 			WHERE a.cod_advogado NOT  IN (
 									 SELECT advgs.cod_advogado FROM advogado_secao advgs 
 									 INNER JOIN secao s ON s.secao = advgs.secao AND s.zona = advgs.zona
 									 WHERE s.local  like '$local'
-									 )";
+									 )
+			ORDER BY nome ASC";
 	$value = banco::listar($sql);
 	$json = json_encode($value);
 }
