@@ -47,13 +47,13 @@
 								<div class="control-group">
 									<label class="control-label" for="nome">Zona *</label>
 									<div class="controls">
-										<input type="text" class="input-medium" name="zona_cad" value="<?php print ($objeto)?$objeto->zona:''; ?>" >											        
+										<input type="text" class="input-medium" name="zona_cad" value="<?php print ($objeto)?$objeto->zona:''; ?>" >										<span class="help-block">*usar a zona 9999 para localidades especiais</span>	        
 									</div>
 								</div>	
 								<div class="control-group">
 									<label class="control-label" for="nome">Seção *</label>
 									<div class="controls">
-										<input type="text" class="input-medium" name="secao_cad" value="<?php print ($objeto)?$objeto->secao:''; ?>" >											        
+										<input type="text" class="input-medium" name="secao_cad" value="<?php print ($objeto)?$objeto->secao:''; ?>" >										  <span class="help-block">*usar zonas crescentes a partir de 90000 para localidade especiais (exemplo 90001,90002 etc)</span>        
 									</div>
 								</div>
 								
