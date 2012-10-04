@@ -342,16 +342,22 @@
 				
 	   			$.get("mapa.php?acao=carregar-mapa",
 	   				function(data){
-	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local,zona;
+	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local;
+	   					var endereco,bairro,zona,total_votantes,todas_secoes;
 	   					
 	   					dadosPontosMapa = data;
 	   					$('#painel-controle-gmap3').gmap3({action:'clear'});
 	   					total_pontos = dadosPontosMapa.length;
 	   					for (i = 0; i < total_pontos ; i++) {		
+		   					
 	   						lat = dadosPontosMapa[i].latitude;
 	   						lng = dadosPontosMapa[i].longitude;	
 	   						total_adv = dadosPontosMapa[i].total_adv;
-	   						zona= dadosPontosMapa[i].zona;
+	   						zona = dadosPontosMapa[i].zona;
+	   						endereco = dadosPontosMapa[i].endereco;
+	   						bairro = dadosPontosMapa[i].bairro;
+	   						total_votantes = dadosPontosMapa[i].total_votantes;
+	   						todas_secoes = dadosPontosMapa[i].todas_secoes;
 	   						if (total_adv > 0){
 	   							cor = "verde";	
 	   						}else{
@@ -369,16 +375,20 @@
 	   						      draggable: false,
 	   						      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/"+cor+".png")
 	   						    },
-	   						    data:[local,i,cod_local],
+	   						    data:[local,i,cod_local,endereco,bairro,total_votantes,todas_secoes],
 	   						    events:{
 	   						    	click: function(marker, event, data){
 	   						    		var map = $('#painel-controle-gmap3').gmap3('get');
 	   						    		var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
+	   						    		var conteudo;
+	   						    		conteudo = "<b>"+data[0]+"</b>"+ "<br/>" +data[3] + " - " + data[4];
+	   						    		conteudo = conteudo + "<br/> Seções: " +data[6] + ".";
+	   						    		conteudo = conteudo + "<br/> Total: " +data[5] + " eleitores.";
 	   						    		if (infowindow){
 	   							    		infowindow.open(map, marker);
-	   						    			infowindow.setContent(data[0]);
+	   						    			infowindow.setContent(conteudo);
 	   						    		} else {
-	   						    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: data[0]}});
+	   						    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
 	   						    		}
 	   						    		loadLocalVotacao(data[2]);
 	   						    	}
