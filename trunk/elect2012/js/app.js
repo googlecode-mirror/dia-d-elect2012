@@ -1,9 +1,7 @@
 function formatPhone(phone){
 	var phoneResult;
-	phoneResult = '(' + phone.substr(0,2) + ') ' +phone.substr(2,4) +'-'+ phone.substr(6,4);
-	
-	return phoneResult;
-	
+	phoneResult = '(' + phone.substr(0,2) + ') ' +phone.substr(2,4) +'-'+ phone.substr(6,4);	
+	return phoneResult;	
 }
 
 function urlencode( str ) {
