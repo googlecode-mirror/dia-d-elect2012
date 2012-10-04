@@ -22,10 +22,10 @@
 				<div class="span8">
 					<div id="painel-controle-gmap3" class="gmap3"></div>
 					<div class="well">
-						<div  style="width:25%;float:left;display:inline;">
-							<a class="btn" id="refresh-map" style="margin-left:10px;" ><i class="icon icon-refresh"></i> Reload Mapa</a>
+						<div  style="width:20%;float:left;display:inline;">
+							<a class="btn" id="refresh-map" ><i class="icon icon-refresh"></i> Reload Mapa</a>
 						</div>
-						<div  style="width:50%;float:left;">
+						<div  style="width:60%;float:left;font-size:12px">
 							<img src="./img/preto.png" style="width:30px;"/> Não possui Advogados
 							<img src="./img/verde.png" style="margin-left:10px;width:30px;"/> Possui Advogados
 							<img src="./img/estrela.png" style="margin-left:10px;width:30px;"/> Locais Especiais
@@ -64,7 +64,7 @@
 				<div class="span12">
 					<div  class="well">							
 							<fieldset >
-						  		<div style="float:left;width:80%; font-size:16px;color:darkred;font-weight:bold;height:26px;">
+						  		<div style="float:left;width:80%; font-size:14px;color:darkred;font-weight:bold;height:26px;">
 						  			Local:  <span id="panel-local-txtnome"></span> 
 						  		</div>
 						  		<div style="float:left;width:20%; text-align: right;height:26px;">
@@ -72,7 +72,7 @@
 						  			<a id="minimize" rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
-						  		<div id="local-detalhes">
+						  		<div id="local-detalhes" style="padding-top:40px;">
 							  		<div style="float:left; width:30%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
 								  	<div style="float:left; width:70%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
 								   	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;font-size:16px;">
@@ -88,12 +88,12 @@
 			<div class="row" id="panel-ocorrencias-advogados">
 				<div class="span12">
 					<ul class="nav nav-tabs" id="tabPanelBottomOcorrencias">
-					  <li  class="active"><a href="#tabOcorrencias">Ocorrências</a></li>
-					  <li><a href="#tabAdvogados">Gerênciar Advogados</a></li>
+					  <li ><a href="#tabOcorrencias">Ocorrências</a></li>
+					  <li class="active"><a href="#tabAdvogados">Gerênciar Advogados</a></li>
 					</ul>
 					 
 					<div class="tab-content">
-					  <div class="tab-pane active" id="tabOcorrencias">
+					  <div class="tab-pane " id="tabOcorrencias">
 					  	<div class="form-inline well">
 							<label class="control-label" for="filtroOcorrenciasLocais">Locais:</label>
 							<select name="filtroOcorrenciasLocais" id="filtroOcorrenciasLocais" class="span4">
@@ -155,7 +155,7 @@
 							</tbody>
 						</table>
 					  </div>
-					  <div class="tab-pane" id="tabAdvogados">	
+					  <div class="tab-pane active" id="tabAdvogados">	
 					  	<div id="form-associar-advogados">					
 							<div style="float:left;width:40%">
 						  		<label for="associar_advogado_origem" style="font-weight: bold;">Todos os Advogados:</label>
@@ -282,7 +282,7 @@
 								infowindow.open(map, markerLocal);
 							}
 						});
-						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco);
+						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco +". "+data.bairro);
 						$('#panel-local-txtsecoes').html(data.secoes);
 						$('#panel-local-txttotaleleitores').html(data.total_votantes);
 
