@@ -9,7 +9,7 @@ $acao= aplicacao::getParam("acao");
 $json = null;
 
 if ($acao == "carregar-mapa"){
-	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, 
+	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, s1.zona, 
 				COALESCE(( select count(*) 
 				  from secao s2
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
@@ -41,9 +41,9 @@ if($acao == "associar-advogados"){
 	$values="";
 	$sql="";
 	$resultado = array("sucesso"=>0);
-	$localSelecionado = urldecode(aplicacao::getParam('local'));
+	$localSelecionado = aplicacao::getParam('local');
 	if ($localSelecionado){
-		$secaoResult = banco::listar("SELECT * FROM secao WHERE local = ? ",array($localSelecionado));
+		$secaoResult = banco::listar("SELECT * FROM secao WHERE md5(local) = ? ",array($localSelecionado));
 	}	
 			
 	if ( count($secaoResult) > 0){			
