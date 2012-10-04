@@ -29,7 +29,14 @@ if(aplicacao::isRequestPost()){
 	$objeto->aptos_total = aplicacao::getParam('aptos_total');	
 	$objeto->latitude = aplicacao::getParam('latitude');	
 	$objeto->longitude = aplicacao::getParam('longitude');	
-		
+
+	$enderecoCompleto = $objeto->endereco . " " . $objeto->bairro ." " . $objeto->municipio;
+	$result = gmaps::getLatLong($enderecoCompleto);
+	if($result){
+		$objeto->latitude = $result[0];
+		$objeto->longitude = $result[1];
+	}
+	
 	$acao = aplicacao::getParam('acao');
 	$erro=false;
 	
