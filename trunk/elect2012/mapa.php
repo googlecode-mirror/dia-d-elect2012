@@ -38,6 +38,40 @@ if ($acao == "lista-advogados"){
 	$json = json_encode($value);
 }
 
+if($acao == "detalhes-local"){
+	$md5Local = aplicacao::getParam("local");
+	$genericObject = new stdClass();
+	
+	$sql = "SELECT * FROM local_todas_secoes WHERE local = ?";
+	$result = banco::listar($sql,array($md5Local));
+	$secoes = $result[0]->secoes;	
+	$genericObject->secoes = $secoes;
+	
+	$sql = "SELECT local, zona, endereco, bairro,latitude,longitude, SUM(aptos_total) as total FROM secao WHERE md5(local) = ? GROUP BY local,zona,endereco,bairro,latitude,longitude";
+	$result = banco::listar($sql,array($md5Local));
+	$total_votantes = $result[0]->total;
+	$genericObject->total_votantes = $total_votantes;
+	$genericObject->nome_local = $result[0]->local;
+	$genericObject->endereco = $result[0]->endereco;
+	$genericObject->bairro = $result[0]->bairro;
+	$genericObject->zona = $result[0]->zona;
+	$genericObject->latitude = $result[0]->latitude;
+	$genericObject->longitude = $result[0]->longitude;
+	
+	$sql = "SELECT cod_advogado, UCASE(nome) as nome, oab, email1, celular1, celular2, tel_residencial, tel_comercial
+			FROM advogado 
+			WHERE  cod_advogado IN ( select asec.cod_advogado
+									   from secao s
+									   inner join advogado_secao asec  ON s.secao = asec.secao AND s.zona = asec.zona
+									  where md5(s.local) = ?)
+			ORDER BY nome ASC";
+	$advogados = banco::listar($sql,array($md5Local));
+	$genericObject->advogados = $advogados;
+	
+	$resultado = $genericObject;
+	$json = json_encode($resultado);
+}
+
 if($acao == "associar-advogados"){
 	$values="";
 	$sql="";

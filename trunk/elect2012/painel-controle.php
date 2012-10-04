@@ -22,7 +22,13 @@
 				<div class="span8">
 					<div id="painel-controle-gmap3" class="gmap3"></div>
 					<div class="well">
-						<a class="btn" id="refresh-map" style="margin-left:10px;" ><i class="icon icon-refresh"></i> Reload Mapa</a>
+						<div  style="width:25%;float:left;display:inline;">
+							<a class="btn" id="refresh-map" style="margin-left:10px;" ><i class="icon icon-refresh"></i> Reload Mapa</a>
+						</div>
+						<div  style="width:50%;float:left;">
+							<img src="./img/preto.png" style="width:30px;"/> Não possui Advogados
+							<img src="./img/verde.png" style="margin-left:10px;width:30px;"/> Possui Advogados
+						</div>
 					</div>
 				</div>
 				<div class="span4">
@@ -55,70 +61,31 @@
 			</div>
 			<div class="row" id="panel-local-detalhes">
 				<div class="span12">
-					<div  class="well">
-							
+					<div  class="well">							
 							<fieldset >
 						  		<div style="float:left;width:80%; font-size:16px;color:darkred;font-weight:bold;height:26px;">
-						  			Local:  Colégio 7 de Setembro. Av Imperador, nº 1295, Centro. 
+						  			Local:  <span id="panel-local-txtnome"></span> 
 						  		</div>
 						  		<div style="float:left;width:20%; text-align: right;height:26px;">
-						  			<a rel="tooltip" title="ver no mapa" class="btn btn-small"><i class="icon icon-map-marker"></i></a>
+						  			<a rel="tooltip" id="ver-no-mapa" title="ver no mapa" class="btn btn-small"><i class="icon icon-map-marker"></i></a>
 						  			<a id="minimize" rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
-						  		<div id="local-detalhes" style="display:none;">
-							  		<div style="float:left; width:25%;"><strong>Ocorrências: </strong><br/> 1 pendente(s) de 4 ocorrência(s) </div>
-							  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/> 524, 525.</div>
-								  	<div style="float:left; width:20%;"><strong>Seções Agregadas:</strong><br/> 512 </div>
-								  	<div style="float:left; width:20%;"><strong>Total de eleitores:</strong><br/> 1.204	</div>
+						  		<div id="local-detalhes">
+							  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
+								  	<div style="float:left; width:85%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
 								   	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;font-size:16px;">
 								  		<strong>Advogados</strong>
-								  	</div>
-								  	
-								  	<div style="float:left; width:25%;">
-								  		<strong>Cristiano de Souza Therrien </strong><br/>
-								  		<strong>OAB:</strong> 13869.<br/>
-								  		<strong>Seções:</strong> 524, 525, 512.<br/>
-								  		<strong>Telefone(s):</strong><br/>
-								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-								  		<span style="margin-left:10px;">(85) 30330374</span>
-								  	</div>
-								  	
-								  		<div style="float:left; width:25%;">
-								  		<strong>Cristiano de Souza Therrien </strong><br/>
-								  		<strong>OAB:</strong> 13869.<br/>
-								  		<strong>Seções:</strong> 524, 525, 512.<br/>
-								  		<strong>Telefone(s):</strong><br/>
-								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-								  		<span style="margin-left:10px;">(85) 30330374</span>
-								  	</div>
-								  	
-								  		<div style="float:left; width:25%;">
-								  		<strong>Cristiano de Souza Therrien </strong><br/>
-								  		<strong>OAB:</strong> 13869.<br/>
-								  		<strong>Seções:</strong> 524, 525, 512.<br/>
-								  		<strong>Telefone(s):</strong><br/>
-								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-								  		<span style="margin-left:10px;">(85) 30330374</span>
-								  	</div>
-								  	
-								  		<div style="float:left; width:25%;">
-								  		<strong>Cristiano de Souza Therrien </strong><br/>
-								  		<strong>OAB:</strong> 13869.<br/>
-								  		<strong>Seções:</strong> 524, 525, 512.<br/>
-								  		<strong>Telefone(s):</strong><br/>
-								  		<span style="margin-left:10px;">(85) 88352008</span><br/>
-								  		<span style="margin-left:10px;">(85) 91141392</span><br/>
-								  		<span style="margin-left:10px;">(85) 88745038</span><br/>
-								  		<span style="margin-left:10px;">(85) 30330374</span>							  		
-								  	</div>
-								  </div>							  	
+								  	</div>				
+								  	<table class="table" id="local-table-advogados">
+								  		<tr>
+								  			<th>Nome</th>
+								  			<th>OAB</th>
+								  			<th>Email</th>
+								  			<th>Telefones</th>
+								  		</tr>
+								  	</table>		  	
+							  </div>							  	
 						  	</fieldset>					  	
 					  	</div>	
 				</div>
@@ -229,7 +196,8 @@
 		
 		<script type="text/javascript">
 			//Lista de codigos dos advogados alocados
-			var listaAdv;		
+			var listaAdv,localLat,localLong;		
+			var markerLocal,infoWindowLocal;
 			
 			$(function() {
 				//Carrega o Mapa
@@ -302,13 +270,52 @@
 	   				 }, "json");
 	   		}
 
-	   		function loadLocalVotacao(md5Local){
+	   		function loadLocalVotacao(md5Local,marker,infowindow){
+	   			markerLocal = marker;
+	   			infoWindowLocal = infowindow;
 				//Mostra o formulario de associar advogados
-	   			$('#form-associar-advogados').show();
+	   			$('#form-associar-advogados').show();	   			
 	   			//Esconde a mensagem padrao
 				$('#msg-associar-advogados').hide();
 				//Mostra a Aba de Associar Advogados
 				$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
+
+				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
+					function(data){
+						localLat = data.latitude ;
+						localLong = data.longitude ;
+						listaAdvogados = data.advogados;
+						$('#ver-no-mapa').click(function(e){						
+							$('#painel-controle-gmap3').gmap3('get').panTo(markerLocal.getPosition());
+							var map = $('#painel-controle-gmap3').gmap3('get');
+							var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
+							if (infowindow){
+								infowindow.open(map, markerLocal);
+							}
+						});
+						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco);
+						$('#panel-local-txtsecoes').html(data.secoes);
+						$('#panel-local-txttotaleleitores').html(data.total_votantes);
+					
+						for(i = 0 ; i < listaAdvogados.length ; i++) {
+							telefones = formatPhone(listaAdvogados[i].celular1);
+
+							if(listaAdvogados[i].celular2 > 0 ) {	
+								telefones =	telefones + ' / ' +   formatPhone(listaAdvogados[i].celular2);
+							}
+							if(listaAdvogados[i].tel_residencial > 0){	
+								telefones =	telefones + ' / ' +   formatPhone(listaAdvogados[i].tel_residencial);
+							}
+							if(listaAdvogados[i].tel_comercial > 0){	
+								telefones =	telefones + ' / ' +   formatPhone(listaAdvogados[i].tel_comercial);
+							}
+							
+							$('#local-table-advogados').append('<tr><td>'+listaAdvogados[i].nome+'</td><td>'+listaAdvogados[i].oab+'</td><td>'+listaAdvogados[i].email1+'</td><td>'+telefones+'</td></tr>');
+						}
+						
+						//Mostra os detahes do local
+			   			$('#panel-local-detalhes').show();
+				}, "json");		
 				
 	   			//Lista dos advogados que ainda nao estao no local
 	   			$('#local-selecionado').val(md5Local);
@@ -339,6 +346,7 @@
 	   		function loadMap(){		
 	   			$('#form-associar-advogados').hide();
 				$('#msg-associar-advogados').show();
+				$('#panel-local-detalhes').hide();
 				
 	   			$.get("mapa.php?acao=carregar-mapa",
 	   				function(data){
@@ -388,7 +396,7 @@
 	   						    		} else {
 	   						    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
 	   						    		}
-	   						    		loadLocalVotacao(data[2]);
+	   						    		loadLocalVotacao(data[2],marker,infowindow);
 	   						    	}
 	   					    	}
 	   						    			   
