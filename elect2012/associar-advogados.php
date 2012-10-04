@@ -89,12 +89,8 @@
 							  		<label for="associar_local" style="font-weight: bold;">Todos os Locais de votação:</label>
 							  		<select id="associar_local" name="associar_local[]" multiple="multiple" style="height:200px;width:95%;">
 									 <?php 
-									 	foreach ($lista_locais as $item){
-											if ($advogado <> $item->cod_advogado){
-												print "<option value='$item->cod_local'>";
-												print $item->local;
-												print "</option>";
-											}
+									 	foreach ($lista_locais1 as $item){											
+												print "<option value='".$item->cod_local."'>".$item->local."</option>";										
 									 	}
 									 ?>
 									</select>
@@ -108,10 +104,8 @@
 							  		<label for="cod_local" style="font-weight: bold;">Locais de votação do Advogado:</label>
 							  		<select id="cod_local" name="cod_local[]" multiple="multiple" style="height:200px;width:95%;">
 									 <?php 
-									 	foreach ($lista_locais as $item){
-											if ($advogado == $item->cod_advogado){
-												print "<option value='".$item->cod_local."'>".$item->local."</option>";
-											}
+									 	foreach ($lista_locais2 as $item){
+											print "<option value='".$item->cod_local."'>".$item->local."</option>";
 									 	}
 									 ?>
 									</select>
