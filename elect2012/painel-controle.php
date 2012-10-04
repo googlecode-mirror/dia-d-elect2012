@@ -72,18 +72,12 @@
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
 						  		<div id="local-detalhes">
-							  		<div style="float:left; width:15%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
-								  	<div style="float:left; width:85%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
+							  		<div style="float:left; width:30%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
+								  	<div style="float:left; width:70%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
 								   	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;font-size:16px;">
 								  		<strong>Advogados</strong>
 								  	</div>				
-								  	<table class="table" id="local-table-advogados">
-								  		<tr>
-								  			<th>Nome</th>
-								  			<th>OAB</th>
-								  			<th>Email</th>
-								  			<th>Telefones</th>
-								  		</tr>
+								  	<table class="table" id="local-table-advogados">								  		
 								  	</table>		  	
 							  </div>							  	
 						  	</fieldset>					  	
@@ -273,12 +267,7 @@
 	   		function loadLocalVotacao(md5Local,marker,infowindow){
 	   			markerLocal = marker;
 	   			infoWindowLocal = infowindow;
-				//Mostra o formulario de associar advogados
-	   			$('#form-associar-advogados').show();	   			
-	   			//Esconde a mensagem padrao
-				$('#msg-associar-advogados').hide();
-				//Mostra a Aba de Associar Advogados
-				$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
+				
 
 				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
 					function(data){
@@ -296,7 +285,13 @@
 						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco);
 						$('#panel-local-txtsecoes').html(data.secoes);
 						$('#panel-local-txttotaleleitores').html(data.total_votantes);
-					
+
+						$("#local-table-advogados tr").each(function () {
+	   			   			$(this).remove();	               		             		
+	   			     	});
+
+						$('#local-table-advogados').append('<tr><th>Nome</th><th>OAB</th><th>Email</th><th>Telefones</th></tr>');
+
 						for(i = 0 ; i < listaAdvogados.length ; i++) {
 							telefones = formatPhone(listaAdvogados[i].celular1);
 
@@ -339,6 +334,14 @@
 		   						listDestino.add(new Option(data[i].nome, data[i].cod_advogado));
 		   					}		   					
 	   					}
+	   					//Mostra o formulario de associar advogados
+	   		   			$('#form-associar-advogados').show();	
+	   		   			   			
+	   		   			//Esconde a mensagem padrao
+	   					$('#msg-associar-advogados').hide();
+	   					
+	   					//Mostra a Aba de Associar Advogados
+	   					$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
 	   			}, "json");		   			
 	   			
 	   		}
