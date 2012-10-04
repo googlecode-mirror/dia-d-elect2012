@@ -34,12 +34,21 @@ $lista_advogados = banco::listar($sql);
 $lista_locais = array();
 
 if ($advogado){
-	$sql = "SELECT md5(local) as cod_local, local, endereco, bairro, a.cod_advogado			
+	$sql = "SELECT md5(local) as cod_local, s.local, s.endereco, s.bairro, COALESCE(a.cod_advogado,0)			
 			FROM secao s
 			LEFT JOIN advogado_secao a ON a.secao = s.secao AND a.zona = s.zona
-			GROUP BY local, endereco,bairro			
-			ORDER BY local ASC";
-	$lista_locais = banco::listar($sql);	
+			WHERE COALESCE(a.cod_advogado,0) <> ?
+			GROUP BY s.local, s.endereco,s.bairro			
+			ORDER BY s.local ASC";
+	$lista_locais1 = banco::listar($sql,array($advogado));
+
+	$sql = "SELECT md5(local) as cod_local, s.local, s.endereco, s.bairro, COALESCE(a.cod_advogado,0)
+			FROM secao s
+			INNER JOIN advogado_secao a ON a.secao = s.secao AND a.zona = s.zona
+			WHERE COALESCE(a.cod_advogado,0) = ?
+			GROUP BY s.local, s.endereco,s.bairro
+			ORDER BY s.local ASC";
+	$lista_locais2 = banco::listar($sql,array($advogado));
 }
 
 $sql2 = "SELECT DISTINCT ad.oab AS oab, ad.nome AS nome, ad.email1 AS email, ad.celular1 AS celular1, se.local AS
