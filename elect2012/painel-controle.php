@@ -126,8 +126,8 @@
 			<div class="row" id="panel-ocorrencias-advogados">
 				<div class="span12">
 					<ul class="nav nav-tabs" id="tabPanelBottomOcorrencias">
-					  <li><a href="#tabOcorrencias">Ocorrências</a></li>
-					  <li class="active"><a href="#tabAdvogados">Gerênciar Advogados</a></li>
+					  <li  class="active"><a href="#tabOcorrencias">Ocorrências</a></li>
+					  <li><a href="#tabAdvogados">Gerênciar Advogados</a></li>
 					</ul>
 					 
 					<div class="tab-content">
@@ -226,7 +226,7 @@
 		</div> <!-- /container -->
 		
 		<?php include "aplicacao/componentes/javascript.php" ; ?>
-		<?php var_dump($_SERVER); ?>
+		
 		<script type="text/javascript">
 			//Lista de codigos dos advogados alocados
 			var listaAdv;		
@@ -240,7 +240,7 @@
 							zoom: 13
 						},
 						callback: function(){
-				            $('#refresh-map').click(loadMap());
+				            $('#refresh-map').click(loadMap);
 						}		
 				});
 
@@ -337,6 +337,9 @@
 	   		}
 
 	   		function loadMap(){		
+	   			$('#form-associar-advogados').hide();
+				$('#msg-associar-advogados').show();
+				
 	   			$.get("mapa.php?acao=carregar-mapa",
 	   				function(data){
 	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local;
@@ -360,7 +363,7 @@
 	   						    latLng:[lat, lng],
 	   						    options:{
 	   						      draggable: false,
-	   						      icon: new google.maps.MarkerImage("http://localhost:8080/pt2012/elect2012/img/"+cor+".png")
+	   						      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/"+cor+".png")
 	   						    },
 	   						    data:[local,i,cod_local],
 	   						    events:{
