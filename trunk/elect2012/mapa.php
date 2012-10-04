@@ -9,14 +9,21 @@ $acao= aplicacao::getParam("acao");
 $json = null;
 
 if ($acao == "carregar-mapa"){
-	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, s1.zona, 
+	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, s1.zona, s1.endereco,s1.bairro,
 				COALESCE(( select count(*) 
 				  from secao s2
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
 				  where md5(s2.local) = md5(s1.local)
 				  group by s2.local
-				),0) as total_adv , md5(s1.local) as cod_local
-			FROM secao s1 GROUP BY s1.local, s1.latitude, s1.longitude";
+				),0) as total_adv , 
+				REPLACE(( 	SELECT  
+   					GROUP_CONCAT(if(s3.secao_agregadas IS NULL OR s3.secao_agregadas = '' , s3.secao, CONCAT(s3.secao,',',s3.secao_agregadas))) AS 'secoes'
+					FROM secao s3
+					WHERE  s3.local = s1.local
+					GROUP BY local
+			),',',', ') as todas_secoes, md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
+			FROM secao s1 
+			GROUP BY s1.local, s1.latitude, s1.longitude, s1.zona, s1.endereco,s1.bairro";
 		
 	$value = banco::listar($sql);
 	$json = json_encode($value);
