@@ -294,7 +294,7 @@
 	   			$.post("mapa.php", { "acao": "associar-advogados", "listaCodAdvg":listaAdv,"local":localSelecionado },
 	   				 function(data){
 	   					if(data.sucesso == 1){
-	   						refreshMapa();
+	   						loadMap();
 		   				   alert("Operação realizada com sucesso!");
 	   				   }else{
 	   					 alert("Erro! Tente novamente!");
@@ -342,7 +342,7 @@
 				
 	   			$.get("mapa.php?acao=carregar-mapa",
 	   				function(data){
-	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local;
+	   					var dadosPontosMapa,lat,lng,local,total_pontos,total_adv,cod_local,zona;
 	   					
 	   					dadosPontosMapa = data;
 	   					$('#painel-controle-gmap3').gmap3({action:'clear'});
@@ -351,11 +351,15 @@
 	   						lat = dadosPontosMapa[i].latitude;
 	   						lng = dadosPontosMapa[i].longitude;	
 	   						total_adv = dadosPontosMapa[i].total_adv;
+	   						zona= dadosPontosMapa[i].zona;
 	   						if (total_adv > 0){
 	   							cor = "verde";	
 	   						}else{
 	   							cor = "preto";
-	   						}					
+	   						}				
+	   						if(zona == 9999 ){
+		   						 cor = "estrela";
+	   						}	
 	   						local = dadosPontosMapa[i].local;
 	   						cod_local = dadosPontosMapa[i].cod_local;
 	   						$('#painel-controle-gmap3').gmap3({ 
