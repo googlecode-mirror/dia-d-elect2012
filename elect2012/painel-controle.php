@@ -28,6 +28,7 @@
 						<div  style="width:50%;float:left;">
 							<img src="./img/preto.png" style="width:30px;"/> Não possui Advogados
 							<img src="./img/verde.png" style="margin-left:10px;width:30px;"/> Possui Advogados
+							<img src="./img/estrela.png" style="margin-left:10px;width:30px;"/> Locais Especiais
 						</div>
 					</div>
 				</div>
@@ -266,8 +267,7 @@
 
 	   		function loadLocalVotacao(md5Local,marker,infowindow){
 	   			markerLocal = marker;
-	   			infoWindowLocal = infowindow;
-				
+	   			infoWindowLocal = infowindow;			
 
 				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
 					function(data){
