@@ -16,11 +16,10 @@ if ($acao == "carregar-mapa"){
 				  where md5(s2.local) = md5(s1.local)
 				  group by s2.local
 				),0) as total_adv , 
-				REPLACE(( 	SELECT  
-   					GROUP_CONCAT(if(s3.secao_agregadas IS NULL OR s3.secao_agregadas = '' , s3.secao, CONCAT(s3.secao,',',s3.secao_agregadas))) AS 'secoes'
-					FROM secao s3
-					WHERE  s3.local = s1.local
-					GROUP BY local
+				REPLACE(( 	SELECT  secoes
+							FROM local_todas_secoes l
+							WHERE  l.local = md5(s1.local)
+							GROUP BY local
 			),',',', ') as todas_secoes, md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
 			FROM secao s1 
 			GROUP BY s1.local, s1.latitude, s1.longitude, s1.zona, s1.endereco,s1.bairro";
