@@ -21,14 +21,17 @@
 			<div class="row">
 				<div class="span8">
 					<div id="painel-controle-gmap3" class="gmap3"></div>
-					<div class="well">
+					<div class="well" style="padding:10px 10px 20px 10px;">
 						<div  style="width:20%;float:left;display:inline;">
 							<a class="btn" id="refresh-map" ><i class="icon icon-refresh"></i> Reload Mapa</a>
 						</div>
-						<div  style="width:60%;float:left;font-size:12px">
-							<img src="./img/preto.png" style="width:30px;"/> Não possui Advogados
-							<img src="./img/verde.png" style="margin-left:10px;width:30px;"/> Possui Advogados
-							<img src="./img/estrela.png" style="margin-left:10px;width:30px;"/> Locais Especiais
+						<div style="width:80%;float:left;font-size:12px; text-align: right;">
+							Legenda:
+							<a rel="tooltip" title="Não tem Advogados"><img src="./img/preto.png" style="margin-left:10px;width:30px;"/></a> 
+							<a rel="tooltip" title="Tem Advogados"><img src="./img/verde.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Tem Ocorrências"><img src="./img/laranja.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Tem Ocorrências e Não tem Advogados"><img src="./img/roxo.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Locais Especiais"><img src="./img/estrela.png" style="margin-left:15px;width:30px;"/></a> 
 						</div>
 					</div>
 				</div>
@@ -45,7 +48,7 @@
 								?>
 								
 							</select>
-							
+							<input type="hidden" id="hdn-cod-ocorrencia" name="hdn-cod-ocorrencia" value="0" />
 							<label class="control-label" for="ocorrencia">Reportado por:</label>
 							<input type="text" name="txtautor" id="txt-autor-ocorrencias" disabled/>
 							<label class="control-label" for="ocorrencia">Ocorrência:</label>
@@ -89,12 +92,12 @@
 			<div class="row" id="panel-ocorrencias-advogados">
 				<div class="span12">
 					<ul class="nav nav-tabs" id="tabPanelBottomOcorrencias">
-					  <li ><a href="#tabOcorrencias">Ocorrências</a></li>
-					  <li class="active"><a href="#tabAdvogados">Gerênciar Advogados</a></li>
+					  <li class="active"><a href="#tabOcorrencias">Ocorrências</a></li>
+					  <li ><a href="#tabAdvogados">Gerênciar Advogados</a></li>
 					</ul>
 					 
-					<div class="tab-content">
-					  <div class="tab-pane " id="tabOcorrencias">
+					<div class="tab-content" style="overflow: visible;">
+					  <div class="tab-pane active" id="tabOcorrencias">
 					  	<div class="form-inline well">
 							<label class="control-label" for="filtroOcorrenciasLocais">Locais:</label>
 							<select name="filtroOcorrenciasLocais" id="filtroOcorrenciasLocais" class="span4">
@@ -109,59 +112,34 @@
 							<label class="control-label" for="filtroOcorrenciasStatus">Status:</label>
 							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2">
 								<option value="0" selected>Todos</option>
-								<option value="1" selected>Ativo</option>
-								<option value="2" selected>Pendente</option>
+								<option value="1" >Pendente</option>
+								<option value="2" >Resolvido</option>
 							</select>
 							&nbsp;&nbsp;&nbsp;
-							<a class="btn"><i class="icon icon-filter"></i>Filtrar</a>
+							<a class="btn" id="btn-filtrar" ><i class="icon icon-filter"></i>Filtrar</a>
 							&nbsp;&nbsp;&nbsp;
-							<a class="btn"><i class="icon icon-download"></i>Todas as ocorrências</a>						   
-						</div>			  
-					  	<table id="datatable" class="table table-striped table-bordered" style="width:100%;">
+							<a class="btn" id="btn-todas-ocorrencias"><i class="icon icon-download"></i>Todas as ocorrências</a>						   
+						</div>
+						
+							  
+					  	<table id="datatable-ajax" class="table table-striped table-bordered" style="width:100%;">
 							<thead>
 								<tr style="background-color:#D44413;color:#fff">
-									<th width="120px">Status</th>
-									<th>Cod</th>
-									<th>Hora</th>									
+									<th width="100px">Status</th>
+									<th width="20px">Cod</th>
+									<th width="50px">Hora</th>									
 									<th>Local</th>
-									<th>Seção</th>
 									<th>Ocorrência</th>
-									<th width="150px" >Ações</th>
+									<th  width="180px">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><a class="btn btn-success"><i class="icon icon-ok"></i> Resolvido</a></td>
-									<td>2</td>
-									<td>12:31</td>									
-									<td><a href="#">COLEGIO 7 DE SETEMBRO</a></td>
-									<td>524</td>
-									<td>Problemas com a sinalização</td>
-									<td>
-										<a rel="tooltip" title="deletar" class="btn btn-small"><i class="icon  icon-trash"></i></a>
-										<a rel="tooltip" title="editar" class="btn btn-small"><i class="icon  icon-pencil"></i></a>
-										<a rel="tooltip" title="enviar mensagem" class="btn btn-small"><i class="icon  icon-envelope"></i></a>
-										<a rel="tooltip" title="abrir" class="btn btn-small"><i class="icon   icon-folder-open"></i></a>
-									</td>
-								</tr>
-								<tr>
-									<td><a class="btn btn-warning"><i class="icon icon-exclamation-sign"></i> Pendente</a></td>
-									<td>1</td>
-									<td>12:31</td>									
-									<td><a  href="#">COLEGIO FARIAS BRITO</a></td>
-									<td>524</td>
-									<td>Problemas com a sinalização</td>
-									<td>
-										<a rel="tooltip" title="deletar" class="btn btn-small"><i class="icon  icon-trash"></i></a>
-										<a rel="tooltip" title="editar" class="btn btn-small"><i class="icon  icon-pencil"></i></a>
-										<a rel="tooltip" title="enviar mensagem" class="btn btn-small"><i class="icon  icon-envelope"></i></a>
-										<a rel="tooltip" title="resolvido" class="btn btn-small"><i class="icon   icon-ok-sign"></i></a>
-									</td>
-								</tr>
+							
 							</tbody>
 						</table>
+						
 					  </div>
-					  <div class="tab-pane active" id="tabAdvogados">	
+					  <div class="tab-pane" id="tabAdvogados">	
 					  	<div id="form-associar-advogados">					
 							<div style="float:left;width:40%">
 						  		<label for="associar_advogado_origem" style="font-weight: bold;">Todos os Advogados:</label>
@@ -199,6 +177,8 @@
 			//Lista de codigos dos advogados alocados
 			var listaAdv,localLat,localLong;		
 			var markerLocal,infoWindowLocal;
+			var autoRefresh = 1;
+			var oTable;
 			
 			$(function() {
 				//Carrega o Mapa
@@ -212,7 +192,37 @@
 				            $('#refresh-map').click(loadMap);
 						}		
 				});
-
+				
+				//Caregar ocorrencias
+				oTable = $('#datatable-ajax').dataTable( {	
+					"bDestroy": true,				
+			        "bProcessing": true,
+			        "sAjaxSource": "mapa.php?acao=listar-ocorrencias",
+			        "sAjaxDataProp": "aaData",
+			        "aoColumns": [
+			            { "mDataProp": "status" },
+			            { "mDataProp": "cod_ocorrencia" },
+			            { "mDataProp": "data_criacao" },
+			            { "mDataProp": "local" },
+			            { "mDataProp": "descricao" },
+			            { "mDataProp": "acao" }
+			        ],
+			        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+					"sPaginationType": "bootstrap",
+					"oLanguage": {
+						"oPaginate": {
+					        "sNext": "Próximo",
+					        "sPrevious": "Anterior"
+					      },				
+						"sLengthMenu": "_MENU_ registros por página",
+			            "sZeroRecords": "Nenhum registro encontrado.",
+			            "sInfo": "Exibindo _START_ até _END_ do total de _TOTAL_ registros",
+			            "sInfoEmpty": "",
+			            "sInfoFiltered": "(filtrado do total de _MAX_ registros)",
+			            "sSearch": "Filtro: " 
+					}
+			    } );
+				
 				//Acao minimizar os dados do local		
 				$('#minimize').click(function (e) {
 					$('#local-detalhes').hide();
@@ -234,6 +244,7 @@
 
 				//botao nova ocorrencia
 				$('#btn-nova-ocorrencia').click(function(e) {
+					autoRefresh = 0;
 					$('#cmbLocalOcorrencias').removeAttr('disabled');
 					$('#txt-autor-ocorrencias').removeAttr('disabled');
 					$('#txt-desc-ocorrencias').removeAttr('disabled');
@@ -253,7 +264,8 @@
 					}else{
 						$.post("mapa.php", { "acao": "cadastrar-ocorrencias", "local":localSelecionado, "autor":txtautor, "ocorrencia":txtocorrencia },
 			   				 function(data){
-			   					if(data.sucesso == 1){			   						
+			   					if(data.sucesso == 1){	
+			   						autoRefresh = 1;		   						
 			   						$('#cmbLocalOcorrencias').val(0);
 			   						$('#cmbLocalOcorrencias').attr('disabled','disabled');
 				   					$('#txt-autor-ocorrencias').attr('value','');
@@ -277,6 +289,7 @@
 
 				//botao cancelar ocorrencia
 				$('#btn-cancelar-ocorrencia').click(function(e) {
+					autoRefresh = 1;
 					$('#cmbLocalOcorrencias').attr('disabled','disabled');
 					$('#txt-autor-ocorrencias').attr('disabled','disabled');
 					$('#txt-desc-ocorrencias').attr('disabled','disabled');
@@ -284,6 +297,17 @@
 					$('#btn-salvar-ocorrencia').hide();
 					$('#btn-nova-ocorrencia').show();					
 				});
+
+				$('#btn-filtrar').click(function(e) {
+					//carrega a tabela de ocorrencias
+		   			loadTabelaOcorrencias();					
+				});	
+				$('#btn-todas-ocorrencias').click(function(e) {
+					//limpar filtro ocorrencias
+					limparFiltroOcorrencias();
+					//carrega a tabela de ocorrencias
+		   			loadTabelaOcorrencias();						
+				});	
 								
 				//Carrega os pontos do mapa
 				loadMap();
@@ -345,6 +369,8 @@
 						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco +". "+data.bairro);
 						$('#panel-local-txtsecoes').html(data.secoes);
 						$('#panel-local-txttotaleleitores').html(data.total_votantes);
+						$('#filtroOcorrenciasStatus').val(1);
+						$('#filtroOcorrenciasLocais').val(data.local);
 
 						$("#local-table-advogados tr").each(function () {
 	   			   			$(this).remove();	               		             		
@@ -370,6 +396,10 @@
 						
 						//Mostra os detahes do local
 			   			$('#panel-local-detalhes').show();
+			   			
+			   			//carrega a tabela de ocorrencias
+			   			loadTabelaOcorrencias();
+			   			
 				}, "json");		
 				
 	   			//Lista dos advogados que ainda nao estao no local
@@ -401,17 +431,52 @@
 	   					$('#msg-associar-advogados').hide();
 	   					
 	   					//Mostra a Aba de Associar Advogados
-	   					$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
+	   					$('#tabPanelBottomOcorrencias a[href="#tabOcorrencias"]').tab('show');
 	   			}, "json");		   			
 	   			
 	   		}
 
-	   		function limparFiltro(){
-		   		
+	   		function editarOcorrencias(){
+	   			autoRefresh = 0;
+	   			
+	   		}
+
+			function excluirOcorrencias(){
+				autoRefresh = 0;
+				autoRefresh = 1;
+				loadTabelaOcorrencias();
+	   		}
+
+			function abrirOcorrencias(){
+				autoRefresh = 0;
+				autoRefresh = 1;
+				loadTabelaOcorrencias();
+	   		}
+	   		
+			function resolverOcorrencias(){
+				autoRefresh = 0;
+				autoRefresh = 1;
+				loadTabelaOcorrencias();
+	   		}
+
+	   		function limparFiltroOcorrencias(){
+	   			$('#filtroOcorrenciasStatus').val(0);
+				$('#filtroOcorrenciasLocais').val(0);
 	   		}
 
 	   		function loadTabelaOcorrencias(){
-		   		
+		   		var local = $('#filtroOcorrenciasLocais').val();
+		   		var status = $('#filtroOcorrenciasStatus').val();
+		   		var url = "mapa.php?acao=listar-ocorrencias";
+
+		   		if (local != "0" ){
+					url =  url + "&local="+local;
+		   		}	
+
+		   		if (status != "0" ){
+					url =  url + "&status="+status;
+		   		}	
+	   			oTable.fnReloadAjax(url);
 	   		}		   	
 
 	   		function loadMap(){		
