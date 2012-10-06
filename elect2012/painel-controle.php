@@ -361,8 +361,7 @@
 	   		}
 
 	   		function loadLocalVotacao(md5Local,marker,infowindow){
-	   			markerLocal = marker;
-	   			
+	   			markerLocal = marker;	   			
 	   			infoWindowLocal = infowindow;			
 	   			$('#cmbLocalOcorrencias').val(md5Local);
 				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
