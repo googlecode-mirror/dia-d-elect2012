@@ -54,7 +54,7 @@ if ($acao == "carregar-mapa"){
 				),0) as total_adv,
 				COALESCE(( select count(*) 
 				  from ocorrencia oc
-				  where oc.cod_local = md5(s1.local)
+				  where oc.cod_local = md5(s1.local) and oc.status =1
 				),0) as total_ocorr , md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
 			FROM secao s1 
 			GROUP BY s1.local, s1.latitude, s1.longitude, s1.zona, s1.endereco,s1.bairro";

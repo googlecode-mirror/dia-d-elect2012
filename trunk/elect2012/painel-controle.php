@@ -97,14 +97,19 @@
 					  	<div class="form-inline well">
 							<label class="control-label" for="filtroOcorrenciasLocais">Locais:</label>
 							<select name="filtroOcorrenciasLocais" id="filtroOcorrenciasLocais" class="span4">
-							</select>
-							&nbsp;&nbsp;&nbsp;
-							<label class="control-label" for="filtroOcorrenciasSecao">Seção:</label>
-							<select name="filtroOcorrenciasSecao" id="filtroOcorrenciasSecao" class="span1">
+								<option value="0" selected>Selecione um local</option>
+								<?php 
+									foreach ($lista_locais as $item){
+										print "<option value='".$item->cod_local."'>".$item->local."</option>";
+									}
+								?>
 							</select>
 							&nbsp;&nbsp;&nbsp;
 							<label class="control-label" for="filtroOcorrenciasStatus">Status:</label>
 							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2">
+								<option value="0" selected>Todos</option>
+								<option value="1" selected>Ativo</option>
+								<option value="2" selected>Pendente</option>
 							</select>
 							&nbsp;&nbsp;&nbsp;
 							<a class="btn"><i class="icon icon-filter"></i>Filtrar</a>
@@ -456,7 +461,7 @@
 	   						      draggable: false,
 	   						      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/"+cor+".png")
 	   						    },
-	   						    data:[local,i,cod_local,endereco,bairro,total_votantes],
+	   						    data:[local,i,cod_local,endereco,bairro,total_votantes,total_ocorr],
 	   						    events:{
 	   						    	click: function(marker, event, data){
 	   						    		var map = $('#painel-controle-gmap3').gmap3('get');
@@ -464,6 +469,7 @@
 	   						    		var conteudo;
 	   						    		conteudo = "<b>"+data[0]+"</b>"+ "<br/>" +data[3] + " - " + data[4];
 	   						    		conteudo = conteudo + "<br/> Total: " +data[5] + " eleitores.";
+	   						    		conteudo = conteudo + "<br/> <b>Ocorrência(s): " +data[6] + " pendente(s).</b>";
 	   						    		if (infowindow){
 	   							    		infowindow.open(map, marker);
 	   						    			infowindow.setContent(conteudo);
