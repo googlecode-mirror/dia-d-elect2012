@@ -264,9 +264,7 @@
 			   				   }else{
 			   					 	alert("Erro! Tente novamente!");
 			   				   }
-			   				 }, "json");
-		   				 
-						
+			   				 }, "json");						
 					}
 								
 				});
@@ -399,6 +397,10 @@
 	   					$('#tabPanelBottomOcorrencias a[href="#tabAdvogados"]').tab('show');
 	   			}, "json");		   			
 	   			
+	   		}
+
+	   		function limparFiltro(){
+		   		
 	   		}
 
 	   		function loadTabelaOcorrencias(){
