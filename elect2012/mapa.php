@@ -8,6 +8,48 @@ include "aplicacao/boot.php";
 $acao= aplicacao::getParam("acao");
 $json = null;
 
+if($acao == 'deletar-ocorrencias'){
+	$genericObject = new stdClass();
+	$genericObject->sucesso = 0;
+	try{
+		$md5Local = aplicacao::getParam("local");
+		$sql ="UPDATE ocorrencia SET status = 0 WHERE cod_local = ?";
+		banco::executar($sql,array($md5Local));
+		$genericObject->sucesso = 1;
+	}catch (Exception $e){
+		$genericObject->sucesso = 0;
+	}	
+	$json = json_encode($genericObject);
+}
+
+if($acao == 'abrir-ocorrencias'){
+	$genericObject = new stdClass();
+	$genericObject->sucesso = 0;
+	try{
+		$md5Local = aplicacao::getParam("local");
+		$sql ="UPDATE ocorrencia SET status = 1 WHERE cod_local = ?";
+		banco::executar($sql,array($md5Local));
+		$genericObject->sucesso = 1;
+	}catch (Exception $e){
+		$genericObject->sucesso = 0;
+	}
+	$json = json_encode($genericObject);
+}
+
+if($acao == 'resolver-ocorrencias'){
+	$genericObject = new stdClass();
+	$genericObject->sucesso = 0;
+	try{
+		$md5Local = aplicacao::getParam("local");
+		$sql ="UPDATE ocorrencia SET status = 2 WHERE cod_local = ?";
+		banco::executar($sql,array($md5Local));
+		$genericObject->sucesso = 1;
+	}catch (Exception $e){
+		$genericObject->sucesso = 0;
+	}
+	$json = json_encode($genericObject);
+}
+
 if($acao == 'listar-ocorrencias'){
 	$md5Local = aplicacao::getParam("local");
 	$status = aplicacao::getParam("status");
@@ -23,7 +65,9 @@ if($acao == 'listar-ocorrencias'){
 				DATE_FORMAT(o.data_criacao,'%H:%i') as data_criacao, 
 				(SELECT s.local FROM secao s WHERE md5(s.local) = o.cod_local LIMIT 0,1) as local, 
 				o.descricao,
-				'<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\"><i class=\"icon icon-trash\"></i></a> <a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\"><i class=\"icon icon-pencil\"></i></a> <a rel=\"tooltip\" title=\"enviar mensagem\" class=\"btn btn-small\"><i class=\"icon icon-envelope\"></i></a> <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\"><i class=\"icon  icon-folder-open\"></i></a>' as acao 
+				CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
+						\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>') as acao
+				  
 			FROM ocorrencia o
 			WHERE o.status > 0 ";
 	
