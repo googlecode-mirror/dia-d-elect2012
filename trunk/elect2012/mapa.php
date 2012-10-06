@@ -12,14 +12,15 @@ if($acao == 'cadastrar-ocorrencias'){
 	$genericObject = new stdClass();
 	
 	banco::abrirTransacao();
+	$autor = aplicacao::getParam('autor');
 	$descricao = aplicacao::getParam('ocorrencia');
 	$data_criacao = date('Y-m-d H:i:s');
 	$cod_usuario = aplicacao::getUsuarioLogado()->cod_usuario; 
 	$cod_local = aplicacao::getParam('local');
 	$status = 1;
 	try{
-		$sql = "INSERT INTO ocorrencia (descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?)";
-		$values = array($descricao, $data_criacao, $cod_usuario, $cod_local, $status);
+		$sql = "INSERT INTO ocorrencia (autor,descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?)";
+		$values = array($autor,$descricao, $data_criacao, $cod_usuario, $cod_local, $status);
 		banco::executar($sql, $values);
 		banco::fecharTransacao();
 		$genericObject->sucesso = 1;
