@@ -436,27 +436,57 @@
 	   			
 	   		}
 
-	   		function editarOcorrencias(){
+	   		function editarOcorrencias(local){
 	   			autoRefresh = 0;
 	   			
 	   		}
 
-			function excluirOcorrencias(){
+	   		/*
+	   		<a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\"><i class=\"icon icon-pencil\"></i></a> 
+			<a rel=\"tooltip\" title=\"enviar mensagem\" class=\"btn btn-small\"><i class=\"icon icon-envelope\"></i></a>
+			<a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\"><i class=\"icon  icon-folder-open\"></i></a>'*/
+
+			function excluirOcorrencias(local){
 				autoRefresh = 0;
-				autoRefresh = 1;
-				loadTabelaOcorrencias();
+				$.post("mapa.php", { "acao": "deletar-ocorrencias", "local":local },
+		   			 function(data){
+		   			 	if(data.sucesso == 1 ){
+		   			 		loadTabelaOcorrencias();
+			   			 	alert('Operação realizada com sucesso.');			   			 	
+		   			 	}else{
+		   			 		alert('Erro! Tente novamente.');
+		   			 	}
+						autoRefresh = 1;  				 
+				},"json");
+				
 	   		}
 
-			function abrirOcorrencias(){
+			function abrirOcorrencias(local){
 				autoRefresh = 0;
-				autoRefresh = 1;
-				loadTabelaOcorrencias();
+				$.post("mapa.php", { "acao": "abrir-ocorrencias", "local":local },
+			   			 function(data){
+			   			 	if(data.sucesso == 1 ){
+			   			 		loadTabelaOcorrencias();
+				   			 	alert('Operação realizada com sucesso.');			   			 	
+			   			 	}else{
+			   			 		alert('Erro! Tente novamente.');
+			   			 	}
+							autoRefresh = 1;  				 
+					},"json");
 	   		}
 	   		
-			function resolverOcorrencias(){
+			function resolverOcorrencias(local){
 				autoRefresh = 0;
-				autoRefresh = 1;
-				loadTabelaOcorrencias();
+				$.post("mapa.php", { "acao": "resolver-ocorrencias", "local":local },
+			   			 function(data){
+			   			 	if(data.sucesso == 1 ){
+			   			 		loadTabelaOcorrencias();
+				   			 	alert('Operação realizada com sucesso.');			   			 	
+			   			 	}else{
+			   			 		alert('Erro! Tente novamente.');
+			   			 	}
+							autoRefresh = 1;  				 
+					},"json");
 	   		}
 
 	   		function limparFiltroOcorrencias(){
