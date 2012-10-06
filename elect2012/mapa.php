@@ -51,7 +51,11 @@ if ($acao == "carregar-mapa"){
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
 				  where md5(s2.local) = md5(s1.local)
 				  group by s2.local
-				),0) as total_adv , md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
+				),0) as total_adv,
+				COALESCE(( select count(*) 
+				  from ocorrencia oc
+				  where oc.cod_local = md5(s1.local)
+				),0) as total_ocorr , md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
 			FROM secao s1 
 			GROUP BY s1.local, s1.latitude, s1.longitude, s1.zona, s1.endereco,s1.bairro";
 		
