@@ -73,8 +73,9 @@
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
 						  		<div id="local-detalhes" style="padding-top:40px;">
-							  		<div style="float:left; width:30%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
-								  	<div style="float:left; width:70%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
+						  			<div style="float:left; width:25%;"><strong>Ocorrências:</strong><br/><span id="panel-local-txttotalocorrencias"></span></div>
+							  		<div style="float:left; width:25%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
+								  	<div style="float:left; width:50%;"><strong>Seções:</strong><br/><span id="panel-local-txtsecoes"></span></div>
 								   	<div style="color:darkred;float:left; width:100%;margin-top:10px;padding:10px 0px;font-size:16px;">
 								  		<strong>Advogados</strong>
 								  	</div>				
@@ -340,6 +341,7 @@
 								infowindow.open(map, markerLocal);
 							}
 						});
+						$('#panel-local-txttotalocorrencias').html(data.total_ocorr + ' pendentes');
 						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco +". "+data.bairro);
 						$('#panel-local-txtsecoes').html(data.secoes);
 						$('#panel-local-txttotaleleitores').html(data.total_votantes);
