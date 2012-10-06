@@ -38,6 +38,7 @@
 				<div class="span4">
 					<form class="well" style="padding:10px; height:480px; margin-top:20px;font-size:12px;">
 						<fieldset>
+							<b>Ocorrencia Nº:</b> <span id="num-ocorrencia" style="font-weight:bold; font-size:18px;color:red;"></span><br/><br/>
 							<label class="control-label" for="local">Local:</label>
 							<select name="local" id="cmbLocalOcorrencias" style="width:100%" disabled>
 								<option value="0" selected>Selecione um local</option>
@@ -52,7 +53,7 @@
 							<label class="control-label" for="ocorrencia">Reportado por:</label>
 							<input type="text" name="txtautor" id="txt-autor-ocorrencias" disabled/>
 							<label class="control-label" for="ocorrencia">Ocorrência:</label>
-							<textarea rows="13"  name="txtocorrencia" id="txt-desc-ocorrencias" style="width:95%" disabled></textarea>
+							<textarea rows="11"  name="txtocorrencia" id="txt-desc-ocorrencias" style="width:95%" disabled></textarea>
 							<div style="width:100%; padding:10px;text-align: center;" >
 								<a class="btn btn-success" id="btn-nova-ocorrencia" > <i class="icon icon-white icon-exclamation-sign"></i> Nova Ocorrência</a>
 								<a class="btn btn-success" id="btn-salvar-ocorrencia" style="display:none;" > <i class="icon icon-white icon-exclamation-sign"></i> Salvar</a>								
@@ -258,14 +259,16 @@
 					var localSelecionado = $('#cmbLocalOcorrencias').val();
 					var txtautor = $('#txt-autor-ocorrencias').val();
 					var txtocorrencia = $('#txt-desc-ocorrencias').val();
-					
+					var cod_ocorrencia = $('#hdn-cod-ocorrencia').val();
 					if (localSelecionado == 0) {
 						alert('Selecione um local.');
 					}else{
-						$.post("mapa.php", { "acao": "cadastrar-ocorrencias", "local":localSelecionado, "autor":txtautor, "ocorrencia":txtocorrencia },
+						$.post("mapa.php", { "acao": "cadastrar-ocorrencias", "cod-ocorrencia":cod_ocorrencia, "local":localSelecionado, "autor":txtautor, "ocorrencia":txtocorrencia },
 			   				 function(data){
 			   					if(data.sucesso == 1){	
-			   						autoRefresh = 1;		   						
+			   						autoRefresh = 1;	
+			   						$('#num-ocorrencia').html('');
+			   						$('#hdn-cod-ocorrencia').val(0);	   						
 			   						$('#cmbLocalOcorrencias').val(0);
 			   						$('#cmbLocalOcorrencias').attr('disabled','disabled');
 				   					$('#txt-autor-ocorrencias').attr('value','');
@@ -290,6 +293,8 @@
 				//botao cancelar ocorrencia
 				$('#btn-cancelar-ocorrencia').click(function(e) {
 					autoRefresh = 1;
+					$('#num-ocorrencia').html('');	
+					$('#hdn-cod-ocorrencia').val(0);
 					$('#cmbLocalOcorrencias').attr('disabled','disabled');
 					$('#txt-autor-ocorrencias').attr('disabled','disabled');
 					$('#txt-desc-ocorrencias').attr('disabled','disabled');
@@ -436,15 +441,20 @@
 	   			
 	   		}
 
-	   		function editarOcorrencias(local){
+	   		function editarOcorrencias(cod_ocorrencia,local,autor,txt_ocorrencia){
 	   			autoRefresh = 0;
-	   			
+	   			$('#num-ocorrencia').html(cod_ocorrencia);	 	   			
+	   			$('#hdn-cod-ocorrencia').val(cod_ocorrencia);
+	   			$('#cmbLocalOcorrencias').val(local);
+	   			$('#txt-autor-ocorrencias').val(autor);
+	   			$('#txt-desc-ocorrencias').val(txt_ocorrencia);
+	   			$('#btn-nova-ocorrencia').click();	
+	   			$('#cmbLocalOcorrencias').focus();   			
 	   		}
 
-	   		/*
-	   		<a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\"><i class=\"icon icon-pencil\"></i></a> 
-			<a rel=\"tooltip\" title=\"enviar mensagem\" class=\"btn btn-small\"><i class=\"icon icon-envelope\"></i></a>
-			<a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\"><i class=\"icon  icon-folder-open\"></i></a>'*/
+	   		function mensagemOcorrencias(local){
+	   			alert('Mensagem enviada com sucesso!');	   			
+	   		}
 
 			function excluirOcorrencias(local){
 				autoRefresh = 0;

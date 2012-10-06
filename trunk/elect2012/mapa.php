@@ -27,7 +27,7 @@ if($acao == 'abrir-ocorrencias'){
 	$genericObject->sucesso = 0;
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 1 WHERE cod_local = ?";
+		$sql ="UPDATE ocorrencia SET status = 1, data_resolvido = null WHERE cod_local = ?";
 		banco::executar($sql,array($md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
@@ -39,10 +39,11 @@ if($acao == 'abrir-ocorrencias'){
 if($acao == 'resolver-ocorrencias'){
 	$genericObject = new stdClass();
 	$genericObject->sucesso = 0;
+	$data_resolvido = date('Y-m-d H:i:s');
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 2 WHERE cod_local = ?";
-		banco::executar($sql,array($md5Local));
+		$sql ="UPDATE ocorrencia SET status = 2, data_resolvido = ? WHERE cod_local = ?";
+		banco::executar($sql,array($data_resolvido,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -65,9 +66,28 @@ if($acao == 'listar-ocorrencias'){
 				DATE_FORMAT(o.data_criacao,'%H:%i') as data_criacao, 
 				(SELECT s.local FROM secao s WHERE md5(s.local) = o.cod_local LIMIT 0,1) as local, 
 				o.descricao,
-				CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
-						\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>') as acao
-				  
+				CASE o.status 
+					WHEN 1 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
+							
+							' <a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\" onclick=\"editarOcorrencias(',
+							\"'\",o.cod_ocorrencia,\"',\",
+							\"'\",o.cod_local,\"',\",
+							\"'\",o.autor,\"',\",
+							\"'\",o.descricao,\"'\",')\"><i class=\"icon icon-pencil\"></i></a>',
+				
+							' <a rel=\"tooltip\" title=\"mensagem\" class=\"btn btn-small\" onclick=\"mensagemOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-envelope\"></i></a>',
+				
+							' <a rel=\"tooltip\" title=\"resolver\" class=\"btn btn-small\" onclick=\"resolverOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-ok\"></i></a>')
+					WHEN 2 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
+																	
+							' <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\" onclick=\"abrirOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-folder-open\"></i></a>')							
+					ELSE 'Invalido' 
+				END	as acao
 			FROM ocorrencia o
 			WHERE o.status > 0 ";
 	
@@ -96,6 +116,7 @@ if($acao == 'cadastrar-ocorrencias'){
 	$genericObject = new stdClass();
 	
 	banco::abrirTransacao();
+	$codigo_ocorrencia = (int) aplicacao::getParam('cod-ocorrencia');
 	$autor = aplicacao::getParam('autor');
 	$descricao = aplicacao::getParam('ocorrencia');
 	$data_criacao = date('Y-m-d H:i:s');
@@ -103,15 +124,23 @@ if($acao == 'cadastrar-ocorrencias'){
 	$cod_local = aplicacao::getParam('local');
 	$status = 1;
 	try{
-		$sql = "INSERT INTO ocorrencia (autor,descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?, ?)";
-		$values = array($autor,$descricao, $data_criacao, $cod_usuario, $cod_local, $status);
-		banco::executar($sql, $values);
-		banco::fecharTransacao();
-		$genericObject->sucesso = 1;
+		if ($codigo_ocorrencia == 0){
+			$sql = "INSERT INTO ocorrencia (autor,descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?, ?)";
+			$values = array($autor,$descricao, $data_criacao, $cod_usuario, $cod_local, $status);
+			banco::executar($sql, $values);
+			banco::fecharTransacao();
+			$genericObject->sucesso = 1;
+		}else{
+			$sql = "UPDATE ocorrencia SET autor = ?, descricao=?, data_criacao=?, cod_usuario=?, cod_local=?, status=? WHERE cod_ocorrencia = ?";
+			$values = array($autor,$descricao, $data_criacao, $cod_usuario, $cod_local, $status, $codigo_ocorrencia);
+			banco::executar($sql, $values);
+			banco::fecharTransacao();
+			$genericObject->sucesso = 1;
+		}
+		
 	}catch(Exception $e){
 		banco::cancelarTransacao();
 		$genericObject->sucesso = 0;
-		$genericObject->erro = 'asdasd';
 	}	
 	
 	$json = json_encode($genericObject);
