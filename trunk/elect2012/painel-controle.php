@@ -23,7 +23,7 @@
 					<div id="painel-controle-gmap3" class="gmap3"></div>
 					<div class="well" style="padding:10px 10px 20px 10px;">
 						<div  style="width:20%;float:left;display:inline;">
-							<a class="btn" id="refresh-map" ><i class="icon icon-refresh"></i> Reload Mapa</a>
+							<a class="btn" id="refresh-map" ><i class="icon icon-refresh"></i> Mapa</a>
 						</div>
 						<div style="width:80%;float:left;font-size:12px; text-align: right;">
 							Legenda:
@@ -502,7 +502,7 @@
 				    		
 			                $('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
 			            });	
-		   			 	window.scrollTo(0,0);
+		   			 	//window.scrollTo(0,0);
 					
 	   			}, "json");		        
 	           
@@ -585,9 +585,9 @@
 	   		}	   	
 
 	   		function loadMap(){		
-	   			$('#form-associar-advogados').hide();
-				$('#msg-associar-advogados').show();
-				$('#panel-local-detalhes').hide();
+	   			//$('#form-associar-advogados').hide();
+				//$('#msg-associar-advogados').show();
+				//$('#panel-local-detalhes').hide();
 				
 	   			$.get("mapa.php?acao=carregar-mapa",
 	   				function(data){
@@ -655,6 +655,7 @@
 	   						    			   
 	   						});					
 	   					}
+	   					verLocalMapaOcorrencias(md5LocalSelecionado);
 	   			}, "json");	
 	   				
 	   		}
