@@ -45,13 +45,11 @@
 								?>
 								
 							</select>
-							<label class="control-label" for="secao">Seção:</label>
-							<select name="secao" id="cmbSecaoOcorrencias" style="width:30%" disabled>
-							</select>
+							
 							<label class="control-label" for="ocorrencia">Reportado por:</label>
-							<input type="text" name="autor" id="txt-autor-ocorrencias" disabled/>
+							<input type="text" name="txtautor" id="txt-autor-ocorrencias" disabled/>
 							<label class="control-label" for="ocorrencia">Ocorrência:</label>
-							<textarea rows="10"  name="ocorrencia" id="txt-desc-ocorrencias" style="width:95%" disabled></textarea>
+							<textarea rows="13"  name="txtocorrencia" id="txt-desc-ocorrencias" style="width:95%" disabled></textarea>
 							<div style="width:100%; padding:10px;text-align: center;" >
 								<a class="btn btn-success" id="btn-nova-ocorrencia" > <i class="icon icon-white icon-exclamation-sign"></i> Nova Ocorrência</a>
 								<a class="btn btn-success" id="btn-salvar-ocorrencia" style="display:none;" > <i class="icon icon-white icon-exclamation-sign"></i> Salvar</a>								
@@ -231,55 +229,58 @@
 				//botao nova ocorrencia
 				$('#btn-nova-ocorrencia').click(function(e) {
 					$('#cmbLocalOcorrencias').removeAttr('disabled');
-					$('#cmbSecaoOcorrencias').removeAttr('disabled');
 					$('#txt-autor-ocorrencias').removeAttr('disabled');
 					$('#txt-desc-ocorrencias').removeAttr('disabled');
 					$('#btn-nova-ocorrencia').hide();
 					$('#btn-salvar-ocorrencia').show();
-					$('#btn-cancelar-ocorrencia').show();
-					
-					
+					$('#btn-cancelar-ocorrencia').show();				
 				});
 
 				//botao salvar ocorrencia
 				$('#btn-salvar-ocorrencia').click(function(e) {
-					$('#cmbLocalOcorrencias').attr('disabled','disabled');
-					$('#cmbSecaoOcorrencias').attr('disabled','disabled');
-					$('#txt-autor-ocorrencias').attr('disabled','disabled');
-					$('#txt-desc-ocorrencias').attr('disabled','disabled');
-					$('#btn-cancelar-ocorrencia').hide();
-					$('#btn-salvar-ocorrencia').hide();
-					$('#btn-nova-ocorrencia').show();					
+					var localSelecionado = $('#cmbLocalOcorrencias').val();
+					var txtautor = $('#txt-autor-ocorrencias').val();
+					var txtocorrencia = $('#txt-desc-ocorrencias').val();
+					
+					if (localSelecionado == 0) {
+						alert('Selecione um local.');
+					}else{
+						$.post("mapa.php", { "acao": "cadastrar-ocorrencias", "local":localSelecionado, "autor":txtautor, "ocorrencia":txtocorrencia },
+			   				 function(data){
+			   					if(data.sucesso == 1){			   						
+			   						$('#cmbLocalOcorrencias').val(0);
+			   						$('#cmbLocalOcorrencias').attr('disabled','disabled');
+				   					$('#txt-autor-ocorrencias').attr('value','');
+									$('#txt-desc-ocorrencias').attr('value','');
+									$('#txt-autor-ocorrencias').attr('disabled','disabled');
+									$('#txt-desc-ocorrencias').attr('disabled','disabled');
+									$('#btn-cancelar-ocorrencia').hide();
+									$('#btn-salvar-ocorrencia').hide();
+									$('#btn-nova-ocorrencia').show();		
+			   						loadMap();
+			   						loadTabelaOcorrencias();
+				   				   	alert("Operação realizada com sucesso!");
+				   					
+			   				   }else{
+			   					 	alert("Erro! Tente novamente!");
+			   				   }
+			   				 }, "json");
+		   				 
+						
+					}
+								
 				});
 
 				//botao cancelar ocorrencia
 				$('#btn-cancelar-ocorrencia').click(function(e) {
 					$('#cmbLocalOcorrencias').attr('disabled','disabled');
-					$('#cmbSecaoOcorrencias').attr('disabled','disabled');
 					$('#txt-autor-ocorrencias').attr('disabled','disabled');
 					$('#txt-desc-ocorrencias').attr('disabled','disabled');
 					$('#btn-cancelar-ocorrencia').hide();
 					$('#btn-salvar-ocorrencia').hide();
 					$('#btn-nova-ocorrencia').show();					
 				});
-				
-				//OnChange locais - carrega as secoes do local no form de nova ocorrencias
-				$('#cmbLocalOcorrencias').change(function(e) {
-					var md5Local = $('#cmbLocalOcorrencias').val();
-					
-					$("#cmbSecaoOcorrencias option").each(function () {
-			   			$(this).remove();	               		             		
-	             	});
-
-					$.get("mapa.php?acao=secoes-local&local=" + md5Local,
-						function(data){
-						for(i=0;i<data.length;i++){
-							$("#cmbSecaoOcorrencias").append('<option value="'+data[i].zona+','+ data[i].secao +'">'+data[i].secao+'</option>');
-						}
-					}, "json");		
-	             	
-				});
-				
+								
 				//Carrega os pontos do mapa
 				loadMap();
 			});
@@ -399,6 +400,10 @@
 	   			}, "json");		   			
 	   			
 	   		}
+
+	   		function loadTabelaOcorrencias(){
+		   		
+	   		}		   	
 
 	   		function loadMap(){		
 	   			$('#form-associar-advogados').hide();
