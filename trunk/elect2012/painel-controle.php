@@ -180,6 +180,13 @@
 			var markerLocal,infoWindowLocal;
 			var autoRefresh = 1;
 			var oTable;
+
+			var nome_local;
+			var endereco_local;
+			var bairro_local;
+			var total_eleitores_local;
+			var total_ocorrencias_local;
+			var md5LocalSelecionado;
 			
 			$(function() {
 				//Carrega o Mapa
@@ -361,7 +368,8 @@
 	   		}
 
 	   		function loadLocalVotacao(md5Local,marker,infowindow){
-	   			markerLocal = marker;	   			
+	   			markerLocal = marker;
+	   			md5LocalSelecionado = md5Local;			
 	   			infoWindowLocal = infowindow;			
 	   			$('#cmbLocalOcorrencias').val(md5Local);
 				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
@@ -370,11 +378,7 @@
 						localLong = data.longitude ;
 						listaAdvogados = data.advogados;
 						$('#ver-no-mapa').click(function(e){						
-							var map = $('#painel-controle-gmap3').gmap3('get');
-							var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
-							if (infowindow){
-								infowindow.open(map, markerLocal);
-							}
+							 verLocalMapaOcorrencias(md5LocalSelecionado);
 						});
 						$('#panel-local-txttotalocorrencias').html(data.total_ocorr + ' pendentes');
 						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco +". "+data.bairro);
@@ -470,15 +474,38 @@
 	   			alert('Mensagem enviada com sucesso!');	   			
 	   		}
 
-	   		function verLocalMapaOcorrencias(local){
-	   			/*var i, markers = $("#painel-controle-gmap3").gmap3({action:'get', name:'marker', all:true});
-	   	        for (i in markers) {
-	   	          (function(m, i){
-	   	            setTimeout(function() {
-	   	                alert(m.data);
-	   	              }, i * 200);
-	   	          })(markers[i], i);
-	   	        } */			
+	   		function verLocalMapaOcorrencias(md5Local){
+	   			$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
+					function(data){
+						markers = $('#painel-controle-gmap3').gmap3({
+			                action:'get',
+			                name:'marker',
+			                all: true,
+			                tag: md5Local
+			            });
+					
+		   				nome_local = data.nome_local;
+		   				endereco_local = data.endereco;
+		   				bairro_local = data.bairro;
+		   				total_eleitores_local = data.total_votantes;
+		   				total_ocorrencias_local = data.total_ocorr;
+
+		   			 	$.each(markers, function(i, marker){
+			                $('#painel-controle-gmap3').gmap3({
+			                	action:'panTo',
+			                	args:[marker.position]
+			                });
+			                var conteudo;
+				    		conteudo = "<b>"+nome_local+"</b>"+ "<br/>" + endereco_local + " - " + bairro_local;
+				    		conteudo = conteudo + "<br/> Total: " + total_eleitores_local + " eleitores.";
+				    		conteudo = conteudo + "<br/> <b>Ocorrência(s): " + total_ocorrencias_local + " pendente(s).</b>";
+				    		
+			                $('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
+			            });	
+		   			 	window.scrollTo(0,0);
+					
+	   			}, "json");		        
+	           
 	   		}
 
 			function excluirOcorrencias(local){
@@ -607,6 +634,7 @@
 	   						      icon: new google.maps.MarkerImage("http://diad.xlevel.inf.br/img/"+cor+".png")
 	   						    },
 	   						    data:[local,i,cod_local,endereco,bairro,total_votantes,total_ocorr],
+	   						    tag:cod_local,
 	   						    events:{
 	   						    	click: function(marker, event, data){
 	   						    		var map = $('#painel-controle-gmap3').gmap3('get');
