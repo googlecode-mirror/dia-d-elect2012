@@ -36,6 +36,11 @@ div.dataTables_length select {
 div.dataTables_filter label {
 	float: right;
 }
+div.dataTables_processing {
+	margin-left: 30px;
+	float: left;
+	display: inline;
+}
 
 div.dataTables_info {
 	padding-top: 8px;

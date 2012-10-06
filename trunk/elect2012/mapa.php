@@ -8,6 +8,46 @@ include "aplicacao/boot.php";
 $acao= aplicacao::getParam("acao");
 $json = null;
 
+if($acao == 'listar-ocorrencias'){
+	$md5Local = aplicacao::getParam("local");
+	$status = aplicacao::getParam("status");
+	$values = null;
+	$genericObject = new stdClass();	
+	$sql = "SELECT 
+				CASE o.status 
+					WHEN 1 THEN '<span class=\"btn btn-warning\">Pendente</span>'
+					WHEN 2 THEN '<span class=\"btn btn-success\">Resolvido</span>'
+					ELSE 'Invalido' 
+				END	as status, 
+				o.cod_ocorrencia,  
+				DATE_FORMAT(o.data_criacao,'%H:%i') as data_criacao, 
+				(SELECT s.local FROM secao s WHERE md5(s.local) = o.cod_local LIMIT 0,1) as local, 
+				o.descricao,
+				'<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\"><i class=\"icon icon-trash\"></i></a> <a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\"><i class=\"icon icon-pencil\"></i></a> <a rel=\"tooltip\" title=\"enviar mensagem\" class=\"btn btn-small\"><i class=\"icon icon-envelope\"></i></a> <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\"><i class=\"icon  icon-folder-open\"></i></a>' as acao 
+			FROM ocorrencia o
+			WHERE o.status > 0 ";
+	
+	if ($status) {
+		$sql .= " AND o.status = ?";
+		$values = array();
+		$values[]= $status;
+	}
+	
+	if ($md5Local) {
+		$sql .= " AND o.cod_local = ?";
+		if($values){
+			$values[]= $md5Local;
+		}else{
+			$values = array();
+			$values[]= $md5Local;
+		}
+	}
+	
+	$result = banco::listar($sql,$values);
+	$genericObject->aaData = $result;
+	$json = json_encode($genericObject);
+}
+
 if($acao == 'cadastrar-ocorrencias'){
 	$genericObject = new stdClass();
 	
@@ -81,6 +121,7 @@ if ($acao == "lista-advogados"){
 if($acao == "detalhes-local"){
 	$md5Local = aplicacao::getParam("local");
 	$genericObject = new stdClass();
+	$genericObject->local = $md5Local;
 	
 	$sql = "SELECT * FROM local_todas_secoes WHERE local = ?";
 	$result = banco::listar($sql,array($md5Local));
