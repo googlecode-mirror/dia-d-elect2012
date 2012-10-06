@@ -120,6 +120,8 @@
 							<a class="btn" id="btn-filtrar" ><i class="icon icon-filter"></i>Filtrar</a>
 							&nbsp;&nbsp;&nbsp;
 							<a class="btn" id="btn-todas-ocorrencias"><i class="icon icon-download"></i>Todas as ocorrências</a>						   
+							&nbsp;&nbsp;&nbsp;
+							<a class="btn" id="btn-ver-local-filtro"><i class="icon icon-map-marker"></i>Ver no mapa</a>
 						</div>
 						
 							  
@@ -318,6 +320,15 @@
 					//carrega a tabela de ocorrencias
 		   			loadTabelaOcorrencias();					
 				});	
+
+				$('#btn-ver-local-filtro').click(function(e) {
+					//ver local do filtro no mapa
+					var md5Local = $('#filtroOcorrenciasLocais').val(); 
+					md5LocalSelecionado = md5Local;
+					verLocalMapaOcorrencias(md5Local);
+					window.scrollTo(0,0);					   								
+				});	
+				
 				$('#btn-todas-ocorrencias').click(function(e) {
 					//limpar filtro ocorrencias
 					limparFiltroOcorrencias();
