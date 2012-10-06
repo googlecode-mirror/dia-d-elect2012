@@ -131,7 +131,7 @@
 									<th width="50px">Hora</th>									
 									<th>Local</th>
 									<th>Ocorrência</th>
-									<th  width="180px">Ações</th>
+									<th  width="200px">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -251,7 +251,8 @@
 					$('#txt-desc-ocorrencias').removeAttr('disabled');
 					$('#btn-nova-ocorrencia').hide();
 					$('#btn-salvar-ocorrencia').show();
-					$('#btn-cancelar-ocorrencia').show();				
+					$('#btn-cancelar-ocorrencia').show();	
+					$('#cmbLocalOcorrencias').focus();			
 				});
 
 				//botao salvar ocorrencia
@@ -277,9 +278,9 @@
 									$('#txt-desc-ocorrencias').attr('disabled','disabled');
 									$('#btn-cancelar-ocorrencia').hide();
 									$('#btn-salvar-ocorrencia').hide();
-									$('#btn-nova-ocorrencia').show();		
-			   						loadMap();
+									$('#btn-nova-ocorrencia').show();				   						
 			   						loadTabelaOcorrencias();
+			   						loadMap();
 				   				   	alert("Operação realizada com sucesso!");
 				   					
 			   				   }else{
@@ -355,15 +356,15 @@
 
 	   		function loadLocalVotacao(md5Local,marker,infowindow){
 	   			markerLocal = marker;
+	   			
 	   			infoWindowLocal = infowindow;			
-
+	   			$('#cmbLocalOcorrencias').val(md5Local);
 				$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
 					function(data){
 						localLat = data.latitude ;
 						localLong = data.longitude ;
 						listaAdvogados = data.advogados;
 						$('#ver-no-mapa').click(function(e){						
-							$('#painel-controle-gmap3').gmap3('get').panTo(markerLocal.getPosition());
 							var map = $('#painel-controle-gmap3').gmap3('get');
 							var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
 							if (infowindow){
@@ -446,14 +447,33 @@
 	   			$('#num-ocorrencia').html(cod_ocorrencia);	 	   			
 	   			$('#hdn-cod-ocorrencia').val(cod_ocorrencia);
 	   			$('#cmbLocalOcorrencias').val(local);
+	   			$('#cmbLocalOcorrencias').attr('disabled','disabled');
 	   			$('#txt-autor-ocorrencias').val(autor);
 	   			$('#txt-desc-ocorrencias').val(txt_ocorrencia);
-	   			$('#btn-nova-ocorrencia').click();	
-	   			$('#cmbLocalOcorrencias').focus();   			
+
+	   			
+				$('#txt-autor-ocorrencias').removeAttr('disabled');
+				$('#txt-desc-ocorrencias').removeAttr('disabled');
+				$('#btn-nova-ocorrencia').hide();
+				$('#btn-salvar-ocorrencia').show();
+				$('#btn-cancelar-ocorrencia').show();	
+	   			
+	   			$('#txt-desc-ocorrencias').focus();   			
 	   		}
 
 	   		function mensagemOcorrencias(local){
 	   			alert('Mensagem enviada com sucesso!');	   			
+	   		}
+
+	   		function verLocalMapaOcorrencias(local){
+	   			var i, markers = $("#painel-controle-gmap3").gmap3({action:'get', name:'marker', all:true});
+	   	        for (i in markers) {
+	   	          (function(m, i){
+	   	            setTimeout(function() {
+	   	                m.setAnimation(google.maps.Animation.BOUNCE);
+	   	              }, i * 200);
+	   	          })(markers[i], i);
+	   	        } 			
 	   		}
 
 			function excluirOcorrencias(local){
@@ -462,6 +482,7 @@
 		   			 function(data){
 		   			 	if(data.sucesso == 1 ){
 		   			 		loadTabelaOcorrencias();
+		   			 		loadMap();
 			   			 	alert('Operação realizada com sucesso.');			   			 	
 		   			 	}else{
 		   			 		alert('Erro! Tente novamente.');
@@ -477,6 +498,7 @@
 			   			 function(data){
 			   			 	if(data.sucesso == 1 ){
 			   			 		loadTabelaOcorrencias();
+			   			 		loadMap();
 				   			 	alert('Operação realizada com sucesso.');			   			 	
 			   			 	}else{
 			   			 		alert('Erro! Tente novamente.');
@@ -491,6 +513,7 @@
 			   			 function(data){
 			   			 	if(data.sucesso == 1 ){
 			   			 		loadTabelaOcorrencias();
+			   			 		loadMap();
 				   			 	alert('Operação realizada com sucesso.');			   			 	
 			   			 	}else{
 			   			 		alert('Erro! Tente novamente.');

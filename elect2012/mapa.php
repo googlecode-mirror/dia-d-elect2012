@@ -76,6 +76,9 @@ if($acao == 'listar-ocorrencias'){
 							\"'\",o.autor,\"',\",
 							\"'\",o.descricao,\"'\",')\"><i class=\"icon icon-pencil\"></i></a>',
 				
+							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verLocalMapaOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
+			
 							' <a rel=\"tooltip\" title=\"mensagem\" class=\"btn btn-small\" onclick=\"mensagemOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-envelope\"></i></a>',
 				
@@ -83,6 +86,9 @@ if($acao == 'listar-ocorrencias'){
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-ok\"></i></a>')
 					WHEN 2 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
+			
+							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verLocalMapaOcorrencias(',
+							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
 																	
 							' <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\" onclick=\"abrirOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-folder-open\"></i></a>')							
@@ -162,13 +168,13 @@ if ($acao == "carregar-mapa"){
 				COALESCE(( select count(*) 
 				  from secao s2
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
-				  where md5(s2.local) = md5(s1.local)
+				  where  s2.hash_local =  s1.hash_local
 				  group by s2.local
 				),0) as total_adv,
 				COALESCE(( select count(*) 
 				  from ocorrencia oc
-				  where oc.cod_local = md5(s1.local) and oc.status =1
-				),0) as total_ocorr , md5(s1.local) as cod_local, SUM(aptos_total) as total_votantes
+				  where oc.cod_local = s1.hash_local AND oc.status =1
+				),0) as total_ocorr , s1.hash_local as cod_local, SUM(aptos_total) as total_votantes
 			FROM secao s1 
 			GROUP BY s1.local, s1.latitude, s1.longitude, s1.zona, s1.endereco,s1.bairro";
 		
