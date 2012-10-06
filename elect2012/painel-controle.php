@@ -36,7 +36,8 @@
 					<form class="well" style="padding:10px; height:480px; margin-top:20px;font-size:12px;">
 						<fieldset>
 							<label class="control-label" for="local">Local:</label>
-							<select name="local" id="cmbLocalOcorrencias" style="width:100%">
+							<select name="local" id="cmbLocalOcorrencias" style="width:100%" disabled>
+								<option value="0" selected>Selecione um local</option>
 								<?php 
 									foreach ($lista_locais as $item){
 										print "<option value='".$item->cod_local."'>".$item->local."</option>";
@@ -45,15 +46,16 @@
 								
 							</select>
 							<label class="control-label" for="secao">Seção:</label>
-							<select name="secao" id="cmbSecaoOcorrencias" style="width:30%">
+							<select name="secao" id="cmbSecaoOcorrencias" style="width:30%" disabled>
 							</select>
 							<label class="control-label" for="ocorrencia">Reportado por:</label>
-							<input type="text" name="autor"/>
+							<input type="text" name="autor" id="txt-autor-ocorrencias" disabled/>
 							<label class="control-label" for="ocorrencia">Ocorrência:</label>
-							<textarea rows="10"  name="ocorrencia" style="width:95%"></textarea>
-							<div style="width:100%; padding:10px;" >
-								<a class="btn btn-success" > <i class="icon icon-white icon-exclamation-sign"></i> Nova Ocorrência</a>
-								<a class="btn" style="margin-left:20px;" >Cancelar</a>
+							<textarea rows="10"  name="ocorrencia" id="txt-desc-ocorrencias" style="width:95%" disabled></textarea>
+							<div style="width:100%; padding:10px;text-align: center;" >
+								<a class="btn btn-success" id="btn-nova-ocorrencia" > <i class="icon icon-white icon-exclamation-sign"></i> Nova Ocorrência</a>
+								<a class="btn btn-success" id="btn-salvar-ocorrencia" style="display:none;" > <i class="icon icon-white icon-exclamation-sign"></i> Salvar</a>								
+								<a class="btn" id="btn-cancelar-ocorrencia" style="margin-left:20px;display:none;" >Cancelar</a>
 							</div>
 							
 						</fieldset>
@@ -213,18 +215,70 @@
 				});
 				
 				//Acao maximizar os dados do local
-				$('#maximize').click(function (e) {
+				$('#maximize').click(function(e) {
 					$('#local-detalhes').show();
 				});
 
 				//Abas de Ocorrencias e Gerenciar Advogados
-				$('#tabPanelBottomOcorrencias a').click(function (e) {
+				$('#tabPanelBottomOcorrencias a').click(function(e) {
 					  e.preventDefault();
 					  $(this).tab('show');
 				});
 
 				$('#form-associar-advogados').hide();
 				$('#msg-associar-advogados').show();
+
+				//botao nova ocorrencia
+				$('#btn-nova-ocorrencia').click(function(e) {
+					$('#cmbLocalOcorrencias').removeAttr('disabled');
+					$('#cmbSecaoOcorrencias').removeAttr('disabled');
+					$('#txt-autor-ocorrencias').removeAttr('disabled');
+					$('#txt-desc-ocorrencias').removeAttr('disabled');
+					$('#btn-nova-ocorrencia').hide();
+					$('#btn-salvar-ocorrencia').show();
+					$('#btn-cancelar-ocorrencia').show();
+					
+					
+				});
+
+				//botao salvar ocorrencia
+				$('#btn-salvar-ocorrencia').click(function(e) {
+					$('#cmbLocalOcorrencias').attr('disabled','disabled');
+					$('#cmbSecaoOcorrencias').attr('disabled','disabled');
+					$('#txt-autor-ocorrencias').attr('disabled','disabled');
+					$('#txt-desc-ocorrencias').attr('disabled','disabled');
+					$('#btn-cancelar-ocorrencia').hide();
+					$('#btn-salvar-ocorrencia').hide();
+					$('#btn-nova-ocorrencia').show();					
+				});
+
+				//botao cancelar ocorrencia
+				$('#btn-cancelar-ocorrencia').click(function(e) {
+					$('#cmbLocalOcorrencias').attr('disabled','disabled');
+					$('#cmbSecaoOcorrencias').attr('disabled','disabled');
+					$('#txt-autor-ocorrencias').attr('disabled','disabled');
+					$('#txt-desc-ocorrencias').attr('disabled','disabled');
+					$('#btn-cancelar-ocorrencia').hide();
+					$('#btn-salvar-ocorrencia').hide();
+					$('#btn-nova-ocorrencia').show();					
+				});
+				
+				//OnChange locais - carrega as secoes do local no form de nova ocorrencias
+				$('#cmbLocalOcorrencias').change(function(e) {
+					var md5Local = $('#cmbLocalOcorrencias').val();
+					
+					$("#cmbSecaoOcorrencias option").each(function () {
+			   			$(this).remove();	               		             		
+	             	});
+
+					$.get("mapa.php?acao=secoes-local&local=" + md5Local,
+						function(data){
+						for(i=0;i<data.length;i++){
+							$("#cmbSecaoOcorrencias").append('<option value="'+data[i].zona+','+ data[i].secao +'">'+data[i].secao+'</option>');
+						}
+					}, "json");		
+	             	
+				});
 				
 				//Carrega os pontos do mapa
 				loadMap();

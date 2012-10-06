@@ -8,6 +8,17 @@ include "aplicacao/boot.php";
 $acao= aplicacao::getParam("acao");
 $json = null;
 
+if($acao == 'secoes-local'){
+	$md5Local = aplicacao::getParam("local");
+	$sql = "SELECT zona, secao
+			FROM secao 
+			WHERE md5(local) = ?
+			ORDER BY zona,secao";
+	
+	$value = banco::listar($sql,array($md5Local));
+	$json = json_encode($value);
+}
+
 if ($acao == "carregar-mapa"){
 	$sql = "SELECT UCASE(s1.local) as local, s1.latitude, s1.longitude, 1 as tipo, s1.zona, s1.endereco,s1.bairro,
 				COALESCE(( select count(*) 
