@@ -24,14 +24,14 @@
 									<li><a href="locais-votacao.php">Locais de Votação</a></li> 									
 									<li><a href="usuarios.php">Usuários</a></li>  
 								</ul>
-							</li>
+							</li><!--
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-white icon-print"></i> Relatórios <b class="caret"></b></a>
 								<ul class="dropdown-menu">           
 									<li><a href="#">Substabelecimentos</a></li>
 									<li><a href="#">Locais de Trabalho</a></li>   
 								</ul>
-							</li>
+							</li>-->
 						</ul>	
 						<ul class="nav pull-right">					
 							<li><a><strong><?php print aplicacao::getUsuarioLogado()->nome; ?></strong></a></li>
