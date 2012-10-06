@@ -190,7 +190,10 @@
 							zoom: 13
 						},
 						callback: function(){
-				            $('#refresh-map').click(loadMap);
+				            $('#refresh-map').click(function(e){
+				            	loadTabelaOcorrencias();
+				            	loadMap();
+					        });
 						}		
 				});
 				
