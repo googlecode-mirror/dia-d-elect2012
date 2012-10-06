@@ -87,6 +87,13 @@ if($acao == "detalhes-local"){
 	$secoes = $result[0]->secoes;	
 	$genericObject->secoes = $secoes;
 	
+	$sql = "select count(*) as total_ocorr
+			from ocorrencia oc
+			where oc.cod_local = ? and oc.status = 1 ";
+	$result = banco::listar($sql,array($md5Local));
+	$ocorrencias = $result[0];
+	$genericObject->total_ocorr = $ocorrencias->total_ocorr;
+	
 	$sql = "SELECT local, zona, endereco, bairro,latitude,longitude, SUM(aptos_total) as total FROM secao WHERE md5(local) = ? GROUP BY local,zona,endereco,bairro,latitude,longitude";
 	$result = banco::listar($sql,array($md5Local));
 	$total_votantes = $result[0]->total;
