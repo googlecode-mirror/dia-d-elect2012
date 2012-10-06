@@ -429,10 +429,20 @@
 	   						endereco = dadosPontosMapa[i].endereco;
 	   						bairro = dadosPontosMapa[i].bairro;
 	   						total_votantes = dadosPontosMapa[i].total_votantes;
+	   						total_ocorr = dadosPontosMapa[i].total_ocorr;
 	   						if (total_adv > 0){
-	   							cor = "verde";	
+		   						if (total_ocorr > 0 ){
+		   							cor = "laranja";	
+		   						}else{
+		   							cor = "verde";	
+		   						}
+	   							
 	   						}else{
-	   							cor = "preto";
+	   							if (total_ocorr > 0 ){
+		   							cor = "roxo";
+	   							}else{
+	   								cor = "preto";
+	   							}
 	   						}				
 	   						if(zona == 9999 ){
 		   						 cor = "estrela";
