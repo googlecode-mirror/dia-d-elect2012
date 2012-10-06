@@ -19,7 +19,7 @@ if($acao == 'cadastrar-ocorrencias'){
 	$cod_local = aplicacao::getParam('local');
 	$status = 1;
 	try{
-		$sql = "INSERT INTO ocorrencia (autor,descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO ocorrencia (autor,descricao, data_criacao, cod_usuario, cod_local, status) VALUES (?, ?, ?, ?, ?, ?)";
 		$values = array($autor,$descricao, $data_criacao, $cod_usuario, $cod_local, $status);
 		banco::executar($sql, $values);
 		banco::fecharTransacao();
