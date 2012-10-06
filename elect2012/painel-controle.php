@@ -317,6 +317,9 @@
 								
 				//Carrega os pontos do mapa
 				loadMap();
+
+				//auto refresh
+				autoRefreshFunction();
 			});
 
 			
@@ -466,14 +469,14 @@
 	   		}
 
 	   		function verLocalMapaOcorrencias(local){
-	   			var i, markers = $("#painel-controle-gmap3").gmap3({action:'get', name:'marker', all:true});
+	   			/*var i, markers = $("#painel-controle-gmap3").gmap3({action:'get', name:'marker', all:true});
 	   	        for (i in markers) {
 	   	          (function(m, i){
 	   	            setTimeout(function() {
-	   	                m.setAnimation(google.maps.Animation.BOUNCE);
+	   	                alert(m.data);
 	   	              }, i * 200);
 	   	          })(markers[i], i);
-	   	        } 			
+	   	        } */			
 	   		}
 
 			function excluirOcorrencias(local){
@@ -540,7 +543,17 @@
 					url =  url + "&status="+status;
 		   		}	
 	   			oTable.fnReloadAjax(url);
-	   		}		   	
+	   		}	
+
+	   		function autoRefreshFunction(){
+	   			setInterval(
+	   		   		function(){
+		   		   		if (autoRefresh == 1){
+		   		   			loadTabelaOcorrencias();
+			   		   		loadMap();
+		   		   		}
+		   		},30000);
+	   		}	   	
 
 	   		function loadMap(){		
 	   			$('#form-associar-advogados').hide();
