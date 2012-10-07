@@ -7,14 +7,15 @@ include "aplicacao/boot.php";
 
 $acao= aplicacao::getParam("acao");
 $json = null;
+$cod_usuario = aplicacao::getUsuarioLogado()->cod_usuario;
 
 if($acao == 'deletar-ocorrencias'){
 	$genericObject = new stdClass();
 	$genericObject->sucesso = 0;
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 0 WHERE cod_local = ?";
-		banco::executar($sql,array($md5Local));
+		$sql ="UPDATE ocorrencia SET status = 0, cod_usuario=? WHERE cod_local = ?";
+		banco::executar($sql,array($cod_usuario,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -27,8 +28,8 @@ if($acao == 'abrir-ocorrencias'){
 	$genericObject->sucesso = 0;
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 1, data_resolvido = null WHERE cod_local = ?";
-		banco::executar($sql,array($md5Local));
+		$sql ="UPDATE ocorrencia SET status = 1, data_resolvido = null, cod_usuario=? WHERE cod_local = ?";
+		banco::executar($sql,array($cod_usuario,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -42,8 +43,8 @@ if($acao == 'resolver-ocorrencias'){
 	$data_resolvido = date('Y-m-d H:i:s');
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 2, data_resolvido = ? WHERE cod_local = ?";
-		banco::executar($sql,array($data_resolvido,$md5Local));
+		$sql ="UPDATE ocorrencia SET status = 2, data_resolvido = ?, cod_usuario=? WHERE cod_local = ?";
+		banco::executar($sql,array($data_resolvido,$cod_usuario,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -78,10 +79,7 @@ if($acao == 'listar-ocorrencias'){
 				
 							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verLocalMapaOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
-			
-							' <a rel=\"tooltip\" title=\"mensagem\" class=\"btn btn-small\" onclick=\"mensagemOcorrencias(',
-							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-envelope\"></i></a>',
-				
+					
 							' <a rel=\"tooltip\" title=\"resolver\" class=\"btn btn-small\" onclick=\"resolverOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-ok\"></i></a>')
 					WHEN 2 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
@@ -126,7 +124,7 @@ if($acao == 'cadastrar-ocorrencias'){
 	$autor = aplicacao::getParam('autor');
 	$descricao = aplicacao::getParam('ocorrencia');
 	$data_criacao = date('Y-m-d H:i:s');
-	$cod_usuario = aplicacao::getUsuarioLogado()->cod_usuario; 
+	
 	$cod_local = aplicacao::getParam('local');
 	$status = 1;
 	try{
