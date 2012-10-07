@@ -130,7 +130,8 @@ if($acao == 'cadastrar-ocorrencias'){
 	banco::abrirTransacao();
 	$codigo_ocorrencia = (int) aplicacao::getParam('cod-ocorrencia');
 	$autor = aplicacao::getParam('autor');
-	$descricao = aplicacao::getParam('ocorrencia');
+	$descricao = str_replace("'","",trim(aplicacao::getParam('ocorrencia')));
+	$descricao = str_replace("\n","",$descricao);
 	$data_criacao = date('Y-m-d H:i:s');
 	
 	$cod_local = aplicacao::getParam('local');
