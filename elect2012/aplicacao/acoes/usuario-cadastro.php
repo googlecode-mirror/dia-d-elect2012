@@ -14,6 +14,7 @@ if(aplicacao::isRequestPost()){
 	$acao = aplicacao::getParam('acao');	
 	$nome = aplicacao::getParam('nome');
 	$login = aplicacao::getParam('login');
+	$perfil = aplicacao::getParam('perfil');
 	$senha = md5(aplicacao::getParam('senha') . 'elect2012');
 	
 	if ($acao == 'novo'){
@@ -26,8 +27,8 @@ if(aplicacao::isRequestPost()){
 		}
 		
 		try{			
-			$sql = 'INSERT INTO usuario (nome, login, senha) VALUES (?,?,?)';
-			banco::executar($sql,array($nome,$login,$senha));
+			$sql = 'INSERT INTO usuario (nome, login, senha,perfil) VALUES (?,?,?,?)';
+			banco::executar($sql,array($nome,$login,$senha,$perfil));
 			mensagem::sucesso('Operação realizada com sucesso!');
 			aplicacao::redirect('usuarios.php');
 		}catch(Exception $e){
@@ -47,8 +48,8 @@ if(aplicacao::isRequestPost()){
 		}
 				
 		try{
-			$sql = 'UPDATE usuario SET nome = ?, login = ? , senha = ? WHERE cod_usuario = ?';
-			banco::executar($sql,array($nome,$login,$senha,$codigo));
+			$sql = 'UPDATE usuario SET perfil=?, nome = ?, login = ? , senha = ? WHERE cod_usuario = ?';
+			banco::executar($sql,array($perfil,$nome,$login,$senha,$codigo));
 			mensagem::sucesso('Operação realizada com sucesso!');
 			aplicacao::redirect('usuarios.php');
 		}catch(Exception $e){
