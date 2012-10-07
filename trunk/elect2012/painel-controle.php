@@ -321,6 +321,9 @@
 					autoRefresh = 1;
 					$('#num-ocorrencia').html('');	
 					$('#hdn-cod-ocorrencia').val(0);
+					$('#cmbLocalOcorrencias').val(0);
+					$('#txt-autor-ocorrencias').val('');
+					$('#txt-desc-ocorrencias').val('');
 					$('#cmbLocalOcorrencias').attr('disabled','disabled');
 					$('#txt-autor-ocorrencias').attr('disabled','disabled');
 					$('#txt-desc-ocorrencias').attr('disabled','disabled');
@@ -545,9 +548,9 @@
 	           
 	   		}
 
-			function excluirOcorrencias(local){
+			function excluirOcorrencias(cod_ocorr,local){
 				autoRefresh = 0;
-				$.post("mapa.php", { "acao": "deletar-ocorrencias", "local":local },
+				$.post("mapa.php", { "acao": "deletar-ocorrencias", "local":local,"ocorrencia":cod_ocorr },
 		   			 function(data){
 		   			 	if(data.sucesso == 1 ){
 		   			 		loadTabelaOcorrencias();
@@ -561,9 +564,9 @@
 				
 	   		}
 
-			function abrirOcorrencias(local){
+			function abrirOcorrencias(cod_ocorr,local){
 				autoRefresh = 0;
-				$.post("mapa.php", { "acao": "abrir-ocorrencias", "local":local },
+				$.post("mapa.php", { "acao": "abrir-ocorrencias", "local":local,"ocorrencia":cod_ocorr },
 			   			 function(data){
 			   			 	if(data.sucesso == 1 ){
 			   			 		loadTabelaOcorrencias();
@@ -576,9 +579,9 @@
 					},"json");
 	   		}
 	   		
-			function resolverOcorrencias(local){
+			function resolverOcorrencias(cod_ocorr,local){
 				autoRefresh = 0;
-				$.post("mapa.php", { "acao": "resolver-ocorrencias", "local":local },
+				$.post("mapa.php", { "acao": "resolver-ocorrencias", "local":local,"ocorrencia":cod_ocorr },
 			   			 function(data){
 			   			 	if(data.sucesso == 1 ){
 			   			 		loadTabelaOcorrencias();
