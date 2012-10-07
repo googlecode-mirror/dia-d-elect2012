@@ -62,6 +62,15 @@
 										<input type="password" class="input-medium" name="senha" value="" autocomplete="off">											        
 									</div>
 								</div>
+								<div class="control-group">
+									<label class="control-label" for="perfil">Perfil</label>
+									<div class="controls">
+										<select name="perfil">											
+											<option value="2" <?php print ($objeto and $objeto->perfil==2)?'selected':''; ?>>Usuário</option>
+											<option value="1" <?php print ($objeto and $objeto->perfil==1)?'selected':''; ?>>Administrador</option>
+										</select>
+									</div>										      
+								</div>
 							</fieldset>	 
 							<div class="form-actions">
 								<button type="submit" class="btn btn-success">Salvar</button>

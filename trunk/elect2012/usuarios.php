@@ -48,16 +48,19 @@
 								<th>Cód</th>
 								<th>Nome</th>
 								<th>Login</th>
+								<th>Perfil</th>
 								<th class="td-actions"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 												
-								foreach($lista as $item){																																
+								foreach($lista as $item){	
+									$perfil = ($item->perfil == 1)?'Administrador':'Usuário';																															
 									print '<tr>';
 									print '<td>'.$item->cod_usuario.'</td>';
 									print '<td>'.$item->nome.'</td>';
-									print '<td>'.$item->login.'</td>';																					
+									print '<td>'.$item->login.'</td>';
+									print '<td>'.$perfil.'</td>';
 									print '<td class="td-actions" style="width:150px">';											
 									print '		<a rel="tooltip" title="editar" href="usuario-cadastro.php?codigo='.$item->cod_usuario.'" class="btn btn-warning "><i class="icon-white icon-pencil "></i></a>';
 									print '		<a rel="tooltip" title="deletar" class="btn btn-danger" onclick="'."document.getElementById('codigo').innerHTML='<p><b>Código:</b> {$item->cod_usuario} <br/><b>Nome:</b> {$item->nome} <br/><b>Login:</b> {$item->login} </p>' ;document.getElementById('deletar_id').value = " . $item->cod_usuario .  "; $('#modalDeletar').modal('show');".'">';
