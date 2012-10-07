@@ -76,6 +76,7 @@
 						  			<a id="minimize" rel="tooltip" title="minimizar" class="btn btn-small"><i class="icon icon-minus"></i></a>
 						  			<a id="maximize" rel="tooltip" title="maximizar" class="btn btn-small"><i class="icon icon-folder-close"></i></a>
 						  		</div>
+						  		<input type="hidden" id="ver-local-cod" name="ver-local-cod"/>
 						  		<div id="local-detalhes" style="padding-top:40px;">
 						  			<div style="float:left; width:25%;"><strong>Ocorrências:</strong><br/><span id="panel-local-txttotalocorrencias"></span></div>
 							  		<div style="float:left; width:25%;"><strong>Total de eleitores:</strong><br/><span id="panel-local-txttotaleleitores"></span></div>
@@ -400,8 +401,9 @@
 						localLat = data.latitude ;
 						localLong = data.longitude ;
 						listaAdvogados = data.advogados;
-						$('#ver-no-mapa').click(function(e){						
-							 verLocalMapaOcorrencias(md5LocalSelecionado);
+						$('#ver-no-mapa').click(function(e){
+							var md5local = $('#ver-local-cod').val();
+							 verLocalMapaOcorrencias(md5local);
 						});
 						$('#panel-local-txttotalocorrencias').html(data.total_ocorr + ' pendentes');
 						$('#panel-local-txtnome').html(data.nome_local + " - " + data.endereco +". "+data.bairro);
@@ -497,6 +499,11 @@
 	   			alert('Mensagem enviada com sucesso!');	   			
 	   		}
 
+	   		function verNoMapaGrid(md5Local){
+	   			verLocalMapaOcorrencias(md5Local);
+	   			window.scrollTo(0,0);	   			
+	   		}
+
 	   		function verLocalMapaOcorrencias(md5Local){
 	   			$.get("mapa.php?acao=detalhes-local&local=" + md5Local,
 					function(data){
@@ -519,11 +526,18 @@
 			                	args:[marker.position]
 			                });
 			                var conteudo;
+			                var map = $('#painel-controle-gmap3').gmap3('get');
+				    		var infowindow = $('#painel-controle-gmap3').gmap3({action:'get', name: 'infowindow'});
 				    		conteudo = "<b>"+nome_local+"</b>"+ "<br/>" + endereco_local + " - " + bairro_local;
 				    		conteudo = conteudo + "<br/> Total: " + total_eleitores_local + " eleitores.";
 				    		conteudo = conteudo + "<br/> <b>Ocorrência(s): " + total_ocorrencias_local + " pendente(s).</b>";
-				    		
-			                $('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
+				    		if (infowindow){
+						    		infowindow.open(map, marker);
+					    			infowindow.setContent(conteudo);
+					    	}else{
+						    	$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
+					    	}
+				    		loadLocalVotacao(md5Local,marker,infowindow);
 			            });	
 		   			 	//window.scrollTo(0,0);
 					
@@ -580,6 +594,7 @@
 	   		function limparFiltroOcorrencias(){
 	   			$('#filtroOcorrenciasStatus').val(0);
 				$('#filtroOcorrenciasLocais').val(0);
+				md5LocalSelecionado = false;
 	   		}
 
 	   		function loadTabelaOcorrencias(){
@@ -672,6 +687,7 @@
 	   						    		} else {
 	   						    			$('#painel-controle-gmap3').gmap3({action:'addinfowindow', anchor:marker, options:{content: conteudo }});
 	   						    		}
+	   						    		$('#ver-local-cod').val(data[2]);
 	   						    		loadLocalVotacao(data[2],marker,infowindow);
 	   						    	}
 	   					    	}

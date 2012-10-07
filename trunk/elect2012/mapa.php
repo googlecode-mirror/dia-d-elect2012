@@ -77,7 +77,7 @@ if($acao == 'listar-ocorrencias'){
 							\"'\",o.autor,\"',\",
 							\"'\",o.descricao,\"'\",')\"><i class=\"icon icon-pencil\"></i></a>',
 				
-							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verLocalMapaOcorrencias(',
+							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verNoMapaGrid(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
 					
 							' <a rel=\"tooltip\" title=\"resolver\" class=\"btn btn-small\" onclick=\"resolverOcorrencias(',
@@ -85,7 +85,7 @@ if($acao == 'listar-ocorrencias'){
 					WHEN 2 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
 			
-							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verLocalMapaOcorrencias(',
+							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verNoMapaGrid(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
 																	
 							' <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\" onclick=\"abrirOcorrencias(',
