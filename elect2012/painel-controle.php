@@ -110,18 +110,18 @@
 									}
 								?>
 							</select>
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;
 							<label class="control-label" for="filtroOcorrenciasStatus">Status:</label>
-							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2">
+							<select name="filtroOcorrenciasStatus" id="filtroOcorrenciasStatus" class="span2" style="width: 100px;">
 								<option value="0" selected>Todos</option>
 								<option value="1" >Pendente</option>
 								<option value="2" >Resolvido</option>
 							</select>
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;
 							<a class="btn" id="btn-filtrar" ><i class="icon icon-filter"></i>Filtrar</a>
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;
 							<a class="btn" id="btn-todas-ocorrencias"><i class="icon icon-download"></i>Todas as ocorrências</a>						   
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;
 							<a class="btn" id="btn-ver-local-filtro"><i class="icon icon-map-marker"></i>Ver no mapa</a>
 						</div>
 						
