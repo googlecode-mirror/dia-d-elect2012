@@ -123,9 +123,29 @@
 		if (!self::isUsuarioLogado()){
 			self::redirect('index.php');
 			//print strpos($_SERVER['PHP_SELF'], "pre-cadastro.php");	
+		}else{
+			$usu = self::getUsuarioLogado();
+			if ($usu->perfil == 2){
+				$flag = false;
+				if ( strpos($_SERVER['PHP_SELF'], "index") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "advogado") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "correios") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "mapa") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "local") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "locais") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "secao") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "secoes") > -1 ) $flag = true;
+				if ( strpos($_SERVER['PHP_SELF'], "painel-controle") > -1 ) $flag = true;
+			}else{
+				$flag = true;
+			}
+			if(!$flag){
+				self::redirect('index.php');
+			}
 		}
 		
 		return true;		
+			
 	}
 
 }

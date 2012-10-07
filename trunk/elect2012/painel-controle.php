@@ -666,7 +666,9 @@
 	   						    			   
 	   						});					
 	   					}
-	   					verLocalMapaOcorrencias(md5LocalSelecionado);
+	   					if (md5LocalSelecionado){
+	   						verLocalMapaOcorrencias(md5LocalSelecionado);
+	   					}
 	   			}, "json");	
 	   				
 	   		}
