@@ -27,10 +27,10 @@
 						</div>
 						<div style="width:80%;float:left;font-size:12px; text-align: right;">
 							Legenda:
-							<a rel="tooltip" title="Não tem Advogados"><img src="./img/preto.png" style="margin-left:10px;width:30px;"/></a> 
-							<a rel="tooltip" title="Tem Advogados"><img src="./img/verde.png" style="margin-left:15px;width:30px;"/></a> 
-							<a rel="tooltip" title="Tem Ocorrências"><img src="./img/laranja.png" style="margin-left:15px;width:30px;"/></a> 
-							<a rel="tooltip" title="Tem Ocorrências e Não tem Advogados"><img src="./img/roxo.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Não tem Advogados e Ocorrências"><img src="./img/preto.png" style="margin-left:10px;width:30px;"/></a> 
+							<a rel="tooltip" title="Tem Advogados e não tem Ocorrências"><img src="./img/verde.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Tem Advogados e Ocorrências"><img src="./img/laranja.png" style="margin-left:15px;width:30px;"/></a> 
+							<a rel="tooltip" title="Não tem Advogados e tem Ocorrências"><img src="./img/roxo.png" style="margin-left:15px;width:30px;"/></a> 
 							<a rel="tooltip" title="Locais Especiais"><img src="./img/estrela.png" style="margin-left:15px;width:30px;"/></a> 
 						</div>
 					</div>
@@ -38,7 +38,7 @@
 				<div class="span4">
 					<form class="well" style="padding:10px; height:480px; margin-top:20px;font-size:12px;">
 						<fieldset>
-							<b>Ocorrencia Nº:</b> <span id="num-ocorrencia" style="font-weight:bold; font-size:18px;color:red;"></span><br/><br/>
+							<span style="font-weight:bold; font-size:18px;">Ocorrencia Nº:</span> <span id="num-ocorrencia" style="font-weight:bold; font-size:18px;color:red;"></span><br/><br/>
 							<label class="control-label" for="local">Local:</label>
 							<select name="local" id="cmbLocalOcorrencias" style="width:100%" disabled>
 								<option value="0" selected>Selecione um local</option>
@@ -57,7 +57,7 @@
 							<div style="width:100%; padding:10px;text-align: center;" >
 								<a class="btn btn-success" id="btn-nova-ocorrencia" > <i class="icon icon-white icon-exclamation-sign"></i> Nova Ocorrência</a>
 								<a class="btn btn-success" id="btn-salvar-ocorrencia" style="display:none;" > <i class="icon icon-white icon-exclamation-sign"></i> Salvar</a>								
-								<a class="btn" id="btn-cancelar-ocorrencia" style="margin-left:20px;display:none;" >Cancelar</a>
+								<a class="btn" id="btn-cancelar-ocorrencia" style="margin-left:50px;display:none;" >Cancelar</a>
 							</div>
 							
 						</fieldset>
@@ -269,13 +269,25 @@
 
 				//botao salvar ocorrencia
 				$('#btn-salvar-ocorrencia').click(function(e) {
+					var flag_validado = true;
 					var localSelecionado = $('#cmbLocalOcorrencias').val();
 					var txtautor = $('#txt-autor-ocorrencias').val();
 					var txtocorrencia = $('#txt-desc-ocorrencias').val();
 					var cod_ocorrencia = $('#hdn-cod-ocorrencia').val();
-					if (localSelecionado == 0) {
-						alert('Selecione um local.');
-					}else{
+
+					if (localSelecionado == 0){
+						 flag_validado = false;
+						 alert('Selecione um local.');
+					}
+					if (flag_validado && txtautor.length < 5){
+						 flag_validado = false;
+						 alert('Campo "Reportado por" deve ter mais de 5 letras');
+					}
+					if (flag_validado && txtocorrencia.length < 10){
+						 flag_validado = false;
+						 alert('Campo "Ocorrência" deve ter mais de 10 letras');
+					}
+					if (flag_validado) {
 						$.post("mapa.php", { "acao": "cadastrar-ocorrencias", "cod-ocorrencia":cod_ocorrencia, "local":localSelecionado, "autor":txtautor, "ocorrencia":txtocorrencia },
 			   				 function(data){
 			   					if(data.sucesso == 1){	
