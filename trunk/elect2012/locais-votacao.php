@@ -46,6 +46,7 @@
 						<thead>
 							<tr>
 								<th>Locais de Votação</th>
+								<th>Zona</th>
 								<th>Endereço</th>
 								<th>Bairro</th>
 								<th>Total de urnas</th>
@@ -57,6 +58,7 @@
 								foreach($lista as $item){																																
 									print '<tr>';
 									print '<td>'.$item->local.'</td>';
+									print '<td>'.$item->zona.'</td>';
 									print '<td>'.$item->endereco.'</td>';
 									print '<td>'.$item->bairro.'</td>';
 									print '<td>'.$item->urnas.'</td>';
