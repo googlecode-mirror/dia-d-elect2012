@@ -13,16 +13,18 @@
 				<div class="nav-collapse collapse">				
 						<ul class="nav">					
 							<li ><a href="painel-controle.php"><i class="icon-white icon-eye-open"></i> Painel de Controle</a></li>
-							<li><a href="pesquisa-urna.php"><i class="icon-white icon-comment"></i> Pesquisa de Urna</a></li>
+							<!-- <li><a href="pesquisa-urna.php"><i class="icon-white icon-comment"></i> Pesquisa de Urna</a></li> -->
 							<li><a href="advogados.php"><i class="icon-white icon-briefcase"></i> Advogados</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-white icon-wrench"></i> Administração <b class="caret"></b></a>
-								<ul class="dropdown-menu">           
-									<li><a href="candidatos.php">Candidatos</a></li>
-									<li><a href="locais.php">Localidades</a></li>           
+								<ul class="dropdown-menu">  								
+									<!-- <li><a href="locais.php">Localidades</a></li> -->           
 									<li><a href="secoes.php">Seções</a></li> 
-									<li><a href="locais-votacao.php">Locais de Votação</a></li> 									
-									<li><a href="usuarios.php">Usuários</a></li>  
+									<li><a href="locais-votacao.php">Locais de Votação</a></li> 
+									<?php if(aplicacao::getUsuarioLogado()->perfil == 1) :?>     
+									<li><a href="candidatos.php">Candidatos</a></li>									
+									<li><a href="usuarios.php">Usuários</a></li>
+									<?php endif;?>  
 								</ul>
 							</li><!--
 							<li class="dropdown">
