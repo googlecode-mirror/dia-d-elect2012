@@ -14,8 +14,9 @@ if($acao == 'deletar-ocorrencias'){
 	$genericObject->sucesso = 0;
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 0, cod_usuario=? WHERE cod_local = ?";
-		banco::executar($sql,array($cod_usuario,$md5Local));
+		$ocorr = aplicacao::getParam("ocorrencia");
+		$sql ="UPDATE ocorrencia SET status = 0, cod_usuario=? WHERE cod_ocorrencia = ? and cod_local = ?";
+		banco::executar($sql,array($cod_usuario,$ocorr,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -28,8 +29,9 @@ if($acao == 'abrir-ocorrencias'){
 	$genericObject->sucesso = 0;
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 1, data_resolvido = null, cod_usuario=? WHERE cod_local = ?";
-		banco::executar($sql,array($cod_usuario,$md5Local));
+		$ocorr = aplicacao::getParam("ocorrencia");
+		$sql ="UPDATE ocorrencia SET status = 1, data_resolvido = null, cod_usuario=? WHERE cod_ocorrencia = ? and cod_local = ?";
+		banco::executar($sql,array($cod_usuario,$ocorr,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -43,8 +45,9 @@ if($acao == 'resolver-ocorrencias'){
 	$data_resolvido = date('Y-m-d H:i:s');
 	try{
 		$md5Local = aplicacao::getParam("local");
-		$sql ="UPDATE ocorrencia SET status = 2, data_resolvido = ?, cod_usuario=? WHERE cod_local = ?";
-		banco::executar($sql,array($data_resolvido,$cod_usuario,$md5Local));
+		$ocorr = aplicacao::getParam("ocorrencia");
+		$sql ="UPDATE ocorrencia SET status = 2, data_resolvido = ?, cod_usuario=? WHERE cod_ocorrencia = ? and  cod_local = ?";
+		banco::executar($sql,array($data_resolvido,$cod_usuario,$ocorr,$md5Local));
 		$genericObject->sucesso = 1;
 	}catch (Exception $e){
 		$genericObject->sucesso = 0;
@@ -69,6 +72,7 @@ if($acao == 'listar-ocorrencias'){
 				o.descricao,
 				CASE o.status 
 					WHEN 1 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
+							\"'\",o.cod_ocorrencia,\"',\",
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
 							
 							' <a rel=\"tooltip\" title=\"editar\" class=\"btn btn-small\" onclick=\"editarOcorrencias(',
@@ -81,14 +85,18 @@ if($acao == 'listar-ocorrencias'){
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
 					
 							' <a rel=\"tooltip\" title=\"resolver\" class=\"btn btn-small\" onclick=\"resolverOcorrencias(',
+							\"'\",o.cod_ocorrencia,\"',\",
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-ok\"></i></a>')
+			
 					WHEN 2 THEN CONCAT('<a rel=\"tooltip\" title=\"deletar\" class=\"btn btn-small\" onclick=\"excluirOcorrencias(',
+							\"'\",o.cod_ocorrencia,\"',\",
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-trash\"></i></a>',
 			
 							' <a rel=\"tooltip\" title=\"ver no mapa\" class=\"btn btn-small\" onclick=\"verNoMapaGrid(',
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-map-marker\"></i></a>',
 																	
 							' <a rel=\"tooltip\" title=\"abrir\" class=\"btn btn-small\" onclick=\"abrirOcorrencias(',
+							\"'\",o.cod_ocorrencia,\"',\",
 							\"'\",o.cod_local,\"'\",')\"><i class=\"icon icon-folder-open\"></i></a>')							
 					ELSE 'Invalido' 
 				END	as acao
