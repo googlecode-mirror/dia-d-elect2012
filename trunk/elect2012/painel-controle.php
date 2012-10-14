@@ -39,16 +39,18 @@
 					<form class="well" style="padding:10px; height:480px; margin-top:20px;font-size:12px;">
 						<fieldset>
 							<span style="font-weight:bold; font-size:18px;">Ocorrencia Nº:</span> <span id="num-ocorrencia" style="font-weight:bold; font-size:18px;color:red;"></span><br/><br/>
-							<label class="control-label" for="local">Local:</label>
-							<select name="local" id="cmbLocalOcorrencias" style="width:100%" disabled>
-								<option value="0" selected>Selecione um local</option>
-								<?php 
-									foreach ($lista_locais as $item){
-										print "<option value='".$item->cod_local."'>".$item->local."</option>";
-									}
-								?>
-								
-							</select>
+							<div class="ui-widget">
+								<label class="control-label" for="local">Local:</label>
+								<select name="local" id="cmbLocalOcorrencias" style="width:100%" disabled>
+									<option value="" selected>Selecione um local</option>
+									<?php 
+										foreach ($lista_locais as $item){
+											print "<option value='".$item->cod_local."'>".$item->local."</option>";
+										}
+									?>
+									
+								</select>
+							</div>
 							<input type="hidden" id="hdn-cod-ocorrencia" name="hdn-cod-ocorrencia" value="0" />
 							<label class="control-label" for="ocorrencia">Reportado por:</label>
 							<input type="text" name="txtautor" id="txt-autor-ocorrencias" disabled/>
