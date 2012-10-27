@@ -176,7 +176,7 @@ if ($acao == "carregar-mapa"){
 				  from secao s2
 				  inner join advogado_secao a  ON s2.secao = a.secao AND s2.zona = a.zona
 				  where  s2.hash_local =  s1.hash_local
-				  group by s2.local
+				  group by s2.hash_local
 				),0) as total_adv,
 				COALESCE(( select count(*) 
 				  from ocorrencia oc
